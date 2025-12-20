@@ -1,0 +1,109 @@
+{
+	"layer": "top",
+	"position": "bottom",
+
+	"modules-left": [
+		"custom/power",
+		"hyprland/workspaces",
+		"hyprland/window"
+	],
+	"modules-right": [
+		"tray",
+		"pulseaudio",
+		"network",
+		"clock",
+		"battery"
+	],
+
+	"network": {
+		"format-wifi": " {essid} ({signalStrength}%)",
+		"format-ethernet": "󰈀 {ifname}",
+		"format-disconnected": " Disconnected",
+		"tooltip-format": "{ifname}: {ipaddr}/{cidr}",    
+		"on-click": "nm-connection-editor",
+		"interval": 30
+	},
+
+  // --- オーディオ (PipeWire 対応) ---
+  "pulseaudio": {
+	  "format": " {volume}%",
+	  "on-click": "pavucontrol"
+  },
+
+  // --- バッテリー (ノートPC用) ---
+  "battery": {
+	  "format": "🔋 {capacity}%",
+	  "states": {
+		  "warning": 30,
+		  "critical": 10
+	  },
+  },
+
+  // --- ワークスペース/ウィンドウ (Hyprland) ---
+  "hyprland/workspaces": {
+	  "format": "{icon} {windows}",
+	  "format-window-separator": " ",
+	  "window-rewrite-default": "",
+
+	  "window-rewrite": {
+    // Browsers (例: Vivaldi, Firefox, Chromium)
+    "class<Vivaldi|vivladi>": "",
+    "class<firefox|Firefox>": "",
+    "class<chromium>": "",
+
+    // ターミナル / コンソール
+    "class<org.kde.konsole|Konsole>": "",
+    "class<kitty>": "",
+    "class<alacritty>": "",
+
+    // ファイラー／ファイルマネージャ
+    "class<org.kde.dolphin|dolphin>": "󰉓",
+    "class<thunar>": "󰉓",
+
+    // エディタ・IDE
+    "class<code|Code|VSCodium>": "",
+    "class<gedit>": "󰈙",
+
+    // メディアプレーヤー
+    "class<mpv>": "",
+    "class<vlc>": "🕪",
+
+    // コミュニケーション／チャット
+    "class<discord>": "",
+    "class<telegram>": "",
+
+    // オフィスアプリ
+    "class<libreoffice-writer>": "",
+    "class<libreoffice-calc>": "",
+    "class<onlyoffice|ONLYOFFICE>": "📄",
+
+    // デフォルト：どれにも当てはまらないウィンドウ
+    // ここで何もしなければ window-rewrite-default のアイコンが使われる
+    ".*": ""
+	  },
+
+  // オプション：ワークスペース切替 on click
+  "on-click": "activate",
+  // （必要ならマウスホイールでワークスペース切替）
+  "on-scroll-up": "hyprctl dispatch workspace e+1",
+  "on-scroll-down": "hyprctl dispatch workspace e-1"
+  },
+  "hyprland/window": {
+	  "format": "{}"
+  },
+
+  // --- 時計 ---
+  "clock": {
+	  "format": "🕒 {:%Y-%m-%d %H:%M}",
+	  "tooltip-format": "<tt><small>{calendar}</small></tt>"
+  },
+
+  // --- 電源メニュー ---
+  "custom/power": {
+	  "format": "⏻",
+	  "tooltip-format":"Power",
+	  "on-click": "wlogout"
+  }
+
+}
+

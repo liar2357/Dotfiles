@@ -1,0 +1,149 @@
+*ft_mp.txt*	For Vim バージョン 9.1.  Last change: 2022 Aug 12
+
+これは METAFONT および MetaPost ファイルタイププラグインのドキュメントである。
+特に指定がない限り、以下で定義されているコマンド、設定、およびマッピングは、両
+方のファイルタイプに等しく適用される。
+
+NOTE: このプラグインは +vim9script が必要である。
+
+==============================================================================
+☆内容							*mp.vim* *ft-metapost*
+							*mf.vim* *ft-metafont*
+
+1. 前書き				|ft-metapost-intro|
+2. コマンド				|ft-metapost-commands|
+3. 設定					|ft-metapost-settings|
+4. マッピング				|ft-metapost-mappings|
+
+==============================================================================
+							*ft-metapost-intro*
+							*ft-metafont-intro*
+前書き ~
+このファイルタイププラグインは、METAFONT および MetaPost 文書の編集のための、
+構文の色付け、インデント、補完など幅広いサポートを提供する。
+
+METAFONT および MetaPost コードのインデントルールの定義は、構文が非常に自由度
+が高いため、トリッキーでやや主観的である。プラグインは、ほとんどの場合うまく機
+能するいくつかのヒューリスティックを使用するが、特定のケースでは、手動で定義さ
+れたインデントが `gg=G` などのコマンドによって保持されるように、自動的なルール
+をオーバーライドしたい場合がある。
+
+これは、`%>`, `%<`, `%=` または `%!` を行に追加して、次行のインデントを明示的
+に制御することで実現できる。`<` と `>` 記号は何度も繰り返すことができる。例え
+ば、`%>>` は次行を 2 回インデントすることを意味する。もちろん、`%<` は次行をイ
+ンデント解除することを意味し、`%=` は次行のインデントを現在行のインデントと同
+じに設定し、そして、`%!` は次行のインデントが手動で設定されたものから変更され
+ないことを意味する。
+
+例えば、これはシンプルなマクロのデフォルトのインデントである:
+>
+   def foo =
+       makepen(
+           subpath(T-n,t) of r
+           shifted .5down
+           --subpath(t,T) of r shifted .5up -- cycle
+       )
+       withcolor black
+   enddef
+<
+特別なコメントを追加することで、インデントを任意に調整できる:
+>
+   def foo =
+       makepen(
+           subpath(T-n,t) of r  %>
+               shifted .5down   %>
+                   --subpath(t,T) of r shifted .5up -- cycle   %<<<
+       )
+       withcolor black
+   enddef
+<
+							*ft-metapost-commands*
+コマンド ~
+					*:FixBeginfigs*
+カレントバッファの beginfig() ブロックの n 番目の図が番号 n になるようにリナン
+バリングする。MetaPost のみ。
+
+							*ft-metapost-settings*
+							*ft-metafont-settings*
+設定 ~
+					*'g:mf_other_macros'*
+cmbase や logo 等、他のいくつかの基本的なマクロ名をハイライトする。これは、
+METAFONT バッファではデフォルトで 1 に設定され、MetaPost バッファではデフォル
+トで 0 に設定される。
+
+					*'g:mf_plain_macros'*
+plain.mf で定義されたキーワードをハイライトする。METAFONT バッファではデフォル
+トで 1 に設定され、MetaPost バッファではデフォルトで 0 に設定される。
+
+					*'g:mf_plain_modes'*
+modes.mf で定義されたキーワードをハイライトする。METAFONT バッファではデフォル
+トで 1 に設定され、MetaPost バッファではデフォルトで 0 に設定される。
+
+					*'g:mp_close_tag'*
+インデントされたブロックを終了する追加のキーワードを定義する。例えば、次のよう
+に定義した場合:
+>
+	g:mp_close_tag = ['\<endfoo\>']
+<
+`endfoo` で始まるすべての行は、その前行と比較してインデントが解除される。
+>
+	g:mp_close_tag = []
+<
+					*'b:mp_metafun'*
+					*'g:mp_metafun'*
+1 に設定した場合、ConTeXt の MetaFun キーワードがハイライトされる。MetaPost の
+み。
+>
+	g:mp_metafun = 0
+<
+					*'g:mp_mfplain_macros'*
+mfplain.mp で定義されたキーワードがハイライトされる。MetaPost のみ。
+>
+	g:mp_mfplain_macros = 1
+<
+					*'g:mp_open_tag'*
+インデントされるブロックを開始する追加のキーワードを定義する。例えば、次のよう
+に定義した場合:
+>
+	g:mp_open_tag = ['\<beginfoo\>']
+<
+`beginfoo` に続く行はインデントされる。
+>
+	g:mp_open_tag = []
+<
+					*'g:mp_other_macros'*
+すべての基本マクロパッケージ(boxes, rboxes, format, graph, marith, sarith,
+string, TEX)で定義されたキーワードをハイライトする。このオプションは、MetaPost
+バッファのみに影響する。
+>
+	g:mp_other_macros = 1
+<
+					*'g:mp_plain_macros'*
+plain.mp で定義されたキーワードをハイライトする。MetaPost のみ。
+>
+	g:mp_plain_macros = 1
+<
+					*'g:no_mp_maps'*
+					*'g:no_mf_maps'*
+設定時、対応ファイルタイプによるバッファのマッピングを一切定義しない。
+>
+	g:no_mp_maps = 0
+	g:no_mf_maps = 0
+<
+							*ft-metapost-mappings*
+							*ft-metafont-mappings*
+マッピング ~
+
+]]			[count] vardef, マクロ, 図に進む。
+
+[[			[count] vardef, マクロ, 図に戻る。
+
+][			[count] vardef, マクロ, 図の終了に進む。
+
+[]			[count] vardef, マクロ, 図の終了に戻る。
+
+]}			[count] ブロックの終了(fi, endfor, endgroup)に進む。
+
+[{			[count] ブロックの開始(if, for, begingroup)に戻る。
+
+ vim:tw=78:sw=4:ts=8:noet:ft=help:norl:

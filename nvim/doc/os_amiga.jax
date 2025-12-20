@@ -1,0 +1,155 @@
+*os_amiga.txt*  For Vim バージョン 9.1.  Last change: 2025 Aug 10
+
+
+		  VIMリファレンスマニュアル    by Bram Moolenaar
+
+
+							*Amiga*
+このファイルは Amiga 版の Vim 特有の事柄に関して記述されている。
+下に |MorphOS| 専用のセクションもある。
+
+NOTE: Amiga 用のコードはまだソースに含まれているが、メンテナンスもテストもされ
+ていない。
+
+Amiga へのインストール:
+- "VIM:" を Vim の "doc" ディレクトリがある場所に割り当てる。help コマンドで
+  "VIM:doc/help.txt" が検索される。$VIM 環境変数を設定してもうまく動作する。他
+  の方法では: $VIM が使われており、定義されていないと "VIM:" が使われる。
+- DOS 1.3 かそれ以前では: "arp.library" を "libs:" に追加する。|+ARP| 機能を有
+  効にしてコンパイルしている必要がある。newcli と run が "C:" に含まれているこ
+  とを確認する (外部コマンドを実行するため)。
+- "-c" を受け付ける shell (例えば、Fish disk 624 に含まれている "Csh") を "c:"
+  か他の検索パスが通っている場所に置く (外部コマンドを実行するため)。
+
+十分なメモリを積んでいれば、"rez csh vim" コマンドを実行し、Vim と csh を
+resident にすることで起動の遅さを回避することができる。"rezlib.library" を
+"libs:" ディレクトリに置く必要があるだろう。2.0 以下では rez version 0.5 が必
+要である。
+
+ダイグラフを使わない場合は、|+digraphs| 機能を無効にして再コンパイルすることで
+メモリをいくらか節約することができる。他の端末で Vim を使いたい場合は TERMCAP
+オプション付きで再コンパイルする。Manx 5.x と SAS 6.x 付きでコンパイルされる。
+makefile と feature.h を参照。
+
+構文強調がオンになっているときや、検索にネストしたワイルドカードを含めたときに
+Vim がクラッシュした場合、それはスタックが小さすぎる可能性がある。スタックサイ
+ズを大きくしてみてほしい。Vim を起動する前にシェル内で Stack コマンドを使う。
+workbench では Vim のアイコンを選択し、workbench の "Info" メニューを選択し、
+フォーム内の Stack フィールドを変更する。
+
+異なる色を使いたい場合は、termcap コードを設定する:
+	t_mr (反転テキスト)
+	t_md (太字テキスト)
+	t_me (t_mr と t_md 後の普通のテキスト)
+	t_so (standout モード)
+	t_se (t_so 後の普通のテキスト)
+	t_us (下線付きテキスト)
+	t_ue (t_us 後の普通のテキスト)
+	t_ZH (イタリック・テキスト)
+	t_ZR (t_ZH 後の普通のテキスト)
+
+標準の ANSI エスケープシーケンスが使われる。コードは:
+30 grey char   40 grey cell   >0 grey background    0 all attributes off
+31 black char  41 black cell  >1 black background   1 boldface
+32 white char  42 white cell  >2 white background   2 faint
+33 blue char   43 blue cell   >3 blue background    3 italic
+34 grey char   44 grey cell   >4 grey background    4 underscore
+35 black char  45 black cell  >5 black background   7 reverse video
+36 white char  46 white cell  >6 white background   8 invisible
+37 blue char   47 blue cell   >7 blue background
+
+'>' 付きのコードは最後になければならない。cell と background の色は同じである
+必要がある。コードはセミコロンで分割することで組み合わせることができる。例え
+ば、青い背景に白のテキストにするには: >
+  :set t_me=^V<Esc>[0;32;43;>3m
+  :set t_se=^V<Esc>[0;32;43;>3m
+  :set t_ue=^V<Esc>[0;32;43;>3m
+  :set t_ZR=^V<Esc>[0;32;43;>3m
+  :set t_md=^V<Esc>[1;32;43;>3m
+  :set t_mr=^V<Esc>[7;32;43;>3m
+  :set t_so=^V<Esc>[0;31;43;>3m
+  :set t_us=^V<Esc>[4;32;43;>3m
+  :set t_ZH=^V<Esc>[3;32;43;>3m
+
+複数のコマンドをフィルターコマンドとして使う場合、例えば: >
+  :r! echo this; echo that
+では、最後のコマンドの出力のみが使われる。この問題を回避するには、コマンドをグ
+ループにする必要がある。そして、これは使っている shell に依存している (このた
+め、Vim では自動的に行わない)。例: >
+  :r! (echo this; echo that)
+  :r! {echo this; echo that}
+
+1 つのファイル名のみを受け付けるコマンドではファイル名にスペースが使われていて
+も構わない。しかしながら、複数のファイル名を引数として受け付けるコマンドでは、
+埋め込まれたスペースをバックスラッシュでエスケープする必要がある。
+
+------------------------------------------------------------------------------
+Vim for MorphOS							*MorphOS*
+
+[このセクションの大部分は Ali Akcaagac による]
+
+MorphOS 版についての最新情報は:
+	(リンク切れ) akcaagac.com/index_vim.html
+
+
+問題 ~
+
+MorphOS ではなく Vim や UN*X に関連した問題が 2 つある。ram {訳注: RAM ディス
+ク?} 内の Vim を起動すると MorphOS は小煩い requester {訳注: ダイアログ or メッ
+セージボックス?} を出していろいろと不満を言うが、それは無視してほしい。別の問
+題は、普通に Vim を起動するといくつかのプラグインが無視できるような問題を起こ
+す。いつか誰かが直してくれることを願う。
+
+とりあえずこれらの問題には目をつむり、次のように起動するか:
+
+	vim <編集するファイル>
+
+もしくは、このヘルプの意向を享受し、質素に Vim を起動したい場合は、次のように
+すると良い:
+
+	vim --noplugin <もちろんファイルを指定することもできる>
+
+
+バイナリアーカイブのインストール ~
+
+1) 'VIM' バイナリを c: にコピーする
+2) Vim のランタイムパッケージを以下から入手する (Note: そのサーバーは更新され
+   なくなった)
+
+	https://ftp.nluug.nl/pub/vim/amiga/vim90src.tgz
+
+   そしてそれを MorphOS がインストールされている場所の 'Apps' ディレクトリに
+   展開する。私の場合は次のような階層になっている:
+
+	MorphOS:Apps/Vim/Vim62/...
+
+3) s:shell-startup に次の行を加える (重要!)。
+
+	;Begin VIM
+	Set VIM=MorphOS:Apps/Vim/Vim62
+	Assign HOME: ""
+	;End VIM
+
+4) '.vimrc' ファイルを s: にコピーする。
+
+5) アーカイブには 'color-sequence' というファイルも含まれている。これは
+   MorphOS のシェルで ANSI カラーを表示するようにする。このファイルを s: にコ
+   ピーし s:shell-startup を以下のように変更する:
+
+	;Begin VIM
+	Set VIM=MorphOS:Apps/Vim/Vim62
+	Assign HOME: ""
+	Execute S:Color-Sequence
+	Cls
+	;End VIM
+
+コンパイル~
+
+Vim のソースコードは、Vim の公式サイトからダウンロードできる:
+	https://github.com/vim/vim/archive/refs/heads/master.zip
+または git を使用する: >
+	git clone https://github.com/vim/vim.git
+
+コンパイルについては "src/INSTALLami.txt" を参照
+
+ vim:tw=78:ts=8:noet:ft=help:norl:

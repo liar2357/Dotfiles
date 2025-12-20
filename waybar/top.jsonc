@@ -1,0 +1,66 @@
+{
+	"layer": "top",
+	"position": "top",
+
+	"modules-left": [
+		"custom/power"
+	],
+	"modules-center":[
+		"custom/clock"
+	],
+	"modules-right": [
+		"tray",
+		"pulseaudio",
+		"network",
+		"battery"
+	],
+
+	"network": {
+		"format-wifi": " {essid} ({signalStrength}%)",
+		"format-ethernet": "󰈀 {ifname}",
+		"format-disconnected": " Disconnected",
+		"tooltip-format": "{ifname}: {ipaddr}/{cidr}",    
+		"on-click": "nm-connection-editor",
+		"interval": 30
+	},
+
+  // --- オーディオ (PipeWire 対応) ---
+  "pulseaudio": {
+	  "format": " {volume}%",
+	  "on-click": "pavucontrol"
+  },
+
+  "battery": {
+	  "bat": "BAT0",
+	  "interval": 20,
+	  "states": {
+		  "warning": 30,
+		  "critical": 10
+	  },
+
+	// 残量に応じたアイコン配列
+	"format-icons": [" ", " ", " ", " ", " "],
+
+	// 普通（放電中）の表示: アイコン + % 表示
+	"format": "{icon} {capacity}%",
+
+	// 充電中（Charging）
+	"format-charging": "⚡{icon} {capacity}%",
+  },
+
+  "custom/clock": {
+	  "exec": "LC_TIME=ja_JP.UTF-8 date '+%Y年%m月%d日(%a) %H:%M:%S'",
+	  "interval": 1,
+	  "format": "{}",
+	  "tooltip": false
+  },
+
+  // --- 電源メニュー ---
+  "custom/power": {
+	  "format": "⏻",
+	  "tooltip-format":"Power",
+	  "on-click": "wlogout"
+  }
+
+}
+
