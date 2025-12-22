@@ -27,33 +27,39 @@ RND_NAME="$(basename "$RND_THEME")"
 mkdir -p "$(dirname "$THEME_FILE")"
 echo "$RND_NAME" > "$THEME_FILE"
 
+# ログ的に表示（不要なら消してOK）
+echo "===== 壁紙テーマデーモン ====="
+echo "起動時ランダムテーマ: $RND_NAME"
+echo "テーマファイル: $THEME_FILE"
+echo "ループ間隔: $INTERVAL sec"
+echo "-------------------------------"
+
 # ─── メインループ ───
 
 while true; do
     # ファイルから現在テーマ名を読み込む
     if [ -f "$THEME_FILE" ]; then
-        THEME_NAME=$(<"$THEME_FILE")
+	THEME_NAME=$(<"$THEME_FILE")
     else
-        sleep "$INTERVAL"
-        continue
+	sleep "$INTERVAL"
+	continue
     fi
 
     THEME_DIR="$WALL_ROOT/$THEME_NAME"
     # テーマフォルダが無ければ無視
     if [ ! -d "$THEME_DIR" ]; then
-        echo "テーマフォルダが存在しません: $THEME_DIR" >&2
-        sleep "$INTERVAL"
-        continue
+	echo "テーマフォルダが存在しません: $THEME_DIR" >&2
+	sleep "$INTERVAL"
+	continue
     fi
 
     # テーマ内からランダムに1枚選択
     WALL=$(find "$THEME_DIR" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.webp" \) | shuf -n1)
 
     if [ -n "$WALL" ]; then
-        # contain モードで壁紙変更
-        hyprctl hyprpaper reload ",contain:$WALL"
+	# contain モードで壁紙変更
+	hyprctl hyprpaper reload ",contain:$WALL"
     fi
 
     sleep "$INTERVAL"
 done
-
