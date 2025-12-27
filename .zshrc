@@ -16,8 +16,8 @@ source $ZSH/oh-my-zsh.sh
 
 # ------------------------------------------------
 # エイリアス (必要に応じて追加)
-alias ll='ls -lAh'
-alias la='ls -la'
+alias ls='ls -lAh'
+alias lsr='ls -lAhR'
 alias gs='git status'
 alias gc='git commit'
 alias gp='git push'
