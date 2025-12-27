@@ -15,6 +15,8 @@ return {
     -- Rust Analyzer を有効化
     vim.lsp.config("rust_analyzer", {
       -- 必要なら追加設定をここに
+      cmd = { "rustup", "run", "stable", "rust-analyzer" },
+      root_dir = require("lspconfig.util").root_pattern("Cargo.toml", ".git"),
       settings = {
         ["rust-analyzer"] = {
           rustfmt = {
