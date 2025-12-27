@@ -16,7 +16,4 @@ return {
       -- Lazygit を閉じたあとにやりたい操作を書く
     end
   end,
-  keys = {
-    { "<leader>gg", "<cmd>LazyGit<CR>", desc = "Toggle Lazygit" },
-  },
 }

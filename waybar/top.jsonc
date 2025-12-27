@@ -36,14 +36,14 @@
 			"critical": 10
 		},
 
-	// 残量に応じたアイコン配列
-	"format-icons": [" ", " ", " ", " ", " "],
+		// 残量に応じたアイコン配列
+		"format-icons": [" ", " ", " ", " ", " "],
 
-	// 普通（放電中）の表示: アイコン + % 表示
-	"format": "{icon} {capacity}%",
+		// 普通（放電中）の表示: アイコン + % 表示
+		"format": "{icon} {capacity}%",
 
-	// 充電中（Charging）
-	"format-charging": "⚡{icon} {capacity}%"
+		// 充電中（Charging）
+		"format-charging": "⚡{icon} {capacity}%"
 	},
 
 	"custom/clock": {
@@ -53,35 +53,35 @@
 		"tooltip": false
 	},
 
-  // --- 電源メニュー ---
-  "custom/power": {
-	  "format": "⏻",
-	  "tooltip-format":"Power",
-	  "on-click": "wlogout"
-  },
+	// --- 電源メニュー ---
+	"custom/power": {
+		"format": "⏻",
+		"tooltip-format":"Power",
+		"on-click": "wlogout"
+	},
 
 
-  "cpu": {
-	  "interval": 3,
-	  "format": "⚙️ {usage}%:{avg_frequency}GHz",
-  },
+	"cpu": {
+		"interval": 3,
+		"format": "⚙️ {usage}%:{avg_frequency}GHz",
+	},
 
-  "memory": {
-	  "interval": 3,
-	  "format": "🧠 {used:0.1f}GB/{total:0.1f}GB({percentage}%)",
-  },
+	"memory": {
+		"interval": 3,
+		"format": "🧠 {used:0.1f}GiB/{total:0.1f}GiB({percentage}%)",
+	},
 
-  "disk": {
-	  "path": "/",
-	  "interval": 15,
-	  "format": "💽 {used}/{total}({percentage_used}%)",
-  },
+	"disk": {
+		"path": "/",
+		"interval": 15,
+		"format": "💽 {used}/{total}({percentage_used}%)",
+	},
 
 
-  "temperature": {
-	  "interval": 3,
-	  "format": "🌡️ {temperatureC}°C",
-  }
+	"temperature": {
+		"interval": 3,
+		"format": "🌡️ {temperatureC}°C",
+	}
 
 }
 

@@ -1,4 +1,3 @@
-
 return {
   {
     "nvim-treesitter/nvim-treesitter",
@@ -24,12 +23,40 @@ return {
           "typescript",
           "html",
           "css",
+          "json",
+          "jsonc",
+          "toml",
+          "yaml",
+          "xml",
+          "bash",
+          "markdown",
+          "markdown_inline"
         },
         highlight = {
           enable = true,
           additional_vim_regex_highlighting = false,
         },
         indent = { enable = true },
+        textobjects = {
+          select = {
+            enable = true,
+            lokahead = true,
+            keymaps = {
+              ["af"] = "@function.outer",
+              ["if"] = "@function.inner",
+            },
+          },
+          move = {
+            enable = true,
+            set_jumps = true,
+            goto_next_start = {
+              ["]f"] = "@function.outer",
+            },
+            goto_previous_start = {
+              ["[f"] = "@function.outer",
+            },
+          },
+        },
       })
     end,
   },

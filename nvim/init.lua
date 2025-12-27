@@ -1,3 +1,6 @@
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
+
 vim.o.helplang = "ja,en"
 require('keymaps.main')
 

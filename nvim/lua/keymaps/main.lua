@@ -35,3 +35,8 @@ Map('v','H','0')
 Map('v','J','10j')
 Map('v','K','10k')
 Map('v','L','$')
+
+vim.keymap.set("n", "<leader>nf", function()
+  vim.cmd("enew")      -- 空の新規バッファ
+  vim.cmd("startinsert") -- すぐ入力モード
+end, { desc = "New file (buffer)" })

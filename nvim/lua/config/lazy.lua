@@ -13,8 +13,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- リーダーキー（好みで）を設定
-vim.g.mapleader = " "        -- スペースをリーダーに
-vim.g.maplocalleader = "\\"
 
 require("lazy").setup({
   spec = {
@@ -25,13 +23,17 @@ require("lazy").setup({
   -- 他オプションあれば追加可能
 })
 
+
 vim.api.nvim_create_autocmd({"BufReadPost", "BufNewFile"}, {
   callback = function()
-    local ft = vim.bo.filetype
-    local has_parser = #vim.treesitter.get_parser(0, ft, { error = false }) > 0
+    local ft      = vim.bo.filetype
+    local parser  = vim.treesitter.get_parser(0, ft, { error = false })
+    local has_parser = (parser and next(parser) ~= nil)
+
     if has_parser then
-      -- parserが有れば start
       vim.treesitter.start(0, ft)
     end
   end,
 })
+
+

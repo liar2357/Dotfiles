@@ -33,23 +33,6 @@ require("toggleterm").setup({
   end,
 })
 
-local Terminal = require("toggleterm.terminal").Terminal
-local lazygit_term = Terminal:new({
-  cmd = "lazygit",
-  direction = "float",
-  hidden = true,
-  -- PowerShell で動かすなら、シェルそのものを指定する必要は基本ないが注意
-  on_open = function(term)
-    vim.cmd("startinsert!")
-  end,
-  on_close = function(term)
-    -- 必要なら
-  end,
-})
-
-vim.keymap.set({ "n", "t" }, "<leader>lg", function()
-  lazygit_term:toggle()
-end, { desc = "Toggle Lazygit via toggleterm" })
 
 -- ターミナル内 (ターミナルモード) でのキー設定
 function _G.set_toggleterm_keymaps()

@@ -1,6 +1,16 @@
+-- 以下のキーアサインは個別設定
+-- toggle_term -> ターミナルを開く
+-- lspconfig -> 定義参照等
+-- cmp -> 補完系
+-- comment-box -> コメントボックス/コメントライン
+-- vim-operator-convert-case -> ケース変換
+-- vim-operator-replace -> レジスタの内容で選択範囲を置換
+-- winresizer -> ウインドウサイズ変更
+
+
 -- バッファ切り替え
-vim.keymap.set("n", "<leader>bn", "<Cmd>BufferNext<CR>", { desc = "Next buffer" })
-vim.keymap.set("n", "<leader>bp", "<Cmd>BufferPrevious<CR>", { desc = "Previous buffer" })
+vim.keymap.set("n", "<C-l>", "<Cmd>BufferNext<CR>", { desc = "Next buffer" })
+vim.keymap.set("n", "<C-h>", "<Cmd>BufferPrevious<CR>", { desc = "Previous buffer" })
 
 -- 特定バッファにジャンプ（1〜9あたり）
 for i = 1, 9 do
@@ -8,7 +18,8 @@ for i = 1, 9 do
 end
 
 -- 現在のバッファを閉じる
-vim.keymap.set("n", "<leader>bd", "<Cmd>BufferClose<CR>", { desc = "Close buffer" })
+vim.keymap.set("n", "<leader>q", "<Cmd>BufferClose<CR>", { desc = "Close buffer" })
+vim.keymap.set("n", "<leader>q!", "<Cmd>bd!<CR>", { desc = "Close buffer OVERRIDE" })
 
 -- Diffview を開く／閉じる
 vim.keymap.set("n", "<leader>dd", "<Cmd>DiffviewOpen<CR>", { desc = "Open diff view" })
@@ -56,15 +67,22 @@ end, { desc = "Toggle inlay hints / chunk lines" })
 
 -- toggleterm 経由で lazygit をフロート起動
 local Terminal = require("toggleterm.terminal").Terminal
-local lazygit = Terminal:new({
+local lazygit_term = Terminal:new({
   cmd = "lazygit",
   direction = "float",
   hidden = true,
+  -- PowerShell で動かすなら、シェルそのものを指定する必要は基本ないが注意
+  on_open = function(term)
+    vim.cmd("startinsert!")
+  end,
+  on_close = function(term)
+    -- 必要なら
+  end,
 })
 
 vim.keymap.set({ "n", "t" }, "<leader>lg", function()
-  lazygit:toggle()
-end, { desc = "Toggle Lazygit" })
+  lazygit_term:toggle()
+end, { desc = "Toggle Lazygit via toggleterm" })
 
 vim.keymap.set("n", "<leader>lr", function()
   require("lualine").refresh()
@@ -72,8 +90,8 @@ end, { desc = "Refresh lualine" })
 
 -- メッセージ履歴を開く
 vim.keymap.set("n", "<leader>nh", function()
-  require("noice").history.show({ mode = "notification" })
-end, { desc = "Show Noice message history" })
+  vim.cmd("Noice history")
+end, { desc = "Show Noice history" })
 
 -- コマンドラインモード入力をトグル（例）
 vim.keymap.set("n", "<leader>ni", function()
@@ -88,9 +106,71 @@ vim.keymap.set({ "o", "x" }, "af", ":<C-U>lua require('nvim-treesitter.textobjec
 vim.keymap.set({ "o", "x" }, "if", ":<C-U>lua require('nvim-treesitter.textobjects.select').select_textobject('function.inner')<CR>", { desc = "Select inner function" })
 
 -- 例: 次／前の関数やクラスに移動（移動モジュールがあれば）
+local move = require("nvim-treesitter-textobjects.move")
 vim.keymap.set("n", "]f", function()
-  require('nvim-treesitter').goto_next_start('function.outer')
-end, { desc = "Next function start" })
+  move.goto_next_start("@function.outer", "textobjects")
+end)
 vim.keymap.set("n", "[f", function()
-  require('nvim-treesitter').goto_previous_start('function.outer')
-end, { desc = "Prev function start" })
+  move.goto_previous_start("@function.outer", "textobjects")
+end)
+
+-- accelerated-jk
+vim.keymap.set("n", "j", "<Plug>(accelerated_jk_gj)", { silent = true })
+vim.keymap.set("n", "k", "<Plug>(accelerated_jk_gk)", { silent = true })
+
+-- auto_save
+vim.keymap.set("n", "<leader>as", "<Cmd>ASToggle<CR>", { desc = "Toggle AutoSave" })
+
+-- dial
+vim.keymap.set("n", "<C-a>", require("dial.map").inc_normal(), { desc = "Dial Increment" })
+vim.keymap.set("n", "<C-d>", require("dial.map").dec_normal(), { desc = "Dial Decrement" })
+
+-- dropbar
+vim.keymap.set("n", "<leader>;", require("dropbar.api").pick, { desc = "Dropbar Pick" })
+
+-- glance
+vim.keymap.set('n', 'gd', '<Cmd>Glance definitions<CR>', { desc = "Glance Definitions" })
+vim.keymap.set('n', 'gr', '<Cmd>Glance references<CR>', { desc = "Glance References" })
+
+-- namu
+vim.keymap.set("n", "<leader>sc", ":Namu symbols<cr>")
+vim.keymap.set("n", "<leader>sw", ":Namu workspace<cr>")
+vim.keymap.set("n", "<leader>wa", ":Namu diagnostics<cr>")
+
+-- telescope
+vim.keymap.set("n", "<leader>ff", "<Cmd>Telescope find_files<CR>", { desc = "Find files" })
+vim.keymap.set("n", "<leader>fg", "<Cmd>Telescope live_grep<CR>", { desc = "Grep in project" })
+vim.keymap.set("n", "<leader>fb", "<Cmd>Telescope buffers<CR>", { desc = "List buffers" })
+
+-- translator
+vim.keymap.set("v", "<leader>tr", "<Cmd>Translate W<CR>", { desc = "Translate selection" })
+
+-- treesj
+vim.keymap.set("n", "gS", "<Cmd>TSJToggle<CR>", { desc = "Toggle Split/Join" })
+
+-- trouble
+vim.keymap.set("n", "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", { desc = "Toggle diagnostics in Trouble" })
+
+-- ufo
+vim.keymap.set("n", "zR", require("ufo").openAllFolds, { desc = "Open All Folds" })
+vim.keymap.set("n", "zM", require("ufo").closeAllFolds, { desc = "Close All Folds" })
+
+-- conform
+vim.keymap.set("n", "==", function()
+  require("conform").format({
+    async = false,
+    lsp_fallback = true,
+    stop_after_first = true,
+  })
+end, { desc = "Format buffer (language formatter)" })
+
+vim.api.nvim_create_autocmd("BufWritePre", {
+  callback = function(args)
+    require("conform").format({
+      bufnr = args.buf,
+      async = false,
+      stop_after_first = true,
+      lsp_fallback = true,
+    })
+  end,
+})

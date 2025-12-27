@@ -4,62 +4,49 @@ WALL_ROOT="$HOME/wallpaper"
 THEME_FILE="$HOME/.config/hypr/current_theme"
 INTERVAL=15
 
-# ─── テーマファイルを確実に作って、ランダムテーマを強制上書き ───
+# ── 起動時：必ずランダムテーマを決定 ──────────────────
 
-# テーマルート存在チェック
-if [ ! -d "$WALL_ROOT" ]; then
-    echo "壁紙ルートが存在しません: $WALL_ROOT" >&2
-    exit 1
-fi
+mapfile -t THEMES < <(find "$WALL_ROOT" -mindepth 1 -maxdepth 1 -type d | sort)
+[ ${#THEMES[@]} -eq 0 ] && exit 1
 
-# テーマ候補ディレクトリ一覧
-mapfile -t DIRS < <(find "$WALL_ROOT" -mindepth 1 -maxdepth 1 -type d)
-if [ ${#DIRS[@]} -eq 0 ]; then
-    echo "テーマディレクトリが見つかりません: $WALL_ROOT" >&2
-    exit 1
-fi
+RND_THEME="$(basename "${THEMES[RANDOM % ${#THEMES[@]}]}")"
 
-# ランダム選出
-RND_THEME="${DIRS[RANDOM % ${#DIRS[@]}]}"
-RND_NAME="$(basename "$RND_THEME")"
-
-# テーマファイルを作成 or 上書き
 mkdir -p "$(dirname "$THEME_FILE")"
-echo "$RND_NAME" > "$THEME_FILE"
+echo "$RND_THEME" > "$THEME_FILE"
 
-# ログ的に表示（不要なら消してOK）
-echo "===== 壁紙テーマデーモン ====="
-echo "起動時ランダムテーマ: $RND_NAME"
-echo "テーマファイル: $THEME_FILE"
-echo "ループ間隔: $INTERVAL sec"
-echo "-------------------------------"
+echo "起動時テーマ: $RND_THEME"
 
-# ─── メインループ ───
+# ── メインループ ───────────────────────────────────────
 
 while true; do
-    # ファイルから現在テーマ名を読み込む
-    if [ -f "$THEME_FILE" ]; then
-	THEME_NAME=$(<"$THEME_FILE")
-    else
-	sleep "$INTERVAL"
-	continue
-    fi
+    THEME="$(<"$THEME_FILE")"
+    THEME_DIR="$WALL_ROOT/$THEME"
 
-    THEME_DIR="$WALL_ROOT/$THEME_NAME"
-    # テーマフォルダが無ければ無視
-    if [ ! -d "$THEME_DIR" ]; then
-	echo "テーマフォルダが存在しません: $THEME_DIR" >&2
-	sleep "$INTERVAL"
-	continue
-    fi
+    [ ! -d "$THEME_DIR" ] && sleep "$INTERVAL" && continue
 
-    # テーマ内からランダムに1枚選択
-    WALL=$(find "$THEME_DIR" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.webp" \) | shuf -n1)
+    # モニター一覧
+    mapfile -t MONITORS < <(hyprctl monitors -j | jq -r '.[].name')
+    [ ${#MONITORS[@]} -eq 0 ] && sleep "$INTERVAL" && continue
 
-    if [ -n "$WALL" ]; then
-	# contain モードで壁紙変更
-	hyprctl hyprpaper reload ",contain:$WALL"
-    fi
+    # 画像一覧
+    mapfile -t IMAGES < <(
+	find "$THEME_DIR" -type f \
+	    \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.webp" \) \
+	| shuf
+    )
+    [ ${#IMAGES[@]} -eq 0 ] && sleep "$INTERVAL" && continue
+
+    # いったん全部 unload
+    hyprctl hyprpaper unload all >/dev/null 2>&1
+
+    # モニターごとに割り当て
+    for i in "${!MONITORS[@]}"; do
+	MON="${MONITORS[$i]}"
+	IMG="${IMAGES[$(( i % ${#IMAGES[@]} ))]}"
+
+	hyprctl hyprpaper preload "$IMG"
+	hyprctl hyprpaper wallpaper "$MON,contain:$IMG"
+    done
 
     sleep "$INTERVAL"
 done
