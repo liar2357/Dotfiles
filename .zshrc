@@ -1,3 +1,5 @@
+export COLORTERM=truecolor
+
 # ------------------------------------------------
 # Oh My Zsh base
 export ZSH="$HOME/.oh-my-zsh"
