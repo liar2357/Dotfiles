@@ -174,3 +174,7 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     })
   end,
 })
+
+vim.keymap.set("n", "<leader>r",function ()
+  require("config.submode_conf").run_for_ft()
+end, { desc = "Run current file" })
