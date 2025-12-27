@@ -8,17 +8,40 @@ require('keymaps.main')
 
 vim.wo.number = true
 
-vim.g.clipboard = {
-  name = "wl-clipboard",
-  copy = {
-    ["+"] = "wl-copy --type text/plain",
-    ["*"] = "wl-copy --primary --type text/plain",
-  },
-  paste = {
-    ["+"] = "wl-paste --no-newline",
-    ["*"] = "wl-paste --no-newline --primary",
-  },
-}
+-- Clipboard provider auto detection
+local is_wayland = os.getenv("WAYLAND_DISPLAY") ~= nil
+local is_x11     = os.getenv("DISPLAY") ~= nil
+
+if is_wayland then
+  vim.g.clipboard = {
+    name = "wl-clipboard",
+    copy = {
+      ["+"] = "wl-copy --type text/plain",
+      ["*"] = "wl-copy --primary --type text/plain",
+    },
+    paste = {
+      ["+"] = "wl-paste --no-newline",
+      ["*"] = "wl-paste --no-newline --primary",
+    },
+    cache_enabled = 0,
+  }
+elseif is_x11 then
+  vim.g.clipboard = {
+    name = "xclip",
+    copy = {
+      ["+"] = "xclip -selection clipboard -in",
+      ["*"] = "xclip -selection primary -in",
+    },
+    paste = {
+      ["+"] = "xclip -selection clipboard -out",
+      ["*"] = "xclip -selection primary -out",
+    },
+    cache_enabled = 0,
+  }
+end
+
+-- どちらでも動くように unnamedplus をセット
+vim.opt.clipboard = "unnamedplus"
 
 local is_vscode = (vim.g.vscode ~= nil)
 
