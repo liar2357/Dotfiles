@@ -56,6 +56,8 @@ local custom_cs = {
   },
 }
 
+local submode_comp = require("config.lualine_submode")
+
 require('lualine').setup {
 options = {
   icons_enabled = true,
@@ -90,7 +92,7 @@ options = {
   }
 },
 sections = {
-  lualine_a = {'mode'},
+  lualine_a = {submode_comp.mode_or_submode,},
   lualine_b = {'branch', 'diff', 'diagnostics'},
   lualine_c = {'filename'},
   lualine_x = {selection_count,'encoding', 'fileformat', 'filetype'},

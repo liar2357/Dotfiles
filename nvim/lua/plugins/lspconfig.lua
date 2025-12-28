@@ -1,59 +1,60 @@
 return {
   "neovim/nvim-lspconfig",
+  lazy = false,
   config = function()
-    -- LSP を attach したときのキーマップ
+
+    -- 共通 keybind
     vim.api.nvim_create_autocmd("LspAttach", {
       callback = function(args)
         local bufnr = args.buf
-        local map = vim.keymap.set
-        map("n", "gd", vim.lsp.buf.definition, { buffer = bufnr })
-        map("n", "gr", vim.lsp.buf.references, { buffer = bufnr })
-        map("n", "K", vim.lsp.buf.hover, { buffer = bufnr })
+        vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = bufnr })
+        vim.keymap.set("n", "gr", vim.lsp.buf.references, { buffer = bufnr })
+        vim.keymap.set("n", "<C-i>", vim.lsp.buf.hover, { buffer = bufnr })
       end,
     })
 
-    -- Rust Analyzer を有効化
-    vim.lsp.config("rust_analyzer", {
-      -- 必要なら追加設定をここに
-      cmd = { "rustup", "run", "stable", "rust-analyzer" },
-      root_dir = require("lspconfig.util").root_pattern("Cargo.toml", ".git"),
+    -- Rust Analyzer native config
+    vim.lsp.config.rust_analyzer = {
+      cmd = { "rust-analyzer" },
+      filetypes = { "rust" },
+      root_markers = { "Cargo.toml", "rust-project.json", ".git" },
       settings = {
         ["rust-analyzer"] = {
-          rustfmt = {
-            enabled = true,
-          }
+          rustfmt = { enable = true },
         },
       },
-    })
-    vim.lsp.enable("rust_analyzer")
+    }
+    vim.lsp.enable({ "rust_analyzer" })
 
-    -- ts_ls  (tsserver の新名称)
-    vim.lsp.config("ts_ls", {})
-    vim.lsp.enable("ts_ls")
+    -- TS/JS
+    vim.lsp.config.ts_ls = {}
+    vim.lsp.enable({ "ts_ls" })
 
-    -- その他の LSP も同様
-    vim.lsp.config("clangd", {})
-    vim.lsp.enable("clangd")
+    -- C/C++
+    vim.lsp.config.clangd = {}
+    vim.lsp.enable({ "clangd" })
 
-    vim.lsp.config("pyright", {})
-    vim.lsp.enable("pyright")
+    -- 他の言語も同様に
+    vim.lsp.config.pyright = {}
+    vim.lsp.enable({ "pyright" })
 
-    vim.lsp.config("bashls", {})
-    vim.lsp.enable("bashls")
+    vim.lsp.config.bashls = {}
+    vim.lsp.enable({ "bashls" })
 
-    vim.lsp.config("html", {})
-    vim.lsp.enable("html")
+    vim.lsp.config.html = {}
+    vim.lsp.enable({ "html" })
 
-    vim.lsp.config("cssls", {})
-    vim.lsp.enable("cssls")
+    vim.lsp.config.cssls = {}
+    vim.lsp.enable({ "cssls" })
 
-    vim.lsp.config("jdtls", {})
-    vim.lsp.enable("jdtls")
+    vim.lsp.config.jdtls = {}
+    vim.lsp.enable({ "jdtls" })
 
-    vim.lsp.config("phpactor", {})
-    vim.lsp.enable("phpactor")
+    vim.lsp.config.phpactor = {}
+    vim.lsp.enable({ "phpactor" })
 
-    vim.lsp.config("solargraph", {})
-    vim.lsp.enable("solargraph")
+    vim.lsp.config.solargraph = {}
+    vim.lsp.enable({ "solargraph" })
+
   end,
 }

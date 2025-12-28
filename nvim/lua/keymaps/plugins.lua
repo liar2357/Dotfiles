@@ -175,6 +175,11 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   end,
 })
 
-vim.keymap.set("n", "<leader>r",function ()
-  require("config.submode_conf").run_for_ft()
+-- submode
+vim.keymap.set({"n","i"}, "<C-r>",function ()
+  require("config.run_sm_conf").run_for_ft()
 end, { desc = "Run current file" })
+
+vim.keymap.set({"n","i"}, "<C-m>",function ()
+  require("config.md_sm_conf").enable_markdown_mode()
+end, { desc = "Enter Markdown Submode" })
