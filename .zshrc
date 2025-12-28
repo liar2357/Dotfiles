@@ -56,3 +56,4 @@ export GTK_IM_MODULE=ibus
 export XMODIFIERS=@im=ibus
 export QT_IM_MODULE=ibus
 export PATH="$PATH:/usr/lib/rustup/bin"
+export PATH="$HOME/.cargo/bin:$PATH"
