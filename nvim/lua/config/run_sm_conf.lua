@@ -16,11 +16,11 @@ function M.run_for_ft()
   elseif ft == "javascript" or ft == "typescript" then
     exec_in_toggleterm("node " .. file)
   elseif ft == "typescriptreact" or ft == "javascriptreact" then
-    exec_in_toggleterm("npm start")
+    exec_in_toggleterm("npm run dev")
   elseif ft == "c" then
-    exec_in_toggleterm("gcc " .. file .. " -o /tmp/a.out && /tmp/a.out")
+    exec_in_toggleterm("gcc " .. file .. " -o /tmp/debug.out && /tmp/debug.out")
   elseif ft == "cpp" then
-    exec_in_toggleterm("g++ " .. file .. " -o /tmp/a.out && /tmp/a.out")
+    exec_in_toggleterm("g++ " .. file .. " -o /tmp/debug.out && /tmp/debug.out")
   elseif ft == "cs" then
     exec_in_toggleterm("dotnet run")
   elseif ft == "java" then

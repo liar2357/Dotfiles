@@ -56,5 +56,8 @@ return {
     vim.lsp.config.solargraph = {}
     vim.lsp.enable({ "solargraph" })
 
+    vim.lsp.config.sqls = {}
+    vim.lsp.enable({ "sqls" })
+
   end,
 }

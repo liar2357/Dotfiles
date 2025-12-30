@@ -42,6 +42,9 @@ return {
 
         -- Bash
         sh = { "shfmt" },
+        
+        -- SQl
+        sql = { "sqruff", "sql-formatter" },
       },
 
       -- フォーマッタの詳細定義
