@@ -52,6 +52,10 @@ setopt AUTO_CD
 setopt CORRECT
 
 # ------------------------------------------------
+
+
+
+# ------------------------------------------------
 export GTK_IM_MODULE=ibus
 export XMODIFIERS=@im=ibus
 export QT_IM_MODULE=ibus
