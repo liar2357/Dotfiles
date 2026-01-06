@@ -29,6 +29,7 @@ alias nvr='NVIM_APPNAME=nvim nvim'
 alias nvl='NVIM_APPNAME=nvim-lite nvim'
 alias packet='flatpak run io.github.nozwock.Packet'
 alias chteame='./.config/hypr/scripts/chteame.sh'
+alias onlyoffice='GDK_BACKEND=x11 onlyoffice-desktopeditors'
 
 # ------------------------------------------------
 # 履歴 (history) 設定
@@ -56,11 +57,11 @@ setopt CORRECT
 
 
 # ------------------------------------------------
-export GTK_IM_MODULE=ibus
-export XMODIFIERS=@im=ibus
-export QT_IM_MODULE=ibus
+export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+export XMODIFIERS=@im=fcitx
 export PATH="$PATH:/usr/lib/rustup/bin"
-export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/.cargo/bin:/home/raia/.local/bin:$PATH"
 
 export NVM_DIR="$HOME/.config/nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
