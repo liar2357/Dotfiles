@@ -11,8 +11,13 @@ vim.wo.number = true
 -- Clipboard provider auto detection
 local is_wayland = os.getenv("WAYLAND_DISPLAY") ~= nil
 local is_x11     = os.getenv("DISPLAY") ~= nil
+local is_ssh     = os.getenv("SSH_TTY") ~= nil
 
-if is_wayland then
+if is_ssh then
+  -- ssh セッションでは OSC52 を優先
+  vim.g.clipboard = "osc52"
+
+elseif is_wayland then
   vim.g.clipboard = {
     name = "wl-clipboard",
     copy = {
@@ -25,6 +30,7 @@ if is_wayland then
     },
     cache_enabled = 0,
   }
+
 elseif is_x11 then
   vim.g.clipboard = {
     name = "xclip",
@@ -40,8 +46,8 @@ elseif is_x11 then
   }
 end
 
--- どちらでも動くように unnamedplus をセット
 vim.opt.clipboard = "unnamedplus"
+
 
 local is_vscode = (vim.g.vscode ~= nil)
 

@@ -78,16 +78,6 @@ function M.H3()
   vim.api.nvim_set_current_line("### " .. vim.api.nvim_get_current_line())
 end
 
--- テーブルテンプレート挿入
-function M.insert_table()
-  local t = {
-    "| Header 1 | Header 2 |",
-    "| -------- | -------- |",
-    "| Content  | Content  |"
-  }
-  vim.api.nvim_buf_set_lines(0, vim.api.nvim_win_get_cursor(0)[1], vim.api.nvim_win_get_cursor(0)[1], false, t)
-end
-
 -- コードブロック挿入 (```lang … ```)
 function M.insert_codeblock()
   local t = {

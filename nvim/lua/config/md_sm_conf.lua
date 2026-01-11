@@ -1,6 +1,7 @@
 -- lua/config/submode_conf.lua
 local sm = require("nvim-submode")
 local md = require("config.markdown_utils")
+local tb = require("config.md_table")
 
 local function notify_desc(desc)
     if desc then
@@ -47,10 +48,6 @@ local markdown_mode = sm.build_submode(
             notify_desc("Insert Image" )
             md.insert_image()
         end, { desc = "Insert Image" } },
-        { "t", function ()
-            notify_desc("Insert Table" )
-            md.insert_table()
-        end, { desc = "Insert Table" } },
         { "k", function ()
             notify_desc("Code Block" )
             md.insert_codeblock()
@@ -75,6 +72,26 @@ local markdown_mode = sm.build_submode(
             notify_desc("Insert Link" )
             md.link_template()
         end, { desc = "Insert Link" } },
+        { "t", function ()
+            notify_desc("Insert Table" )
+            tb.insert_table_dynamic()
+        end, { desc = "Insert Table" } },
+        { "ar", function ()
+            notify_desc("Add Row" )
+            tb.insert_row_below()
+        end, { desc = "Add Row" } },
+        { "dr", function ()
+            notify_desc("Delete Row" )
+            tb.delete_row()
+        end, { desc = "Delete Row" } },
+        { "ac", function ()
+            notify_desc("Add Col" )
+            tb.insert_col_right()
+        end, { desc = "Add Col" } },
+        { "dc", function ()
+            notify_desc("Delete Col" )
+            tb.delete_col()
+        end, { desc = "Delete Col" } },
         { "jk", function()
             notify_desc("Exit Markdown Mode" )
             return "", sm.EXIT_SUBMODE

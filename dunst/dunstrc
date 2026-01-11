@@ -1,0 +1,84 @@
+##########################################
+# Dunst config for ArchLinux + Hyprland   #
+# ~/.config/dunst/dunstrc                 #
+##########################################
+
+##########################################
+# Global settings                        #
+##########################################
+
+[global]
+# Where to show notifications
+# follow = mouse | keyboard | none
+monitor = 0
+follow = mouse
+origin = top-right
+
+# Geometry
+width = (0, 500)       # 最大 500px 幅
+height = (0, 200)      # 最大 200px 高さ（テキストに応じて伸縮）
+# Padding around notifications
+padding = 8
+horizontal_padding = 10
+
+# Colors & font
+font = "Inter 10"
+background = "#1d1f21"
+foreground = "#c5c8c6"
+frame_color = "#373b41"
+separator_color = "auto"
+
+# Icons
+icon_theme = "breeze,Papirus, Adwaita"        # 複数テーマ指定可
+enable_recursive_icon_lookup = true
+min_icon_size = 32
+max_icon_size = 48
+
+# History
+sticky_history = true
+history_length = 20
+
+# Behavior
+sort = "urgency_descending"
+stack_duplicates = true
+hide_duplicate_count = false
+
+##########################################
+# Urgency overrides                      #
+##########################################
+
+[urgency_low]
+timeout = 3
+background = "#282a36"
+foreground = "#8be9fd"
+
+[urgency_normal]
+timeout = 5
+background = "#1e1f29"
+foreground = "#f8f8f2"
+
+[urgency_critical]
+timeout = 0            # クリティカルは消さない
+background = "#ff5555"
+foreground = "#1e1f29"
+frame_color = "#ff4444"
+
+##########################################
+# App-specific rules                     #
+##########################################
+
+# Volume/brightness (シンプル表示)
+[volume]
+appname = "volnoti|brightness"
+format = "%s %b"
+
+# Music (アイコン＋タイトル)
+[media]
+appname = "Spotify"
+format = "%I %s"
+
+# Ignore annoying matched text
+[ignore_ads]
+summary = "*Ad*"
+format = ""
+

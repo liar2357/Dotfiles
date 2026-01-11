@@ -1,0 +1,6 @@
+show=dmenu
+prompt=PWA…
+allow_images=true
+image_size=40
+hide_search=true
+
