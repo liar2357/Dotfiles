@@ -1,0 +1,21 @@
+# 位置（上部右）
+anchor=top-right
+
+# 余白
+margin=10
+
+# タイムアウト (ms)
+default-timeout=5000
+
+# テキスト色
+text-color=#FFFFFF
+background-color=#282828
+
+# 歴史に残す通知数
+max-history=20
+
+# 新しい順
+sort=-time
+
+# どこに出すか（背景/トップ）
+layer=top 

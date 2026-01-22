@@ -73,6 +73,11 @@ function M.insert_row_below()
         vim.notify("Not in a markdown table", vim.log.levels.WARN)
         return
     end
+    -- ヘッダー/区切り行は追加しない
+    if cursor == s or cursor == s + 1 then
+        vim.notify("Cannot add header or separator", vim.log.levels.WARN)
+        return
+    end
 
     local cursor = vim.api.nvim_win_get_cursor(0)[1]
     local cells = parse_table(s, e)

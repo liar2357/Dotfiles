@@ -12,6 +12,11 @@ end
 local markdown_mode = sm.build_submode(
     { name = "Markdown", timeoutlen = 200,is_count_enable = false, },
     {
+        { "<Left>", "<Left>", { desc = "← move" } },
+        { "<Down>", "<Down>", { desc = "↓ move" } },
+        { "<Up>", "<Up>", { desc = "↑ move" } },
+        { "<Right>", "<Right>", { desc = "→ move" } },
+
         { "b",function ()
             notify_desc("Bold")
             md.bold()
