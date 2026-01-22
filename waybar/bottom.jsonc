@@ -84,6 +84,6 @@
 
   "custom/notify-count": {
     "format": "",
-    "on-click": "bash -lc 'kitty -e ~/.config/waybar/scripts/notify-center.sh'",
+    "on-click": "kitty --title 'NotifyCenter' -e ~/.config/waybar/scripts/notify-center.sh",
   },
 }
