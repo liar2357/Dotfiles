@@ -40,3 +40,6 @@ vim.keymap.set("n", "<leader>nf", function()
   vim.cmd("enew")      -- 空の新規バッファ
   vim.cmd("startinsert") -- すぐ入力モード
 end, { desc = "New file (buffer)" })
+
+Map('n','<C-w>v',':vs<CR>')
+Map('n','<C-w>h',':sp<CR>')

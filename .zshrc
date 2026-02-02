@@ -30,6 +30,7 @@ alias nvl='NVIM_APPNAME=nvim-lite nvim'
 alias packet='flatpak run io.github.nozwock.Packet'
 alias chteame='./.config/hypr/scripts/chteame.sh'
 alias onlyoffice='GDK_BACKEND=x11 onlyoffice-desktopeditors'
+alias lg='lazygit'
 
 function touch-p() {
   mkdir -p $(dirname "$1") && touch "$1"

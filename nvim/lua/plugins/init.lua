@@ -46,6 +46,7 @@ return {
   require("plugins.lspconfig"),
   require("plugins.cmp"),
   require("plugins.submode"),
+  require("plugins.image"),
 
   -- 「プラグインを追加したらここに続けて記述」
 }

@@ -74,4 +74,18 @@ require("nvim-tree").setup({
     cmd = nil,                -- デフォルトのシステムコマンドを使う
     args = {},
   },
+
+  on_attach = function(bufnr)
+    local api = require("nvim-tree.api")
+    local opts = { buffer = bufnr, noremap = true, silent = true }
+
+    -- 標準の Enter は `api.node.open.edit` で開く（通常ウィンドウ）
+    vim.keymap.set("n", "<CR>", api.node.open.edit, opts)
+    -- 垂直分割で開く
+    vim.keymap.set("n", "v", api.node.open.vertical, opts)
+    -- 水平分割で開く
+    vim.keymap.set("n", "h", api.node.open.horizontal, opts)
+    -- タブで開く
+    vim.keymap.set("n", "t", api.node.open.tab, opts)
+  end
 })
