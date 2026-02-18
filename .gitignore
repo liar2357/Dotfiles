@@ -1,2 +1,2 @@
-nvim/lazy-lock.json
-hypr/current_theme
+config/nvim/lazy-lock.json
+config/hypr/current_theme
