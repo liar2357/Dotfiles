@@ -1,0 +1,89 @@
+{
+  "layer": "top",
+  "position": "bottom",
+
+  "modules-left": ["hyprland/workspaces"],
+  "modules-center": ["hyprland/window"],
+  "modules-right": ["bluetooth", "pulseaudio", "tray", "custom/notify-count"],
+
+  // --- ワークスペース/ウィンドウ (Hyprland) ---
+  "hyprland/workspaces": {
+    "format": "{icon} {windows}",
+    "format-window-separator": " ",
+    "window-rewrite-default": "",
+
+    "window-rewrite": {
+      //PWA
+      "title<ChatGPT.*>": "🧠",
+      "title<YouTube>": "▶️",
+      "title<東映特撮ファンクラブ>": "🎬",
+      "title<Twitter>": "",
+      "title<Google Keep>": "📝",
+      "title<Google 翻訳>": "🅰️",
+
+      // Browsers (例: Vivaldi, Firefox, Chromium)
+      "class<Vivaldi|vivaldi>": "",
+      "class<firefox|Firefox>": "",
+      "class<chromium>": "",
+
+      // ターミナル / コンソール
+      "class<org.kde.konsole|Konsole>": "",
+      "class<kitty>": "",
+      "class<alacritty>": "",
+
+      // ファイラー／ファイルマネージャ
+      "class<org.kde.dolphin|dolphin>": "󰉓",
+      "class<thunar>": "󰉓",
+
+      // エディタ・IDE
+      "class<code|Code|VSCodium>": "",
+      "class<gedit>": "󰈙",
+
+      // メディアプレーヤー
+      "class<mpv>": "",
+      "class<vlc>": "🕪",
+
+      // コミュニケーション／チャット
+      "class<discord>": "",
+      "class<telegram>": "",
+
+      // オフィスアプリ
+      "class<libreoffice-writer>": "",
+      "class<libreoffice-calc>": "",
+      "class<libreoffice-impress>": "󰐨",
+      "class<onlyoffice|ONLYOFFICE>": "📄",
+
+      //メール
+      "class<Thunderbird|thunderbird>": "📧",
+    },
+
+    // オプション：ワークスペース切替 on click
+    "on-click": "activate",
+    // （必要ならマウスホイールでワークスペース切替）
+    "on-scroll-up": "hyprctl dispatch workspace e+1",
+    "on-scroll-down": "hyprctl dispatch workspace e-1",
+  },
+  "hyprland/window": {
+    "format": "{}",
+  },
+
+  // --- オーディオ (PipeWire 対応) ---
+  "pulseaudio": {
+    "format": " {volume}%",
+    "on-click": "pavucontrol",
+  },
+
+  "bluetooth": {
+    "format-on": " {controller_alias}",
+    "format-off": "󰂲",
+    "format-connected-battery": " {device_alias} ({device_battery_percentage}%)",
+    "tooltip-format-connected-battery": "{device_alias} ({device_battery_percentage}%)\n{controller_alias}",
+    "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_battery_percentage}%",
+    "on-click": "blueman-manager",
+  },
+
+  "custom/notify-count": {
+    "format": "",
+    "on-click": "kitty --title 'NotifyCenter' -e ~/.config/waybar/scripts/notify-center.sh",
+  },
+}
