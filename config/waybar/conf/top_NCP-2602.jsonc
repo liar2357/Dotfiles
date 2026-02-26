@@ -1,0 +1,88 @@
+{
+  "layer": "top",
+  "position": "top",
+
+  "modules-left": ["custom/power", "cpu", "memory", "disk"],
+  "modules-center": ["custom/clock"],
+  "modules-right": ["temperature", "network", "battery#1", "battery#2"],
+
+  "network": {
+    "format-wifi": "  {essid}({signalStrength}%) ↓{bandwidthDownBits} ↑{bandwidthUpBits}",
+    "format-ethernet": "󰈀  {ifname}/↓{bandwidthDownBits}↑{bandwidthUpBits}",
+    "format-disconnected": "  Disconnected",
+    "tooltip-format": "{ifname}: {ipaddr}/{cidr}",
+    "on-click": "nm-connection-editor",
+    "interval": 3,
+  },
+
+  "battery#1": {
+    "bat": "BAT0",
+    "interval": 5,
+    "states": {
+      "warning": 30,
+      "critical": 10,
+    },
+
+    // 残量に応じたアイコン配列
+    "format-icons": [" ", " ", " ", " ", " "],
+
+    // 普通（放電中）の表示: アイコン + % 表示
+    "format": "{icon} {capacity}%",
+
+    // 充電中（Charging）
+    "format-charging": "⚡{icon} {capacity}%",
+  },
+
+  "battery#2": {
+    "bat": "BATT",
+    "interval": 5,
+    "states": {
+      "warning": 30,
+      "critical": 10,
+    },
+
+    // 残量に応じたアイコン配列
+    "format-icons": [" ", " ", " ", " ", " "],
+
+    // 普通（放電中）の表示: アイコン + % 表示
+    "format": "{icon} {capacity}%",
+
+    // 充電中（Charging）
+    "format-charging": "⚡{icon} {capacity}%",
+  },
+
+  "custom/clock": {
+    "exec": "LC_TIME=ja_JP.UTF-8 date '+%Y年%m月%d日(%a) %H:%M:%S'",
+    "interval": 1,
+    "format": "{}",
+    "tooltip": false,
+  },
+
+  // --- 電源メニュー ---
+  "custom/power": {
+    "format": "⏻",
+    "tooltip-format": "Power",
+    "on-click": "wlogout",
+  },
+
+  "cpu": {
+    "interval": 3,
+    "format": "󰻠 {usage}%:{avg_frequency}GHz",
+  },
+
+  "memory": {
+    "interval": 3,
+    "format": "󰍛 {used:0.1f}GiB/{total:0.1f}GiB({percentage}%)",
+  },
+
+  "disk": {
+    "path": "/",
+    "interval": 15,
+    "format": "💽 {used}/{total}({percentage_used}%)",
+  },
+
+  "temperature": {
+    "interval": 3,
+    "format": "🌡️ {temperatureC}°C",
+  },
+}
