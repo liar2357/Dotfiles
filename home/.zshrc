@@ -31,6 +31,8 @@ alias packet='flatpak run io.github.nozwock.Packet'
 alias chteame='./.config/hypr/scripts/chteame.sh'
 alias onlyoffice='GDK_BACKEND=x11 onlyoffice-desktopeditors'
 alias lg='lazygit'
+alias vivaldi='flatpak run com.vivaldi.Vivaldi'
+alias discord='flatpak run com.discordapp.Discord'
 
 function touch-p() {
   mkdir -p $(dirname "$1") && touch "$1"
