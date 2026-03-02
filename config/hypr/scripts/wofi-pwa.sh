@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # PWA の .desktop ファイル一覧
-desktop_files=$(grep -l -- '--app-id=' ~/.local/share/applications/vivaldi-*.desktop)
+desktop_files=$(grep -l -- '--app-id=' ~/.local/share/applications/com.vivaldi.Vivaldi.flextop.vivaldi-*.desktop)
 
 # 表示する行を作る
 # Name= を抜き出してラベルにする
