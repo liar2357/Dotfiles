@@ -10,20 +10,8 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       inputs.nix-hazkey.nixosModules.hazkey
-      inputs.agenix.nixosModules.default
     ];
 
-  age.identityPaths = [
-    "/home/raia/.ssh/id_ed25519"
-  ];
-
-  age.secrets.wgServerPubkey = {
-    file = ../secrets/wg-server-pubkey.age;
-  };
-
-  age.secrets.wgEndpoint = {
-    file = ../secrets/wg-endpoint.age;
-  };
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -43,13 +31,19 @@
 
       peers = [
         {
-          publicKey = config.age.secrets.wgServerPubkey.path;
-	  endpoint = config.age.secrets.wgEndpoint.path;
+          publicKey = "WJYhu8XPiAXMqeUV0Mu+js/UElxwQ25mQmOdW5vrXQQ=";
+	  endpoint = "60.93.169.133:51820";
 	  allowedIPs = [ "192.168.3.0/24" "10.0.0.0/24" ];
 	  persistentKeepalive = 25;
 	}
       ];
     };
+  };
+
+  networking.firewall = {
+    enable = true;
+    allowedUDPPorts = [ 51820 ];
+    checkReversePath = "loose";
   };
 
 
@@ -119,7 +113,6 @@
     git
     gcc
     go
-    inputs.agenix.packages.x86_64-linux.default
   ];
 
   #fonts
