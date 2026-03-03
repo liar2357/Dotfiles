@@ -5,10 +5,25 @@
 { config, lib, pkgs, inputs, ... }:
 
 {
+  
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      inputs.nix-hazkey.nixosModules.hazkey
+      inputs.agenix.nixosModules.default
     ];
+
+  age.identityPaths = [
+    "/home/raia/.ssh/id_ed25519"
+  ];
+
+  age.secrets.wgServerPubkey = {
+    file = ../secrets/wg-server-pubkey.age;
+  };
+
+  age.secrets.wgEndpoint = {
+    file = ../secrets/wg-endpoint.age;
+  };
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -18,7 +33,25 @@
 
   # Configure network connections interactively with nmcli or nmtui.
   networking.networkmanager.enable = true;
+
+  #Wiregurd
   networking.wireguard.enable = true;
+  networking.wireguard.interfaces = {
+    wg0 = {
+      ips = ["10.0.0.5/32"];
+      privateKeyFile = "/etc/wireguard/client.key";
+
+      peers = [
+        {
+          publicKey = config.age.secrets.wgServerPubkey.path;
+	  endpoint = config.age.secrets.wgEndpoint.path;
+	  allowedIPs = [ "192.168.3.0/24" "10.0.0.0/24" ];
+	  persistentKeepalive = 25;
+	}
+      ];
+    };
+  };
+
 
   # Set your time zone.
   time.timeZone = "Asia/Tokyo";
@@ -84,7 +117,9 @@
     neovim
     zsh
     git
-    home-manager
+    gcc
+    go
+    inputs.agenix.packages.x86_64-linux.default
   ];
 
   #fonts
@@ -93,6 +128,10 @@
     noto-fonts-cjk-sans
     noto-fonts-color-emoji
   ];
+
+  #environment variables
+  environment.sessionVariables = {
+  };
 
   #BT
   services.blueman.enable = true;
@@ -111,6 +150,8 @@
       kdePackages.fcitx5-qt
     ];
   };
+
+  services.hazkey.enable = true;
 
   #tumbnail
   services.tumbler.enable = true;
@@ -135,7 +176,7 @@
   };
 
   environment.etc = {
-    "zsh-custom/themes/self.zsh-theme".source = "${inputs.dotfiles}/others/self.zsh-theme";
+    "zsh-custom/themes/self.zsh-theme".source = "${inputs.self}/others/self.zsh-theme";
   };
 
   users.defaultUserShell = pkgs.zsh;
@@ -187,7 +228,7 @@
   #user
   users.users.raia = {
     isNormalUser = true;
-    description = "Raia";
+    description = "raia";
     extraGroups = [ "wheel" "networkmanager" "video" "audio" ];
   };
 
