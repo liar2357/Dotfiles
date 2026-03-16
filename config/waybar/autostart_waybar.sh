@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+pgrep -f autostart_waybar.sh | grep -v $$ >/dev/null && exit
+
 HOSTNAME=$(hostnamectl --static)
 
 CONFIG_TOP="$HOME/.config/waybar/conf/top_$HOSTNAME.jsonc"
@@ -14,10 +16,16 @@ notify() {
 }
 
 kill_waybar() {
-	pkill -x waybar
+
+	[ -n "$WAYBAR_TOP_PID" ] && kill "$WAYBAR_TOP_PID" 2>/dev/null
+	[ -n "$WAYBAR_BOTTOM_PID" ] && kill "$WAYBAR_BOTTOM_PID" 2>/dev/null
+
+	wait "$WAYBAR_TOP_PID" 2>/dev/null
+	wait "$WAYBAR_BOTTOM_PID" 2>/dev/null
 }
 
 start_waybars() {
+
 	waybar -c "$CONFIG_TOP" -s "$STYLE" &
 	WAYBAR_TOP_PID=$!
 
@@ -32,11 +40,14 @@ reload_waybars() {
 }
 
 watch_configs() {
-	inotifywait -m -r -e modify,close_write,create,delete,move "$WATCH_DIR" |
-		while read -r; do
+	inotifywait -m -r -e close_write,create,delete,move "$WATCH_DIR" |
+		while read -r path event file; do
 			reload_waybars
+
+			# debounce
+			timeout 1 cat >/dev/null
 		done
-}
+	}
 
 start_waybars
 notify "Started"
