@@ -2,9 +2,9 @@
   "layer": "top",
   "position": "top",
 
-  "modules-left": ["custom/power", "cpu", "memory", "disk"],
+  "modules-left": ["custom/power" ],
   "modules-center": ["custom/clock"],
-  "modules-right": ["temperature", "network", "battery#1", "battery#2"],
+  "modules-right": ["battery"],
 
   "network": {
     "format-wifi": "  {essid}({signalStrength}%) ↓{bandwidthDownBits} ↑{bandwidthUpBits}",
@@ -15,25 +15,7 @@
     "interval": 3,
   },
 
-  "battery#1": {
-    "bat": "BAT0",
-    "interval": 5,
-    "states": {
-      "warning": 30,
-      "critical": 10,
-    },
-
-    // 残量に応じたアイコン配列
-    "format-icons": [" ", " ", " ", " ", " "],
-
-    // 普通（放電中）の表示: アイコン + % 表示
-    "format": "{icon} {capacity}%",
-
-    // 充電中（Charging）
-    "format-charging": "⚡{icon} {capacity}%",
-  },
-
-  "battery#2": {
+  "battery": {
     "bat": "BATT",
     "interval": 5,
     "states": {
