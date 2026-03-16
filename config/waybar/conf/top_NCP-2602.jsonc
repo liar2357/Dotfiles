@@ -2,7 +2,7 @@
   "layer": "top",
   "position": "top",
 
-  "modules-left": ["custom/power" ],
+  "modules-left": ["custom/power"],
   "modules-center": ["custom/clock"],
   "modules-right": ["battery"],
 

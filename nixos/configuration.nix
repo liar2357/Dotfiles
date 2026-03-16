@@ -90,6 +90,7 @@
 
   #Waybar/base tools
   environment.systemPackages = with pkgs; [
+    # system packages
     waybar
     kitty
     fuzzel
@@ -111,10 +112,38 @@
     neovim
     zsh
     git
-    gcc
-    go
     cifs-utils
     inotify-tools
+    
+    # runtime
+    python3
+    gcc
+    go
+    gnumake
+
+    # LSP
+    typescript-language-server
+    clang-tools
+    vscode-langservers-extracted
+    pyright
+    bash-language-server
+    phpactor
+    solargraph
+    sqls
+    jdt-language-server
+
+    # formatter
+    nodePackages.prettier
+    clang-tools
+    csharpier
+    google-java-format
+    phpPackages.php-cs-fixer
+    rubyPackages.rubocop
+    black
+    shfmt
+    sqruff
+    nodePackages.sql-formatter
+       
   ];
 
   #fonts
