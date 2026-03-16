@@ -113,14 +113,44 @@
     git
     gcc
     go
+    cifs-utils
+    inotify-tools
   ];
 
   #fonts
-  fonts.packages = with pkgs; [
-    noto-fonts
-    noto-fonts-cjk-sans
-    noto-fonts-color-emoji
-  ];
+  fonts = {
+    packages = with pkgs; [
+      noto-fonts
+      noto-fonts-cjk-sans
+      noto-fonts-cjk-serif
+      noto-fonts-color-emoji
+    ];
+
+    fontconfig = {
+      defaultFonts = {
+        sansSerif = [
+          "Noto Sans"
+          "Noto Sans CJK JP"
+        ];
+
+        serif = [
+          "Noto Serif"
+          "Noto Serif CJK JP"
+        ];
+
+        monospace = [
+          "JetBrains Mono"
+          "Noto Sans Mono CJK JP"
+        ];
+
+        emoji = [
+          "Noto Color Emoji"
+        ];
+      };
+
+      allowBitmaps = false;
+    };
+  };
 
   #environment variables
   environment.sessionVariables = {
@@ -146,7 +176,9 @@
 
   services.hazkey.enable = true;
 
-  #tumbnail
+  #thunar
+  programs.thunar.enable = true;
+  programs.xfconf.enable = true;
   services.tumbler.enable = true;
   services.gvfs.enable = true;
 
@@ -231,6 +263,22 @@
 
   #ssh
   programs.ssh.startAgent = true;
+
+  #samba
+  fileSystems."/mnt/HDD1Share" = {
+    device = "//192.168.3.100/HDD1Share";
+    fsType = "cifs";
+    options = let
+      automount_opts = "x-systemd.automount,x-systemd.require=network-online,x-systemd.idle-timeout=10,x-systemd.device-timeout=5,x-systemd.mount-timeout=30";
+    in [
+      # automount + credentials
+      "${automount_opts},credentials=/etc/samba/credentials_HDD1Share,uid=1000,gid=1000,rw"
+      "nofail"
+    ];
+  };
+
+
+ 
 
 }
 
