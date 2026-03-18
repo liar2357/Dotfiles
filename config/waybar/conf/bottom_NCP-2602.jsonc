@@ -120,6 +120,6 @@
 
   "custom/kill": {
     "format": "❌",
-    "on-click": "$HOME/.config/hypr/scripts/kill.sh",
+    "on-click": "$HOME/.config/waybar//scripts/kill-btn.sh",
   },
 }
