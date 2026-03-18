@@ -2,7 +2,7 @@
   "layer": "top",
   "position": "top",
 
-  "modules-left": ["custom/power", "bluetooth", "pulseaudio", "tray"],
+  "modules-left": ["group/system-info"],
   "modules-center": ["custom/clock"],
   "modules-right": ["hyprland/window", "battery"],
 
@@ -31,25 +31,46 @@
     "tooltip": false,
   },
 
-  // --- 電源メニュー ---
-  "custom/power": {
-    "format": "⏻",
-    "tooltip-format": "Power",
-    "on-click": "wlogout",
+  "group/system-info": {
+    // stacked vertically if bar is top/bottom
+    "orientation": "horizontal",
+    "modules": ["cpu", "memory", "disk", "temperature", "network"],
+
+    // optional: drawer を使って hover で展開
+    "drawer": {
+      "transition-duration": 150,
+      "children-class": "hidden",
+      "click-to-reveal": true,
+    },
   },
 
-  // --- オーディオ (PipeWire 対応) ---
-  "pulseaudio": {
-    "format": " {volume}%",
-    "on-click": "pavucontrol",
+  // individual module configs...
+  "cpu": {
+    "interval": 3,
+    "format": "󰻠 {usage}%:{avg_frequency}GHz",
   },
 
-  "bluetooth": {
-    "format-on": " {controller_alias}",
-    "format-off": "󰂲",
-    "format-connected-battery": " {device_alias} ({device_battery_percentage}%)",
-    "tooltip-format-connected-battery": "{device_alias} ({device_battery_percentage}%)\n{controller_alias}",
-    "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_battery_percentage}%",
-    "on-click": "blueman-manager",
+  "memory": {
+    "interval": 3,
+    "format": "󰍛 {percentage}%",
+  },
+
+  "disk": {
+    "path": "/",
+    "interval": 15,
+    "format": "💽 {percentage_used}%",
+  },
+
+  "temperature": {
+    "interval": 3,
+    "format": "🌡️ {temperatureC}°C",
+  },
+
+  "network": {
+    "format-wifi": " {signalStrength}% ↓{bandwidthDownBits} ↑{bandwidthUpBits}",
+    "format-ethernet": "󰈀 ↓{bandwidthDownBits}↑{bandwidthUpBits}",
+    "format-disconnected": "  Disconnected",
+    "tooltip-format": "{ifname}({essid}): {ipaddr}/{cidr}",
+    "interval": 3,
   },
 }
