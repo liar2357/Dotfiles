@@ -6,6 +6,18 @@
 
   # ← 必ず書く
   home.stateVersion = "25.05";
+
+  #mouse cursor
+  home.pointerCursor = {
+    gtk.enable = true;
+    x11.enable = true;
+
+    package = pkgs.bibata-cursors;
+    name = "Bibata-Modern-Ice";
+    size = 24;
+  };
+
+
   
   # --- ~/.config 配下 ---
 
@@ -80,6 +92,5 @@
     source = config.lib.file.mkOutOfStoreSymlink "${inputs.self}/home/zsh";
     recursive = true;
   };
-
 
 }
