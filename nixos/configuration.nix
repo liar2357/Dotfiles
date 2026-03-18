@@ -243,8 +243,9 @@
     vimAlias = true;
   };
 
-  #XDG autostart
+  #XDG 
   services.xserver.desktopManager.runXdgAutostartIfNone = true;
+  xdg.portal.enable = true;
 
   #GDM
   services.xserver.enable = true;
@@ -304,6 +305,7 @@
       "${automount_opts},credentials=/etc/samba/credentials_HDD1Share,uid=1000,gid=1000,rw"
       "nofail"
     ];
+
   };
 
 
