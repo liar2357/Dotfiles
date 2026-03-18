@@ -2,9 +2,14 @@
   "layer": "top",
   "position": "bottom",
 
-  "modules-left": ["custom/luancher"],
+  "modules-left": [
+    "custom/power",
+    "custom/luancher",
+    "custom/kill",
+    "custom/rotate",
+  ],
   "modules-center": ["custom/ws-prev", "hyprland/workspaces", "custom/ws-next"],
-  "modules-right": ["custom/transition", "custom/notify-count"],
+  "modules-right": ["bluetooth", "pulseaudio", "tray", "custom/notify"],
 
   // --- ワークスペース/ウィンドウ (Hyprland) ---
   "hyprland/workspaces": {
@@ -67,7 +72,29 @@
     "format": "{}",
   },
 
-  "custom/notify-count": {
+  // --- オーディオ (PipeWire 対応) ---
+  "pulseaudio": {
+    "format": " {volume}%",
+    "on-click": "pavucontrol",
+  },
+
+  "bluetooth": {
+    "format-on": " {controller_alias}",
+    "format-off": "󰂲",
+    "format-connected-battery": " {device_alias} ({device_battery_percentage}%)",
+    "tooltip-format-connected-battery": "{device_alias} ({device_battery_percentage}%)\n{controller_alias}",
+    "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_battery_percentage}%",
+    "on-click": "blueman-manager",
+  },
+
+  // --- 電源メニュー ---
+  "custom/power": {
+    "format": "⏻",
+    "tooltip-format": "Power",
+    "on-click": "wlogout",
+  },
+
+  "custom/notify": {
     "format": "",
     "on-click": "kitty --title 'NotifyCenter' -e ~/.config/waybar/scripts/notify-center.sh",
   },
@@ -83,11 +110,16 @@
 
   "custom/luancher": {
     "format": "🔎",
-    "on-click": "fuzzel",
+    "on-click": "fuzzel --keyboard-focus=on-demand --no-exit-on-keyboard-focus-loss",
   },
 
-  "custom/transition": {
+  "custom/rotate": {
     "format": "🔄",
-    "on-click": "echo 'TODO!'",
+    "on-click": "$HOME/.config/waybar/scripts/toggle-rotate.sh",
+  },
+
+  "custom/kill": {
+    "format": "❌",
+    "on-click": "$HOME/.config/hypr/scripts/kill.sh",
   },
 }
