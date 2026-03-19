@@ -153,7 +153,9 @@
     inotify-tools
     ffmpeg-full
     unzip
-    
+    remmina
+    freerdp
+
     # runtime
     python3
     gcc
