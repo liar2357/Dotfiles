@@ -90,7 +90,7 @@
 
   #Waybar/base tools
   environment.systemPackages = with pkgs; [
-    # system packages
+    # base packages
     waybar
     kitty
     fuzzel
@@ -114,6 +114,7 @@
     git
     cifs-utils
     inotify-tools
+    ffmpeg-full
     
     # runtime
     python3

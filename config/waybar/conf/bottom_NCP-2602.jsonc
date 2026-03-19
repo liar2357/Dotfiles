@@ -75,7 +75,8 @@
   // --- オーディオ (PipeWire 対応) ---
   "pulseaudio": {
     "format": " {volume}%",
-    "on-click": "pavucontrol",
+    "format-muted": " muted",
+    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
   },
 
   "bluetooth": {

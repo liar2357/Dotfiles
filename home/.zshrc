@@ -26,6 +26,10 @@ alias discord='flatpak run com.discordapp.Discord'
 function touch-p() {
   mkdir -p $(dirname "$1") && touch "$1"
 }
+
+vclip() {
+  ffmpeg -ss "$1" -to "$2" -i "$3" -c copy "cut_$3"
+}
 # ------------------------------------------------
 # 履歴 (history) 設定
 HISTFILE=~/.zsh_history
