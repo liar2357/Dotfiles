@@ -24,20 +24,57 @@
 
   #Wiregurd
   networking.wireguard.enable = true;
-  networking.wireguard.interfaces = {
-    wg0 = {
-      ips = ["10.0.0.5/32"];
-      privateKeyFile = "/etc/wireguard/client.key";
+  networking.wg-quick.interfaces.wg0 = {
+    autostart = false;
+    address = [ "10.0.0.5/32" ];
+    privateKeyFile = "/etc/wireguard/client.key";
+ 
+    peers = [
+      {
+        publicKey = "WJYhu8XPiAXMqeUV0Mu+js/UElxwQ25mQmOdW5vrXQQ=";
+        endpoint = "60.93.169.133:51820";
+        allowedIPs = [ "192.168.3.0/24" "10.0.0.0/24" ];
+        persistentKeepalive = 25;
+      }
+    ];
+  };
 
-      peers = [
-        {
-          publicKey = "WJYhu8XPiAXMqeUV0Mu+js/UElxwQ25mQmOdW5vrXQQ=";
-	  endpoint = "60.93.169.133:51820";
-	  allowedIPs = [ "192.168.3.0/24" "10.0.0.0/24" ];
-	  persistentKeepalive = 25;
-	}
-      ];
-    };
+  systemd.services.wg-autostart-control = {
+    description = "WireGuard conditional start";
+
+    wantedBy = [ "multi-user.target" ];
+
+    after = [
+      "network-online.target"
+      "NetworkManager-wait-online.service"
+    ];
+
+    wants = [
+      "network-online.target"
+      "NetworkManager-wait-online.service"
+    ];
+
+    serviceConfig.Type = "oneshot";
+
+    script = ''
+      # ネットワーク確立待ち
+      for i in $(seq 1 10); do
+        if ${pkgs.iproute2}/bin/ip route | grep -q default; then
+          break
+        fi
+        sleep 1
+      done
+
+      # LAN判定
+      for i in $(seq 1 5); do
+        if ${pkgs.iputils}/bin/ping -c1 -W1 192.168.3.100 > /dev/null; then
+          exit 0
+        fi
+        sleep 1
+      done
+
+      systemctl start wg-quick-wg0
+    '';
   };
 
   networking.firewall = {
@@ -115,6 +152,7 @@
     cifs-utils
     inotify-tools
     ffmpeg-full
+    unzip
     
     # runtime
     python3
@@ -308,9 +346,6 @@
     ];
 
   };
-
-
  
-
 }
 
