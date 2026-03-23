@@ -1,9 +1,9 @@
 export ARROW_RIGHT=""
 export ARROW_LEFT=""
 
-export HEAD_C='#8080ff'
+export HEAD_C='#0000ff'
 export BODY_C1='#ffff80'
-export BODY_C2='#a0a080'
+export BODY_C2='#808040'
 
 export SUCCESS_C='#208020'
 export FAILED_C='#ff0000'

@@ -268,14 +268,14 @@
       enable = true;
 
       plugins = [ "git" "docker" "z" ];
-      theme = "self";
+      theme = "zsh-theme/NCP-2602";
       custom = "/etc/zsh-custom";
     };
 
   };
 
   environment.etc = {
-    "zsh-custom/themes/self.zsh-theme".source = "${inputs.self}/others/self.zsh-theme";
+    "zsh-custom/themes/zsh-theme".source = "${inputs.self}/others/zsh-theme";
   };
 
   users.defaultUserShell = pkgs.zsh;
