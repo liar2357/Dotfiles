@@ -1,5 +1,5 @@
-export ARROW_RIGHT=$'\ue0b0'
-export ARROW_LEFT=$'\ue0b2'
+export ARROW_RIGHT=""
+export ARROW_LEFT=""
 
 export HEAD_C='#80ff80'
 export BODY_C1='#8080ff'
