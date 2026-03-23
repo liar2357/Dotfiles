@@ -1,12 +1,12 @@
-export ARROW_RIGHT=$'\ue0b0'
-export ARROW_LEFT=$'\ue0b2'
+export ARROW_RIGHT=""
+export ARROW_LEFT=""
 
-export HEAD_C='#80ff80'
-export BODY_C1='#8080ff'
-export BODY_C2='#80ffff'
+export HEAD_C='#ff80ff'
+export BODY_C1='#ff0060'
+export BODY_C2='#ffa0c0'
 
-export SUCCESS_C='#40cc40'
-export FAILED_C='#cc4040'
+export SUCCESS_C='#20dd20'
+export FAILED_C='#000000'
 
 PROMPT_SYMS=('( - ω -)つ' '(_ ˙꒳˙)_' '(∩ ˇ ω ˇ ∩)' '(^o^)' '(ﾉ･ω ･)ﾉ' '(ง˘ω ˘)ว' '(；´Д｀)' '(=^･ω･^=)' '(▼･ω･▼)' 'c(U*･× ･)U' '(♡ > ω < ♡)' '(*ˊᗜ ˋ)ﾉﾞ')
 

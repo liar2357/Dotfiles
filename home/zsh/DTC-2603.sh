@@ -1,6 +1,7 @@
+echo "luanch zsh"
 # Oh My Zsh base
 export ZSH="$HOME/.oh-my-zsh"
-ZSH_THEME="zsh-theme/$(hostname)"  
+ZSH_THEME="self"  # / 好みに応じて “robbyrussell” など
 plugins=(
   git
   docker             # Docker 使うなら便利
@@ -9,9 +10,8 @@ plugins=(
   z                   # ディレクトリ移動を賢く
   # さらに必要なら node, kubectl, rust, cargo_plugins など
 )
-
 source $ZSH/oh-my-zsh.sh
 
-export VISUAL=$(where nvim)
-export EDITOR=$(where nvim)
-export SUDO_EDITOR=$(where nvim)
+export LANG=ja_JP.UTF-8
+export LC_ALL=ja_JP.UTF-8
+export LC_CTYPE=ja_JP.UTF-8
