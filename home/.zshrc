@@ -1,6 +1,6 @@
 export COLORTERM=truecolor
 
-HOSTNAME=$(hostnamectl --static)
+HOSTNAME=$(hostname)
 source ~/zsh/$HOSTNAME.sh 
 
 # ------------------------------------------------
