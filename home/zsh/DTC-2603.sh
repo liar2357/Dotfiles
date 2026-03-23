@@ -12,3 +12,6 @@ plugins=(
 )
 source $ZSH/oh-my-zsh.sh
 
+export LANG=ja_JP.UTF-8
+export LC_ALL=ja_JP.UTF-8
+export LC_CTYPE=ja_JP.UTF-8
