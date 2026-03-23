@@ -125,6 +125,7 @@
   fileSystems."/".options = [ "compress=zstd" "noatime" ];
 
 
+
   #Waybar/base tools
   environment.systemPackages = with pkgs; [
     # base packages
@@ -153,8 +154,7 @@
     inotify-tools
     ffmpeg-full
     unzip
-    remmina
-    freerdp
+    input-remapper 
 
     # runtime
     python3
@@ -225,6 +225,10 @@
   #environment variables
   environment.sessionVariables = {
   };
+
+  #input-remapper
+  hardware.uinput.enable = true;
+  services.udev.packages = [ pkgs.input-remapper ];
 
   #BT
   services.blueman.enable = true;
