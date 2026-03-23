@@ -1,7 +1,7 @@
 echo "luanch zsh"
 # Oh My Zsh base
 export ZSH="$HOME/.oh-my-zsh"
-ZSH_THEME="self"  # / 好みに応じて “robbyrussell” など
+ZSH_THEME="zsh-theme/$(hostname)"  # / 好みに応じて “robbyrussell” など
 plugins=(
   git
   docker             # Docker 使うなら便利
