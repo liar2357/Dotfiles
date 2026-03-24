@@ -155,6 +155,7 @@
     ffmpeg-full
     unzip
     input-remapper 
+    waypipe
 
     # runtime
     python3
