@@ -2,10 +2,10 @@ echo "luanch zsh"
 # Oh My Zsh base
 export ZSH="$HOME/.oh-my-zsh"
 
-ZSH_THEME="zsh-theme/$(hostname)"  # / 好みに応じて “robbyrussell” など
-
-if [[ "$ZSH_THEME_FLAG" == "subshell" ]]; then
+if (( ZSH_SUBSHELL_LEVEL > 0 )); then
   ZSH_THEME="zsh-theme/subshell"
+else
+  ZSH_THEME="zsh-theme/$(hostname)"  
 fi
 
 plugins=(
