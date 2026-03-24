@@ -1,3 +1,4 @@
+export ZSH_THEME_FLAG="${ZSH_THEME_FLAG:-default}"
 export COLORTERM=truecolor
 
 HOSTNAME=$(hostname)
