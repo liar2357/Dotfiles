@@ -17,4 +17,5 @@ export VISUAL="/usr/local/bin/nvim"
 export EDITOR="/usr/local/bin/nvim"
 export SUDO_EDITOR="/usr/local/bin/nvim"
 
+if [ -e /home/raia/.nix-profile/etc/profile.d/nix.sh ]; then . /home/raia/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
 eval "$(direnv hook zsh)"
