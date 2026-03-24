@@ -1,4 +1,12 @@
 echo "luanch zsh"
+
+if [[ -z "$ZSH_FIRST_SHELL" ]]; then
+	export ZSH_FIRST_SHELL=1
+	export ZSH_SUBSHELL_LEVEL=0
+else
+	export ZSH_SUBSHELL_LEVEL=$((ZSH_SUBSHELL_LEVEL + 1))
+fi
+
 # Oh My Zsh base
 export ZSH="$HOME/.oh-my-zsh"
 

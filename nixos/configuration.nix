@@ -2,16 +2,21 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, inputs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
 
 {
-  
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      inputs.nix-hazkey.nixosModules.hazkey
-    ];
 
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    inputs.nix-hazkey.nixosModules.hazkey
+  ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -28,12 +33,15 @@
     autostart = false;
     address = [ "10.0.0.5/32" ];
     privateKeyFile = "/etc/wireguard/client.key";
- 
+
     peers = [
       {
         publicKey = "WJYhu8XPiAXMqeUV0Mu+js/UElxwQ25mQmOdW5vrXQQ=";
         endpoint = "60.93.169.133:51820";
-        allowedIPs = [ "192.168.3.0/24" "10.0.0.0/24" ];
+        allowedIPs = [
+          "192.168.3.0/24"
+          "10.0.0.0/24"
+        ];
         persistentKeepalive = 25;
       }
     ];
@@ -83,7 +91,6 @@
     checkReversePath = "loose";
   };
 
-
   # Set your time zone.
   time.timeZone = "Asia/Tokyo";
 
@@ -116,15 +123,19 @@
   system.stateVersion = "25.11"; # Did you read the comment?
 
   #flake
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   #boot
   boot.loader.efi.efiSysMountPoint = "/boot";
 
   #btrfs
-  fileSystems."/".options = [ "compress=zstd" "noatime" ];
-
-
+  fileSystems."/".options = [
+    "compress=zstd"
+    "noatime"
+  ];
 
   #Waybar/base tools
   environment.systemPackages = with pkgs; [
@@ -154,7 +165,7 @@
     inotify-tools
     ffmpeg-full
     unzip
-    input-remapper 
+    input-remapper
     waypipe
 
     # runtime
@@ -164,28 +175,28 @@
     gnumake
 
     # LSP
-    typescript-language-server
-    clang-tools
-    vscode-langservers-extracted
-    pyright
-    bash-language-server
-    phpactor
-    solargraph
-    sqls
-    jdt-language-server
+    typescript-language-server # TS/JS
+    clang-tools # C/C++ (LSP+Formatter)
+    vscode-langservers-extracted # HTML/CSS/JSON/ESLint
+    pyright # Python
+    bash-language-server # Shell
+    phpactor # PHP
+    solargraph # ruby
+    sqls # SQL
+    jdt-language-server # Java
+    nixd # Nix
 
     # formatter
-    nodePackages.prettier
-    clang-tools
-    csharpier
-    google-java-format
-    phpPackages.php-cs-fixer
-    rubyPackages.rubocop
-    black
-    shfmt
-    sqruff
-    nodePackages.sql-formatter
-       
+    nodePackages.prettier # TS/JS/HTML/CSS/JSON
+    csharpier # C_Sharp
+    google-java-format # Java
+    phpPackages.php-cs-fixer # PHP
+    rubyPackages.rubocop # Ruby
+    black # Python
+    shfmt # Shell
+    sqruff # SQL
+    nixfmt # Nix
+
   ];
 
   #fonts
@@ -268,9 +279,28 @@
     ohMyZsh = {
       enable = true;
 
-      plugins = [ "git" "docker" "z" ];
+      plugins = [
+        "git"
+        "docker"
+        "z"
+      ];
       theme = "zsh-theme/NCP-2602";
       custom = "/etc/zsh-custom";
+
+      preLoaded = ''
+        if [[ -z "$ZSH_FIRST_SHELL" ]]; then
+           export ZSH_FIRST_SHELL=1
+           export ZSH_SUBSHELL_LEVEL=0
+        else
+           export ZSH_SUBSHELL_LEVEL=$((ZSH_SUBSHELL_LEVEL + 1))
+        fi
+
+        if (( ZSH_SUBSHELL_LEVEL > 0 )); then
+          ZSH_THEME="zsh-theme/subshell"
+        else
+          ZSH_THEME="zsh-theme/NCP-2602"
+        fi
+      '';
     };
 
   };
@@ -289,7 +319,14 @@
     vimAlias = true;
   };
 
-  #XDG 
+  #Waydroid
+  virtualisation.waydroid = {
+    enable = true;
+    package = pkgs.waydroid-nftables;
+  };
+  networking.nftables.enable = true;
+
+  #XDG
   services.xserver.desktopManager.runXdgAutostartIfNone = true;
   xdg.portal.enable = true;
 
@@ -330,7 +367,12 @@
   users.users.raia = {
     isNormalUser = true;
     description = "raia";
-    extraGroups = [ "wheel" "networkmanager" "video" "audio" ];
+    extraGroups = [
+      "wheel"
+      "networkmanager"
+      "video"
+      "audio"
+    ];
   };
 
   #sudo
@@ -344,15 +386,16 @@
   fileSystems."/mnt/HDD1Share" = {
     device = "//192.168.3.100/HDD1Share";
     fsType = "cifs";
-    options = let
-      automount_opts = "x-systemd.automount,x-systemd.require=network-online,x-systemd.idle-timeout=10,x-systemd.device-timeout=5,x-systemd.mount-timeout=30";
-    in [
-      # automount + credentials
-      "${automount_opts},credentials=/etc/samba/credentials_HDD1Share,uid=1000,gid=1000,rw"
-      "nofail"
-    ];
+    options =
+      let
+        automount_opts = "x-systemd.automount,x-systemd.require=network-online,x-systemd.idle-timeout=10,x-systemd.device-timeout=5,x-systemd.mount-timeout=30";
+      in
+      [
+        # automount + credentials
+        "${automount_opts},credentials=/etc/samba/credentials_HDD1Share,uid=1000,gid=1000,rw"
+        "nofail"
+      ];
 
   };
- 
-}
 
+}

@@ -59,5 +59,21 @@ return {
     vim.lsp.config.sqls = {}
     vim.lsp.enable({ "sqls" })
 
+    vim.lsp.config.nixd = {
+      cmd = { "nixd" },
+      filetypes = { "nix" },
+      settings = {
+        nixd = {
+          nixpkgs = {
+           expr = "import <nixpkgs> { }",
+          },
+          formatting = {
+            command = { "nixfmt" },
+          },
+         },
+      },
+    }
+     vim.lsp.enable({ "nixd" })
+
   end,
 }
