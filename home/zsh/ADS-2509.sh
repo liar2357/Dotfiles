@@ -16,3 +16,5 @@ export TERM=xterm-256color
 export VISUAL="/usr/local/bin/nvim"
 export EDITOR="/usr/local/bin/nvim"
 export SUDO_EDITOR="/usr/local/bin/nvim"
+
+eval "$(direnv hook zsh)"

@@ -23,6 +23,7 @@ alias lg='lazygit'
 alias vivaldi='flatpak run com.vivaldi.Vivaldi'
 alias discord='flatpak run com.discordapp.Discord'
 alias wssh='waypipe ssh -Y'
+alias nd='nix develop -c $SHELL'
 
 function touch-p() {
   mkdir -p $(dirname "$1") && touch "$1"
@@ -66,3 +67,5 @@ export PATH="$HOME/.cargo/bin:/home/raia/.local/bin:$PATH"
 export NVM_DIR="$HOME/.config/nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+if [ -e /home/raia/.nix-profile/etc/profile.d/nix.sh ]; then . /home/raia/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
