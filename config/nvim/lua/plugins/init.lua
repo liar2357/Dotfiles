@@ -1,6 +1,5 @@
 -- lua/plugins/init.lua
 return {
-
   require("plugins.conform"),
   require("plugins.noice"),
   require("plugins.dashboard"),
@@ -39,7 +38,6 @@ return {
   require("plugins.lsp_signature"),
   require("plugins.trouble"),
   require("plugins.translator"),
-  require("plugins.none_ls"),
   require("plugins.lspconfig"),
   require("plugins.cmp"),
   require("plugins.submode"),
