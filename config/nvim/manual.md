@@ -164,5 +164,3 @@ html, cssls, jdtls, phpactor, solargraph
 
 ---
 
-必要ならこれを **Markdown/PDF 形式のマニュアルファイル**として生成もできます。
-どの形式がいい？（例：`README_Keymap.md` / `keymap_manual.pdf`）
