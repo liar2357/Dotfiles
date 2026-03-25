@@ -143,6 +143,8 @@
     waybar
     kitty
     fuzzel
+    wofi
+    rofi
     mako
     wlogout
     wl-clipboard
