@@ -3,7 +3,6 @@ return {
   event = { "BufReadPre", "BufNewFile" },
   config = function()
     local conform = require("conform")
-
     conform.setup({
       -- ファイルタイプ → フォーマッタ名
       formatters_by_ft = {
@@ -42,20 +41,33 @@ return {
 
         -- Bash
         sh = { "shfmt" },
-        
+
         -- SQl
-        sql = { "sqruff", "sql-formatter" },
+        sql = { "sqruff" },
+
+        -- Nix
+        nix = { "nixfmt" },
+
+        -- lua
+        lua = { "stylua" },
       },
 
       -- フォーマッタの詳細定義
       formatters = {
-        rustfmt = {
-          command = "rustfmt",
+        stylua = {
+          command = "stylua",
+          args = {
+            "--indent-type",
+            "Spaces",
+            "--indent-width",
+            "2",
+            "-",
+          },
           stdin = true,
         },
       },
 
-      format_on_save = false,
+      format_on_save = true,
     })
   end,
 }

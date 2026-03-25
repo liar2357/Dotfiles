@@ -2,7 +2,6 @@ return {
   "neovim/nvim-lspconfig",
   lazy = false,
   config = function()
-
     -- 共通 keybind
     vim.api.nvim_create_autocmd("LspAttach", {
       callback = function(args)
@@ -13,14 +12,19 @@ return {
       end,
     })
 
-    -- Rust Analyzer native config
+    -- Rust
     vim.lsp.config.rust_analyzer = {
-      cmd = { "rust-analyzer" },
-      filetypes = { "rust" },
-      root_markers = { "Cargo.toml", "rust-project.json", ".git" },
       settings = {
         ["rust-analyzer"] = {
-          rustfmt = { enable = true },
+          cargo = {
+            allFeatures = true,
+          },
+          checkOnSave = {
+            command = "clippy",
+          },
+          procMacro = {
+            enable = true,
+          },
         },
       },
     }
@@ -65,15 +69,37 @@ return {
       settings = {
         nixd = {
           nixpkgs = {
-           expr = "import <nixpkgs> { }",
+            expr = "import <nixpkgs> { }",
           },
           formatting = {
             command = { "nixfmt" },
           },
-         },
+        },
       },
     }
-     vim.lsp.enable({ "nixd" })
+    vim.lsp.enable({ "nixd" })
 
+    vim.lsp.config.lua_ls = {
+      settings = {
+        Lua = {
+          runtime = {
+            version = "LuaJIT", -- Neovim用
+          },
+          diagnostics = {
+            globals = { "vim" }, -- これ重要
+          },
+          workspace = {
+            library = vim.api.nvim_get_runtime_file("", true),
+          },
+          telemetry = {
+            enable = false,
+          },
+          format = {
+            enable = false,
+          },
+        },
+      },
+    }
+    vim.lsp.enable({ "lua_ls" })
   end,
 }

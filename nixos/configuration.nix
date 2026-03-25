@@ -185,6 +185,7 @@
     sqls # SQL
     jdt-language-server # Java
     nixd # Nix
+    lua-language-server # Lua
 
     # formatter
     nodePackages.prettier # TS/JS/HTML/CSS/JSON
@@ -196,6 +197,7 @@
     shfmt # Shell
     sqruff # SQL
     nixfmt # Nix
+    stylua # Lua
 
   ];
 
