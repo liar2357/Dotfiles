@@ -152,8 +152,8 @@
     gnome-shell
     hyprshot
     hyprpaper
-    xfce.thunar
-    xfce.tumbler
+    thunar
+    tumbler
     ffmpegthumbnailer
     wireguard-tools
     gh
@@ -332,7 +332,7 @@
 
   #GDM
   services.xserver.enable = true;
-  services.xserver.displayManager.gdm = {
+  services.displayManager.gdm = {
     enable = true;
     wayland = true;
     autoSuspend = false;
@@ -342,8 +342,8 @@
       };
     };
   };
-  services.xserver.desktopManager.gnome.enable = false;
-  services.xserver.displayManager.sessionPackages = [
+  services.desktopManager.gnome.enable = false;
+  services.displayManager.sessionPackages = [
     pkgs.hyprland
   ];
   systemd.services.display-manager.environment = {
