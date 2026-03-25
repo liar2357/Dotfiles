@@ -376,8 +376,21 @@
   };
 
   #sudo
-  security.sudo.enable = true;
-  security.sudo.wheelNeedsPassword = true;
+  security.sudo = {
+    enable = true;
+    wheelNeedsPassword = true;
+    extraRules = [
+      {
+        users = [ "raia" ];
+        commands = [
+          {
+            command = "/run/current-system/sw/bin/waydroid";
+            options = [ "NOPASSWD" ];
+          }
+        ];
+      }
+    ];
+  };
 
   #ssh
   programs.ssh.startAgent = true;
