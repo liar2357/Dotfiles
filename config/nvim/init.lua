@@ -4,19 +4,18 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
 vim.o.helplang = "ja,en"
-require('keymaps.main')
+require("keymaps.main")
 
 vim.wo.number = true
 
 -- Clipboard provider auto detection
 local is_wayland = os.getenv("WAYLAND_DISPLAY") ~= nil
-local is_x11     = os.getenv("DISPLAY") ~= nil
-local is_ssh     = os.getenv("SSH_TTY") ~= nil
+local is_x11 = os.getenv("DISPLAY") ~= nil
+local is_ssh = os.getenv("SSH_TTY") ~= nil
 
 if is_ssh then
   -- ssh セッションでは OSC52 を優先
   vim.g.clipboard = "osc52"
-
 elseif is_wayland then
   vim.g.clipboard = {
     name = "wl-clipboard",
@@ -30,7 +29,6 @@ elseif is_wayland then
     },
     cache_enabled = 0,
   }
-
 elseif is_x11 then
   vim.g.clipboard = {
     name = "xclip",
@@ -48,11 +46,12 @@ end
 
 vim.opt.clipboard = "unnamedplus"
 
-
 local is_vscode = (vim.g.vscode ~= nil)
 
 if not is_vscode then
-  vim.api.nvim_create_autocmd('QuitPre', {
+  vim.o.shell = vim.fn.exepath("zsh") .. " -i"
+
+  vim.api.nvim_create_autocmd("QuitPre", {
     callback = function()
       -- 現在のウィンドウ番号を取得
       local current_win = vim.api.nvim_get_current_win()
@@ -62,7 +61,7 @@ if not is_vscode then
         if win ~= current_win then
           local buf = vim.api.nvim_win_get_buf(win)
           -- buftypeが空文字（通常のバッファ）があればループ終了
-          if vim.bo[buf].buftype == '' then
+          if vim.bo[buf].buftype == "" then
             return
           end
         end
@@ -72,10 +71,10 @@ if not is_vscode then
       vim.cmd.only({ bang = true })
       -- この後、ウィンドウ1つの状態でquitが実行されるので、Vimが終了する
     end,
-    desc = 'Close all special buffers and quit Neovim',
+    desc = "Close all special buffers and quit Neovim",
   })
 
-  require('config.lazy')
+  require("config.lazy")
 
   --require("color.ts_highlight_pastel").setup()
   require("color.ts_highlight_vsc").setup()

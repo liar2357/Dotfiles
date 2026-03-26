@@ -1,4 +1,10 @@
 return {
   "akinsho/toggleterm.nvim",
-  version = "*",  -- 任意。最新版を使いたいなら "*"、特定バージョンに固定もできる
+  version = "*", -- 任意。最新版を使いたいなら "*"、特定バージョンに固定もできる
+
+  config = function()
+    require("toggleterm").setup({
+      shell = vim.o.shell,
+    })
+  end,
 }
