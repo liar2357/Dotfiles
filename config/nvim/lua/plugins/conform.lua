@@ -6,10 +6,7 @@ return {
     conform.setup({
       -- ファイルタイプ → フォーマッタ名
       formatters_by_ft = {
-        -- Rust
         rust = { "rustfmt" },
-
-        -- JS / TS / React / JSON / CSS / HTML / Markdown
         javascript = { "prettier" },
         typescript = { "prettier" },
         javascriptreact = { "prettier" },
@@ -19,37 +16,18 @@ return {
         html = { "prettier" },
         css = { "prettier" },
         markdown = { "prettier" },
-
-        -- C / C++
         c = { "clang-format" },
         cpp = { "clang-format" },
-
-        -- C#
         cs = { "csharpier" },
-
-        -- Java
         java = { "google-java-format" },
-
-        -- PHP
         php = { "php-cs-fixer" },
-
-        -- Ruby
         ruby = { "rubocop" },
-
-        -- Python
         python = { "black" },
-
-        -- Bash
         sh = { "shfmt" },
-
-        -- SQl
         sql = { "sqruff" },
-
-        -- Nix
         nix = { "nixfmt" },
-
-        -- lua
         lua = { "stylua" },
+        xml = { "xmllint" },
       },
 
       -- フォーマッタの詳細定義
@@ -63,6 +41,11 @@ return {
             "2",
             "-",
           },
+          stdin = true,
+        },
+        xmllint = {
+          command = "xmllint",
+          args = { "--format", "-" },
           stdin = true,
         },
       },
