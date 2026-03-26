@@ -23,7 +23,7 @@ alias lg='lazygit'
 alias vivaldi='flatpak run com.vivaldi.Vivaldi'
 alias discord='flatpak run com.discordapp.Discord'
 alias wssh='waypipe ssh -Y'
-alias nd='nix develop -c $SHELL'
+alias nd='nix flake update && nix develop -c $SHELL'
 
 function touch-p() {
   mkdir -p $(dirname "$1") && touch "$1"
