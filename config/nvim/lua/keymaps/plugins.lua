@@ -7,7 +7,6 @@
 -- vim-operator-replace -> レジスタの内容で選択範囲を置換
 -- winresizer -> ウインドウサイズ変更
 
-
 -- バッファ切り替え
 vim.keymap.set("n", "<C-l>", "<Cmd>BufferNext<CR>", { desc = "Next buffer" })
 vim.keymap.set("n", "<C-h>", "<Cmd>BufferPrevious<CR>", { desc = "Previous buffer" })
@@ -30,14 +29,14 @@ vim.keymap.set("n", "<leader>dh", "<Cmd>DiffviewFileHistory %<CR>", { desc = "Di
 
 -- 表示切り替えなど（view 内で使うローカルマップも設定可能）
 -- 例: view に入ったときにキーマップをバッファローカル設定
-require('diffview').setup({
+require("diffview").setup({
   keymaps = {
     view = {
-      { "n", "<leader>e", require('diffview.actions').focus_files, { desc = "Focus files panel" } },
-      { "n", "<leader>b", require('diffview.actions').toggle_files, { desc = "Toggle files panel" } },
-      { "n", "g<C-x>", require('diffview.actions').cycle_layout, { desc = "Cycle layout" } },
+      { "n", "<leader>e", require("diffview.actions").focus_files, { desc = "Focus files panel" } },
+      { "n", "<leader>b", require("diffview.actions").toggle_files, { desc = "Toggle files panel" } },
+      { "n", "g<C-x>", require("diffview.actions").cycle_layout, { desc = "Cycle layout" } },
     },
-  }
+  },
 })
 
 -- ナビゲーション
@@ -62,7 +61,7 @@ vim.keymap.set("n", "<leader>hc", function()
 end, { desc = "Toggle indent chunk highlighting" })
 
 vim.keymap.set("n", "<leader>hi", function()
-  require("hlchunk").toggle_inlay()  -- もし inlay や補助線があるなら
+  require("hlchunk").toggle_inlay() -- もし inlay や補助線があるなら
 end, { desc = "Toggle inlay hints / chunk lines" })
 
 -- toggleterm 経由で lazygit をフロート起動
@@ -102,8 +101,18 @@ vim.keymap.set("n", "<leader>e", "<Cmd>NvimTreeToggle<CR>", { desc = "Toggle fil
 vim.keymap.set("n", "<leader>ef", "<Cmd>NvimTreeFocus<CR>", { desc = "Focus on file explorer" })
 
 -- 例: テキストオブジェクトを使った選択
-vim.keymap.set({ "o", "x" }, "af", ":<C-U>lua require('nvim-treesitter.textobjects.select').select_textobject('function.outer')<CR>", { desc = "Select outer function" })
-vim.keymap.set({ "o", "x" }, "if", ":<C-U>lua require('nvim-treesitter.textobjects.select').select_textobject('function.inner')<CR>", { desc = "Select inner function" })
+vim.keymap.set(
+  { "o", "x" },
+  "af",
+  ":<C-U>lua require('nvim-treesitter.textobjects.select').select_textobject('function.outer')<CR>",
+  { desc = "Select outer function" }
+)
+vim.keymap.set(
+  { "o", "x" },
+  "if",
+  ":<C-U>lua require('nvim-treesitter.textobjects.select').select_textobject('function.inner')<CR>",
+  { desc = "Select inner function" }
+)
 
 -- 例: 次／前の関数やクラスに移動（移動モジュールがあれば）
 local move = require("nvim-treesitter-textobjects.move")
@@ -129,13 +138,19 @@ vim.keymap.set("n", "<C-d>", require("dial.map").dec_normal(), { desc = "Dial De
 vim.keymap.set("n", "<leader>;", require("dropbar.api").pick, { desc = "Dropbar Pick" })
 
 -- glance
-vim.keymap.set('n', 'gd', '<Cmd>Glance definitions<CR>', { desc = "Glance Definitions" })
-vim.keymap.set('n', 'gr', '<Cmd>Glance references<CR>', { desc = "Glance References" })
+vim.keymap.set("n", "gd", "<Cmd>Glance definitions<CR>", { desc = "Glance Definitions" })
+vim.keymap.set("n", "gr", "<Cmd>Glance references<CR>", { desc = "Glance References" })
 
 -- namu
 vim.keymap.set("n", "<leader>sc", ":Namu symbols<cr>")
 vim.keymap.set("n", "<leader>sw", ":Namu workspace<cr>")
-vim.keymap.set("n", "<leader>wa", ":Namu diagnostics<cr>")
+vim.keymap.set("n", "<leader>wa", function()
+  vim.diagnostic.open_float(nil, {
+    focus = false,
+    border = "rounded",
+    source = "always",
+  })
+end)
 
 -- telescope
 vim.keymap.set("n", "<leader>ff", "<Cmd>Telescope find_files<CR>", { desc = "Find files" })
@@ -176,10 +191,11 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 })
 
 -- submode
-vim.keymap.set({"n","i"}, "<C-r>",function ()
+vim.keymap.set({ "n", "i" }, "<C-r>", function()
   require("config.run_sm_conf").run_for_ft()
 end, { desc = "Run current file" })
 
-vim.keymap.set({"n","i"}, "<C-m>",function ()
+vim.keymap.set({ "n", "i" }, "<C-m>", function()
   require("config.md_sm_conf").enable_markdown_mode()
 end, { desc = "Enter Markdown Submode" })
+
