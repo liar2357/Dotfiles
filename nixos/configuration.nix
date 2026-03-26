@@ -163,6 +163,7 @@
     neovim
     zsh
     git
+    git-filter-repo
     cifs-utils
     inotify-tools
     ffmpeg-full
