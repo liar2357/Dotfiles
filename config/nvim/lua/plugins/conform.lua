@@ -28,6 +28,7 @@ return {
         nix = { "nixfmt" },
         lua = { "stylua" },
         xml = { "xmllint" },
+        toml = { "taplo" },
       },
 
       -- フォーマッタの詳細定義
@@ -46,6 +47,11 @@ return {
         xmllint = {
           command = "xmllint",
           args = { "--format", "-" },
+          stdin = true,
+        },
+        taplo = {
+          command = "taplo",
+          args = { "fmt", "-" },
           stdin = true,
         },
       },

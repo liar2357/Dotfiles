@@ -79,6 +79,9 @@ return {
     }
     vim.lsp.enable({ "nixd" })
 
+    vim.lsp.config.taplo = {}
+    vim.lsp.enable({ "taplo" })
+
     vim.lsp.config.lua_ls = {
       settings = {
         Lua = {
