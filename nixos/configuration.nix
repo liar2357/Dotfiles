@@ -145,7 +145,9 @@
     fuzzel
     wofi
     rofi
-    mako
+    hyprlock
+    hypridle
+    swaynotificationcenter
     wlogout
     wl-clipboard
     networkmanagerapplet
@@ -170,6 +172,7 @@
     unzip
     input-remapper
     waypipe
+    libnotify
 
     # runtime
     python3

@@ -97,7 +97,7 @@
 
   "custom/notify": {
     "format": "",
-    "on-click": "kitty --title 'NotifyCenter' -e ~/.config/waybar/scripts/notify-center.sh",
+    "on-click": "swaync-client -t",
   },
 
   "custom/ws-next": {
