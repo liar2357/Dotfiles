@@ -1,0 +1,9 @@
+[Session Bus Policy]
+org.fcitx.Fcitx=talk
+
+[Environment]
+XMODIFIERS=@im=fcitx
+GTK_IM_MODULE=fcitx
+ELECTRON_OZONE_PLATFORM_HINT=auto
+QT_IM_MODULE=fcitx
+SDL_IM_MODULE=fcitx

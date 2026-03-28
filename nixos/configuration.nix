@@ -240,6 +240,8 @@
 
       allowBitmaps = false;
     };
+
+    fontDir.enable = true;
   };
 
   #environment variables

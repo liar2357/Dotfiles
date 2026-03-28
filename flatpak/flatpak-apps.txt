@@ -1,0 +1,10 @@
+com.discordapp.Discord/x86_64/stable
+com.github.rafostar.Clapper/x86_64/stable
+com.github.xournalpp.xournalpp/x86_64/stable
+com.google.Chrome/x86_64/stable
+com.obsproject.Studio/x86_64/stable
+com.vivaldi.Vivaldi/x86_64/stable
+io.mpv.Mpv/x86_64/stable
+org.gnome.Loupe/x86_64/stable
+org.libreoffice.LibreOffice/x86_64/stable
+org.onlyoffice.desktopeditors/x86_64/stable
