@@ -1,9 +1,0 @@
-[Unit]
-Description=notilog persistent notification logging
-
-[Service]
-ExecStart=/usr/local/bin/notilogd
-
-[Install]
-WantedBy=default.target
-

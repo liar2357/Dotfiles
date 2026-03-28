@@ -59,11 +59,6 @@
     recursive = true;
   };
 
-  xdg.configFile."waybar" = {
-    source = config.lib.file.mkOutOfStoreSymlink "${inputs.self}/config/waybar";
-    recursive = true;
-  };
-
   xdg.configFile."wofi" = {
     source = config.lib.file.mkOutOfStoreSymlink "${inputs.self}/config/wofi";
     recursive = true;
@@ -75,24 +70,14 @@
     recursive = true;
   };
 
-  xdg.configFile."hypr/scripts" = {
-    source = config.lib.file.mkOutOfStoreSymlink "${inputs.self}/config/hypr/scripts";
-    recursive = true;
-  };
-
   xdg.configFile."hypr/hyprland.conf" = {
-    source = config.lib.file.mkOutOfStoreSymlink "${inputs.self}/config/hypr/NCP-2602.conf";
+    source = config.lib.file.mkOutOfStoreSymlink "${inputs.self}/hosts/NCP-2602/hypr/hyprland.conf";
     recursive = true;
   };
 
   # --- ~/ 配下 ---
   home.file.".zshrc" = {
-    source = config.lib.file.mkOutOfStoreSymlink "${inputs.self}/home/.zshrc";
-  };
-
-  home.file."zsh" = {
-    source = config.lib.file.mkOutOfStoreSymlink "${inputs.self}/home/zsh";
-    recursive = true;
+    source = config.lib.file.mkOutOfStoreSymlink "${inputs.self}/shell/zsh/.zshrc";
   };
 
 }

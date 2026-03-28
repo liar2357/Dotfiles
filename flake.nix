@@ -13,62 +13,69 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-hazkey.url = "github:aster-void/nix-hazkey";
-    self = {};
+    self = { };
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, hyprland, ... } :
-  let
-    system = "x86_64-linux";
-    pkgs = nixpkgs.legacyPackages.${system};
-  in {
-    nixosConfigurations.NCP-2602 = nixpkgs.lib.nixosSystem {
-      inherit system;
+  outputs =
+    inputs@{
+      self,
+      nixpkgs,
+      home-manager,
+      hyprland,
+      ...
+    }:
+    let
+      system = "x86_64-linux";
+      pkgs = nixpkgs.legacyPackages.${system};
+    in
+    {
+      nixosConfigurations.NCP-2602 = nixpkgs.lib.nixosSystem {
+        inherit system;
 
-      # ここで specialArgs を設定
-      specialArgs = { inherit inputs; };
+        # ここで specialArgs を設定
+        specialArgs = { inherit inputs; };
 
-      modules = [
-	./nixos/hardware-configuration.nix 
-        ./nixos/configuration.nix
+        modules = [
+          ./nix/nixos/configuration.nix
+          ./nix/nixos/hardware-configuration.nix
 
-	{
-          _module.args = {
-            inherit inputs;
-	  };
-	}
+          {
+            _module.args = {
+              inherit inputs;
+            };
+          }
 
-        # ① Home-Manager を NixOS モジュールとして読み込ませる
-        home-manager.nixosModules.home-manager
-        {
-          # ② ここで Home-Manager の設定をひとまとまりで渡す
-          home-manager.useGlobalPkgs  = true;
-          home-manager.useUserPackages = true;
+          # ① Home-Manager を NixOS モジュールとして読み込ませる
+          home-manager.nixosModules.home-manager
+          {
+            # ② ここで Home-Manager の設定をひとまとまりで渡す
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
 
-          # ↓ ここが重要
-	  home-manager.extraSpecialArgs = { inherit inputs; };
+            # ↓ ここが重要
+            home-manager.extraSpecialArgs = { inherit inputs; };
 
-          # ③ ユーザー側の home.nix をここで読み込む
-          home-manager.users."raia" = import ./home-manager/home.nix;
-        }
+            # ③ ユーザー側の home.nix をここで読み込む
+            home-manager.users."raia" = import ./nix/home-manager/home.nix;
+          }
 
-        # ④ Hyprland のモジュール
-        hyprland.nixosModules.default
-        {
-          programs.hyprland = {
-            enable = true;
-            xwayland.enable = true;
-          };
-        }
-      ];
+          # ④ Hyprland のモジュール
+          hyprland.nixosModules.default
+          {
+            programs.hyprland = {
+              enable = true;
+              xwayland.enable = true;
+            };
+          }
+        ];
 
-      # optional: ここに system-level options を書ける
-    };
-
-    # (オプション) Home-Manager を standalone でも動かせるようにする
-    homeConfigurations."raia" =
-      home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        modules = [ ./home-manager/home.nix ];
+        # optional: ここに system-level options を書ける
       };
-  };
+
+      # (オプション) Home-Manager を standalone でも動かせるようにする
+      homeConfigurations."raia" = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+        modules = [ ./nix/home-manager/home.nix ];
+      };
+    };
 }

@@ -2,14 +2,13 @@
 
 pgrep -f autostart_waybar.sh | grep -v $$ >/dev/null && exit
 
-HOSTNAME=$(hostnamectl --static)
+HOSTNAME=$(hostname)
 
-CONFIG_TOP="$HOME/.config/waybar/conf/top_$HOSTNAME.jsonc"
-CONFIG_BOTTOM="$HOME/.config/waybar/conf/bottom_$HOSTNAME.jsonc"
+WATCH_DIR="$HOME/Dotfiles/hosts/$HOSTNAME/waybar"
 
-STYLE="$HOME/.config/waybar/styles/style_$HOSTNAME.css"
-
-WATCH_DIR="$HOME/Dotfiles/config/waybar"
+CONFIG_TOP="$WATCH_DIR/top.jsonc"
+CONFIG_BOTTOM="$WATCH_DIR/bottom.jsonc"
+STYLE="$WATCH_DIR/style.css"
 
 notify() {
 	notify-send "Waybar Reload" "$1"
@@ -47,7 +46,7 @@ watch_configs() {
 			# debounce
 			timeout 1 cat >/dev/null
 		done
-	}
+}
 
 start_waybars
 notify "Started"

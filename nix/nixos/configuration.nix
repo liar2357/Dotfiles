@@ -14,7 +14,6 @@
 
   imports = [
     # Include the results of the hardware scan.
-    ./hardware-configuration.nix
     inputs.nix-hazkey.nixosModules.hazkey
   ];
 
@@ -316,7 +315,7 @@
   };
 
   environment.etc = {
-    "zsh-custom/themes/zsh-theme".source = "${inputs.self}/others/zsh-theme";
+    "zsh-custom/themes/zsh-theme".source = "${inputs.self}/shell/zsh/zsh-theme";
   };
 
   users.defaultUserShell = pkgs.zsh;
