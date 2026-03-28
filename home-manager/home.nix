@@ -1,4 +1,9 @@
-{ inputs, config, pkgs, ... }:
+{
+  inputs,
+  config,
+  pkgs,
+  ...
+}:
 
 {
   home.username = "raia";
@@ -17,8 +22,6 @@
     size = 24;
   };
 
-
-  
   # --- ~/.config 配下 ---
 
   xdg.configFile."fuzzel" = {
@@ -31,8 +34,8 @@
     recursive = true;
   };
 
-  xdg.configFile."mako" = {
-    source = config.lib.file.mkOutOfStoreSymlink "${inputs.self}/config/mako";
+  xdg.configFile."swaync" = {
+    source = config.lib.file.mkOutOfStoreSymlink "${inputs.self}/config/swaync";
     recursive = true;
   };
 
@@ -81,7 +84,6 @@
     source = config.lib.file.mkOutOfStoreSymlink "${inputs.self}/config/hypr/NCP-2602.conf";
     recursive = true;
   };
-
 
   # --- ~/ 配下 ---
   home.file.".zshrc" = {
