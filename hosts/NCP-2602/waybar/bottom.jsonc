@@ -116,11 +116,11 @@
 
   "custom/rotate": {
     "format": "🔄",
-    "on-click": "$HOME/.config/waybar/scripts/toggle-rotate.sh",
+    "on-click": "$HOME/Dotfiles/scripts/bin/hyprland-toggle-rotate",
   },
 
   "custom/kill": {
     "format": "❌",
-    "on-click": "$HOME/.config/waybar//scripts/kill-btn.sh",
+    "on-click": "$HOME/Dotfiles/scripts/bin/super-kill",
   },
 }

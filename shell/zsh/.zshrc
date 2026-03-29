@@ -1,7 +1,7 @@
 export COLORTERM=truecolor
 
 HOSTNAME=$(hostname)
-source ~/Dotfiles/hosts/$hostname/zsh/zsh.sh
+source ~/Dotfiles/hosts/$HOSTNAME/zsh/zshrc.sh
 
 # ------------------------------------------------
 # エイリアス (必要に応じて追加)

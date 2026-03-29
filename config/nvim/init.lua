@@ -49,7 +49,7 @@ vim.opt.clipboard = "unnamedplus"
 local is_vscode = (vim.g.vscode ~= nil)
 
 if not is_vscode then
-  vim.o.shell = vim.fn.exepath("zsh") .. " -i"
+  vim.o.shell = vim.fn.exepath("zsh")
 
   vim.api.nvim_create_autocmd("QuitPre", {
     callback = function()

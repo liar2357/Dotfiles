@@ -2,7 +2,6 @@
 return {
   require("plugins.conform"),
   require("plugins.noice"),
-  require("plugins.dashboard"),
   require("plugins.playground"),
   require("plugins.ts_text_obj"),
   require("plugins.treesitter"),

@@ -80,4 +80,9 @@
     source = config.lib.file.mkOutOfStoreSymlink "${inputs.self}/shell/zsh/.zshrc";
   };
 
+  home.file.".local/bin" = {
+    source = config.lib.file.mkOutOfStoreSymlink "${inputs.self}/scripts/bin";
+    recursive = true;
+  };
+
 }
