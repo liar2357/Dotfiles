@@ -116,7 +116,7 @@
 
   "custom/rotate": {
     "format": "🔄",
-    "on-click": "$HOME/Dotfiles/scripts/bin/hyprland-toggle-rotate",
+    "on-click": "$HOME/Dotfiles/scripts/bin/hypr-rotate",
   },
 
   "custom/kill": {

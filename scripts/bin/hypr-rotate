@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+LOCK="$HOME/.script_lock/screen_rotate"
+MONITOR="eDP-1"
+
+source $HOME/Dotfiles/scripts/app/hyprland-toggle-rotate.sh
+
+hyprland-toggle-rotate "$@"

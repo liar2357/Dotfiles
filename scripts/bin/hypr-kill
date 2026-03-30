@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+source $HOME/Dotfiles/scripts/app/hyprland-super-killactive.sh
+
+hyprland-super-killactive "$@"

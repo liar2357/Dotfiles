@@ -64,12 +64,12 @@
     recursive = true;
   };
 
-  # --- hypr ---
-  xdg.configFile."hypr/common" = {
-    source = config.lib.file.mkOutOfStoreSymlink "${inputs.self}/config/hypr/common";
+  xdg.configFile."hypr" = {
+    source = config.lib.file.mkOutOfStoreSymlink "${inputs.self}/config/hypr";
     recursive = true;
   };
 
+  # --- hypr ---
   xdg.configFile."hypr/hyprland.conf" = {
     source = config.lib.file.mkOutOfStoreSymlink "${inputs.self}/hosts/NCP-2602/hypr/hyprland.conf";
     recursive = true;

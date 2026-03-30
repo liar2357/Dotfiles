@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
 
-waydroid status | grep -q "RUNNING" || waydroid session start
-waydroid show-full-ui
+source $HOME/Dotfiles/scripts/app/waydroid-loanch-and-rotate.sh
+
+waydroid-loanch-and-rotate "$@"
