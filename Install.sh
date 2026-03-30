@@ -1,40 +1,34 @@
 #!/usr/bin/env bash
 
-set -e
+source $HOME/Dotfiles/scripts/lib/safe-symlink.sh
+HOSTNAME=$(hostname)
 
-DOTFILES="$HOME/Dotfiles"
+#-- .config --
+safe-symlink "$HOME/Dotfiles/config/fuzzel" "$HOME/.config/fuzzel"
+safe-symlink "$HOME/Dotfiles/config/kitty" "$HOME/.config/kitty"
+safe-symlink "$HOME/Dotfiles/config/nvim" "$HOME/.config/nvim"
+safe-symlink "$HOME/Dotfiles/config/nvim-lite" "$HOME/.config/nvim-lite"
+safe-symlink "$HOME/Dotfiles/config/ranger" "$HOME/.config/ranger"
+safe-symlink "$HOME/Dotfiles/config/rofi" "$HOME/.config/rofi"
+safe-symlink "$HOME/Dotfiles/config/snippet-source" "$HOME/.config/snippet-source"
+safe-symlink "$HOME/Dotfiles/config/swaync" "$HOME/.config/swaync"
+safe-symlink "$HOME/Dotfiles/config/wofi" "$HOME/.config/wofi"
 
-# glob未一致対策（重要）
-shopt -s nullglob dotglob
+#-- zsh --
+safe-symlink "$HOME/Dotfiles/shell/zsh/zsh-theme" "$HOME/.oh-my-zsh/custom/theme/zsh-theme"
+safe-symlink "$HOME/Dotfiles/shell/zsh/.zshrc" "$HOME/.zshrc"
 
-echo "Linking .config..."
+#-- scripts --
+safe-symlink "$HOME/Dotfiles/scripts/bin" "$HOME/.local/bin"
 
-mkdir -p "$HOME/.config"
+#-- hypr --
+HYPRLAND_CONF_PATH="$HOME/Dotfiles/hosts/$HOSTNAME/hypr/hyprland.conf"
+if [ -e "$HYPRLAND_CONF_PATH" ]; then
+	mkdir -p "$HOME/.config/hypr"
 
-for dir in "$DOTFILES/config"/*; do
-	name=$(basename "$dir")
-	target="$HOME/.config/$name"
-
-	if [ ! -e "$target" ]; then
-		ln -s "$dir" "$target"
-		echo "linked: ~/.config/$name"
-	else
-		echo "skip: ~/.config/$name exists"
-	fi
-done
-
-echo "Linking home..."
-
-for dir in "$DOTFILES/home"/*; do
-	name=$(basename "$dir")
-	target="$HOME/$name"
-
-	if [ ! -e "$target" ]; then
-		ln -s "$dir" "$target"
-		echo "linked: ~/$name"
-	else
-		echo "skip: ~/$name exists"
-	fi
-done
-
-echo "Done."
+	safe-symlink "$HOME/Dotfiles/config/hypr/common" "$HOME/.config/hypr/common"
+	safe-symlink "$HOME/Dotfiles/config/hypr/hypridle.conf" "$HOME/.config/hypr/hypridle.conf"
+	safe-symlink "$HOME/Dotfiles/config/hypr/hyprlock.conf" "$HOME/.config/hypr/hyprlock.conf"
+	safe-symlink "$HOME/Dotfiles/config/hypr/hyprpaper.conf" "$HOME/.config/hypr/hyprlock.conf"
+	safe-symlink "$HYPRLAND_CONF_PATH" "$HOME/.config/hypr/hyprlock.conf"
+fi

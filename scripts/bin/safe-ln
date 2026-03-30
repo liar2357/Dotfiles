@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+source $HOME/Dotfiles/scripts/lib/safe-symlink.sh
+
+safe-synlink "$@"
