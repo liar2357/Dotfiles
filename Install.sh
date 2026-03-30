@@ -15,7 +15,7 @@ safe-symlink "$HOME/Dotfiles/config/swaync" "$HOME/.config/swaync"
 safe-symlink "$HOME/Dotfiles/config/wofi" "$HOME/.config/wofi"
 
 #-- zsh --
-safe-symlink "$HOME/Dotfiles/shell/zsh/zsh-theme" "$HOME/.oh-my-zsh/custom/theme/zsh-theme"
+safe-symlink "$HOME/Dotfiles/shell/zsh/zsh-theme" "$HOME/.oh-my-zsh/custom/themes/zsh-theme"
 safe-symlink "$HOME/Dotfiles/shell/zsh/.zshrc" "$HOME/.zshrc"
 
 #-- scripts --
@@ -29,6 +29,6 @@ if [ -e "$HYPRLAND_CONF_PATH" ]; then
 	safe-symlink "$HOME/Dotfiles/config/hypr/common" "$HOME/.config/hypr/common"
 	safe-symlink "$HOME/Dotfiles/config/hypr/hypridle.conf" "$HOME/.config/hypr/hypridle.conf"
 	safe-symlink "$HOME/Dotfiles/config/hypr/hyprlock.conf" "$HOME/.config/hypr/hyprlock.conf"
-	safe-symlink "$HOME/Dotfiles/config/hypr/hyprpaper.conf" "$HOME/.config/hypr/hyprlock.conf"
-	safe-symlink "$HYPRLAND_CONF_PATH" "$HOME/.config/hypr/hyprlock.conf"
+	safe-symlink "$HOME/Dotfiles/config/hypr/hyprpaper.conf" "$HOME/.config/hypr/hyprpaper.conf"
+	safe-symlink "$HYPRLAND_CONF_PATH" "$HOME/.config/hypr/hyprland.conf"
 fi
