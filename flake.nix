@@ -37,6 +37,7 @@
 
         modules = [
           ./nix/nixos/configuration.nix
+          ./nix/nixos/system-packages.nix
           ./nix/nixos/hardware-configuration.nix
 
           {
