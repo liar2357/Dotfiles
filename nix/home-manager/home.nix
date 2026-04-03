@@ -34,6 +34,11 @@
     recursive = true;
   };
 
+  xdg.configFile."wezterm" = {
+    source = config.lib.file.mkOutOfStoreSymlink "${inputs.self}/config/wezterm";
+    recursive = true;
+  };
+
   xdg.configFile."swaync" = {
     source = config.lib.file.mkOutOfStoreSymlink "${inputs.self}/config/swaync";
     recursive = true;

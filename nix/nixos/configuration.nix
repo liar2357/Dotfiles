@@ -176,6 +176,7 @@
 
   #environment variables
   environment.sessionVariables = {
+    NIXOS_OZONE_WL = "1";
   };
 
   #input-remapper
