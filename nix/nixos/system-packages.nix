@@ -4,7 +4,7 @@
   environment.systemPackages = with pkgs; [
     # base packages
     waybar
-    kitty
+    wezterm
     fuzzel
     wofi
     rofi
@@ -37,7 +37,6 @@
     waypipe
     libnotify
     fastfetch
-    wezterm
 
     # runtime
     python3

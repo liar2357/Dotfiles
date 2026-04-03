@@ -1,20 +1,17 @@
 local wezterm = require("wezterm")
 
-return {
-  font = wezterm.font("font_family Cascadia Code NF"),
-  font_size = 14.0,
+local config = {}
 
-  color_scheme = "Builtin Solarized Dark",
+-- 分割読み込み
+local system = require("modules.system")
+local fonsts = require("modules.fonts")
+local keys = require("modules.keys")
 
-  front_end = "WebGpu", -- ←描画安定
-  -- enable_wayland = false, -- ←XWayland fallback（安定重視）
+-- マージ
+config = wezterm.config_builder()
 
-  hide_tab_bar_if_only_one_tab = true,
+system.apply(config)
+fonsts.apply(config)
+keys.apply(config)
 
-  window_decorations = "NONE", -- Hyprlandと相性良い
-
-  term = "wezterm",
-  set_environment_variables = {
-    TERMINFO_DIRS = "/home/yourname/.nix-profile/share/terminfo",
-  },
-}
+return config
