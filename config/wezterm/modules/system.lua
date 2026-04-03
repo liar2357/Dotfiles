@@ -5,7 +5,7 @@ function M.apply(config)
   config.front_end = "WebGpu" -- ←描画安定
   config.window_decorations = "NONE" -- Hyprlandと相性良い
 
-  config.color_scheme = "Catppuccin Mocha"
+  config.color_scheme = "Monokai Remastered"
 
   config.term = "wezterm"
   config.set_environment_variables = {
