@@ -8,43 +8,67 @@ require("keymaps.main")
 
 vim.wo.number = true
 
--- Clipboard provider auto detection
-local is_wayland = os.getenv("WAYLAND_DISPLAY") ~= nil
-local is_x11 = os.getenv("DISPLAY") ~= nil
-local is_ssh = os.getenv("SSH_TTY") ~= nil
+-- =========================================
+-- Universal Clipboard (WezTerm / SSH / Wayland 対応・安定版)
+-- =========================================
 
-if is_ssh then
-  -- ssh セッションでは OSC52 を優先
-  vim.g.clipboard = "osc52"
-elseif is_wayland then
-  vim.g.clipboard = {
-    name = "wl-clipboard",
-    copy = {
-      ["+"] = "wl-copy --type text/plain",
-      ["*"] = "wl-copy --primary --type text/plain",
-    },
-    paste = {
-      ["+"] = "wl-paste --no-newline",
-      ["*"] = "wl-paste --no-newline --primary",
-    },
-    cache_enabled = 0,
-  }
-elseif is_x11 then
-  vim.g.clipboard = {
-    name = "xclip",
-    copy = {
-      ["+"] = "xclip -selection clipboard -in",
-      ["*"] = "xclip -selection primary -in",
-    },
-    paste = {
-      ["+"] = "xclip -selection clipboard -out",
-      ["*"] = "xclip -selection primary -out",
-    },
-    cache_enabled = 0,
-  }
+-- clipboard providerは使わない（これ重要）
+vim.opt.clipboard = ""
+vim.g.clipboard = nil
+
+local function is_ssh()
+  return os.getenv("SSH_TTY") ~= nil
 end
 
-vim.opt.clipboard = "unnamedplus"
+local function is_wayland()
+  return os.getenv("WAYLAND_DISPLAY") ~= nil
+end
+
+-- =========================================
+-- Yank時に強制同期（これが本体）
+-- =========================================
+vim.api.nvim_create_autocmd("TextYankPost", {
+  callback = function()
+    -- unnamed registerから取得
+    local text = vim.fn.getreg('"')
+    local regtype = vim.fn.getregtype('"')
+
+    if not text or text == "" then
+      return
+    end
+
+    local lines = vim.split(text, "\n")
+
+    -- 末尾の空行だけ削除（重要）
+    while #lines > 1 and lines[#lines] == "" do
+      table.remove(lines)
+    end
+
+    -- nvim内部の + レジスタに同期
+    vim.fn.setreg("+", lines, regtype)
+
+    -- =====================================
+    -- 外部クリップボードへ
+    -- =====================================
+
+    if is_ssh() then
+      -- OSC52（WezTerm対応：copy only）
+      local ok, osc52 = pcall(require, "vim.ui.clipboard.osc52")
+      if ok then
+        osc52.copy("+")(lines, regtype)
+      end
+    elseif is_wayland() then
+      -- wl-copy
+      vim.fn.system("wl-copy --type text/plain --trim-newline", text)
+    end
+  end,
+})
+
+-- =========================================
+-- 補助：+レジスタから貼れるようにする（保険）
+-- =========================================
+vim.keymap.set({ "n", "v" }, "<leader>p", '"+p', { noremap = true })
+vim.keymap.set({ "n", "v" }, "<leader>P", '"+P', { noremap = true })
 
 local is_vscode = (vim.g.vscode ~= nil)
 
