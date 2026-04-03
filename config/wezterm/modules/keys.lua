@@ -4,8 +4,8 @@ local M = {}
 function M.apply(config)
   local act = wezterm.action
 
-  -- Leaderキー（tmux風）
-  config.leader = { key = "/", mods = "CTRL", timeout_milliseconds = 1000 }
+  -- Leaderキー
+  config.leader = { key = " ", mods = "ALT", timeout_milliseconds = 1000 }
 
   config.keys = {
 
@@ -28,7 +28,7 @@ function M.apply(config)
       action = act.ActivateTabRelative(1),
     },
     {
-      key = "p",
+      key = "b",
       mods = "LEADER",
       action = act.ActivateTabRelative(-1),
     },
@@ -88,6 +88,12 @@ function M.apply(config)
       action = act.TogglePaneZoomState,
     },
 
+    {
+      key = "w",
+      mods = "LEADER",
+      action = act.CloseCurrentPane({ confirm = true }),
+    },
+
     -- =====================
     -- コピー・検索
     -- =====================
@@ -97,7 +103,7 @@ function M.apply(config)
       action = act.ActivateCopyMode,
     },
     {
-      key = "/",
+      key = "f",
       mods = "LEADER",
       action = act.Search("CurrentSelectionOrEmptyString"),
     },
