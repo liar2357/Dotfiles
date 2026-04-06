@@ -5,6 +5,7 @@ HOSTNAME=$(hostname)
 
 #-- .config --
 safe-symlink "$HOME/Dotfiles/config/fuzzel" "$HOME/.config/fuzzel"
+safe-symlink "$HOME/Dotfiles/config/kitty" "$HOME/.config/kitty"
 safe-symlink "$HOME/Dotfiles/config/wezterm" "$HOME/.config/wezterm"
 safe-symlink "$HOME/Dotfiles/config/nvim" "$HOME/.config/nvim"
 safe-symlink "$HOME/Dotfiles/config/nvim-lite" "$HOME/.config/nvim-lite"

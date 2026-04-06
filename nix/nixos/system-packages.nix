@@ -4,6 +4,7 @@
   environment.systemPackages = with pkgs; [
     # base packages
     waybar
+    kitty
     wezterm
     fuzzel
     wofi
@@ -37,6 +38,9 @@
     waypipe
     libnotify
     fastfetch
+    guvcview
+    v4l-utils
+    imagemagick
 
     # runtime
     python3
