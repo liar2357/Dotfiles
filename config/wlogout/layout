@@ -1,4 +1,0 @@
-{
-  "label": "lock",
-  "action": "pidof hyprlock || hyprlock"
-}
