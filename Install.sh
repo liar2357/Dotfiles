@@ -14,6 +14,7 @@ safe-symlink "$HOME/Dotfiles/config/rofi" "$HOME/.config/rofi"
 safe-symlink "$HOME/Dotfiles/config/snippet-source" "$HOME/.config/snippet-source"
 safe-symlink "$HOME/Dotfiles/config/swaync" "$HOME/.config/swaync"
 safe-symlink "$HOME/Dotfiles/config/wofi" "$HOME/.config/wofi"
+safe-symlink "$HOME/Dotfiles/config/wlogout" "$HOME/.config/wlogout"
 
 #-- zsh --
 safe-symlink "$HOME/Dotfiles/shell/zsh/zsh-theme" "$HOME/.oh-my-zsh/custom/themes/zsh-theme"

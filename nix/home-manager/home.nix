@@ -69,6 +69,11 @@
     recursive = true;
   };
 
+  xdg.configFile."wlogout" = {
+    source = config.lib.file.mkOutOfStoreSymlink "${inputs.self}/config/wlogout";
+    recursive = true;
+  };
+
   xdg.configFile."hypr" = {
     source = config.lib.file.mkOutOfStoreSymlink "${inputs.self}/config/hypr";
     recursive = true;
