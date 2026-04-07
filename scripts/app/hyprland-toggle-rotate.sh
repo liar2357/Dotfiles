@@ -1,4 +1,4 @@
-hyprland-toggle-roteto() {
+hyprland-toggle-rotete() {
 	# --- 横画面 ---
 	apply_landscape() {
 		hyprctl keyword monitor "$MONITOR,preferred,auto,1,transform,0"

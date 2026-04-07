@@ -5,4 +5,4 @@ MONITOR="eDP-1"
 
 source $HOME/Dotfiles/scripts/app/hyprland-toggle-rotate.sh
 
-hyprland-toggle-rotate "$@"
+hyprland-toggle-rotete "$@"

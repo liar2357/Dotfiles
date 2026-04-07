@@ -121,6 +121,6 @@
 
   "custom/kill": {
     "format": "❌",
-    "on-click": "$HOME/Dotfiles/scripts/bin/super-kill",
+    "on-click": "$HOME/Dotfiles/scripts/bin/hypr-kill",
   },
 }
