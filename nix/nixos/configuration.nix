@@ -21,6 +21,7 @@
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.kernelParams = [ "mem_sleep_default=deep" ];
 
   networking.hostName = "NCP-2602"; # Define your hostname.
 
@@ -120,13 +121,19 @@
     layout = "jp";
   };
 
-  services.logind = {
-    settings.Login = {
-      HandlePowerKey = "ignore";
-      HandleLidSwitch = "ignore";
-      HandleLidSwitchExternalPower = "ignore";
-      HandleLidSwitchDocked = "ignore";
-    };
+  #power button
+  services.logind.settings.Login = {
+    #電源ボタン(システムとしては何もしない)
+    HandlePowerKey = "ignore";
+
+    # フタ閉じ（バッテリー時）
+    HandleLidSwitch = "suspend";
+
+    # AC接続時（好みで変える）
+    HandleLidSwitchExternalPower = "suspend";
+
+    # 外部モニタ接続時
+    HandleLidSwitchDocked = "ignore";
   };
 
   system.stateVersion = "25.11"; # Did you read the comment?
