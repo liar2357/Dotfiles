@@ -20,6 +20,9 @@ safe-symlink "$HOME/Dotfiles/config/wlogout" "$HOME/.config/wlogout"
 safe-symlink "$HOME/Dotfiles/shell/zsh/zsh-theme" "$HOME/.oh-my-zsh/custom/themes/zsh-theme"
 safe-symlink "$HOME/Dotfiles/shell/zsh/.zshrc" "$HOME/.zshrc"
 
+#--- tmux ---
+safe-symlink "$HOME/Dotfiles/tmux/tmux/.tmux.conf" "$HOME/.tmux.conf"
+
 #-- scripts --
 safe-symlink "$HOME/Dotfiles/scripts/bin" "$HOME/.local/bin"
 
