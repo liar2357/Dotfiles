@@ -25,6 +25,24 @@ alias discord='flatpak run com.discordapp.Discord'
 alias wssh='waypipe ssh -Y'
 alias nd='nix develop -c $SHELL'
 alias nfu='nix flake update'
+alias tl='tmux ls'
+alias tr='tmux source-file ~/.tmux.conf'
+
+ta() {
+  if tmux has-session -t "$1" 2>/dev/null; then
+    tmux attach -t "$1"
+  else
+    tmux new -s "$1"
+  fi
+}
+
+tm() {
+  if [ -z "$TMUX" ]; then
+    tmux attach || tmux new
+  else
+    echo "tmux is already running"
+  fi
+}
 
 function touch-p() {
   mkdir -p $(dirname "$1") && touch "$1"
