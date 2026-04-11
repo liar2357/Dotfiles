@@ -42,7 +42,7 @@
     "format": "{icon} {capacity}%",
 
     // 充電中（Charging）
-    "format-charging": "⚡{icon} {capacity}%",
+    "format-charging": "󱐌{icon} {capacity}%",
   },
 
   "custom/clock": {
