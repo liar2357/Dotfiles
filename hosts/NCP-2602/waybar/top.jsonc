@@ -89,17 +89,17 @@
   "disk": {
     "path": "/",
     "interval": 15,
-    "format": "💽 {percentage_used}%",
+    "format": "󰋊 {percentage_used}%",
   },
 
   "temperature": {
     "interval": 3,
-    "format": "🌡️ {temperatureC}°C",
+    "format": " {temperatureC}°C",
   },
 
   "network": {
     "format-wifi": " {signalStrength}% ↓{bandwidthDownBits} ↑{bandwidthUpBits}",
-    "format-ethernet": "󰈀 ↓{bandwidthDownBits}↑{bandwidthUpBits}",
+    "format-ethernet": " ↓{bandwidthDownBits}↑{bandwidthUpBits}",
     "format-disconnected": "  Disconnected",
     "tooltip-format": "{ifname}({essid}): {ipaddr}/{cidr}",
     "interval": 3,
