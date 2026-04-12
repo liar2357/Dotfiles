@@ -32,3 +32,29 @@ export SUDO_EDITOR="/usr/local/bin/nvim"
 
 if [ -e /home/raia/.nix-profile/etc/profile.d/nix.sh ]; then . /home/raia/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
 eval "$(direnv hook zsh)"
+
+if [ -n "$SSH_CONNECTION" ]; then
+
+	CLIENT_IP=$(echo $SSH_CONNECTION | awk '{print $1}')
+	SERVER_IP=$(echo $SSH_CONNECTION | awk '{print $3}')
+
+	echo ""
+	echo " === SSH Connection ==="
+	echo " Client IP: $CLIENT_IP"
+	echo " Server IP: $SERVER_IP"
+	echo " ======================"
+	echo ""
+	echo " YOU HAVE CONTROL, $USER !"
+	echo " GOOD LUCK !"
+	echo ""
+fi
+
+if [ -z "$TMUX" ]; then
+	tmux attach || tmux
+fi
+
+if [ -n "$TMUX" ]; then
+	echo "=== CURRENT SESSIINS ==="
+	tmux ls
+	echo ""
+fi
