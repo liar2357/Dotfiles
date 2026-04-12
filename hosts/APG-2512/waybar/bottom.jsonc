@@ -13,27 +13,29 @@
     "window-rewrite-default": "",
 
     "window-rewrite": {
-      //PWA
-      "title<ChatGPT.*>": "🧠",
-      "title<YouTube>": "▶️",
-      "title<東映特撮ファンクラブ>": "🎬",
-      "title<Twitter>": "",
-      "title<Google Keep>": "📝",
-      "title<Google 翻訳>": "🅰️",
+      "title<ピクチャーインピクチャー>": "󰹙",
 
       // Browsers (例: Vivaldi, Firefox, Chromium)
-      "class<Vivaldi|vivaldi>": "",
-      "class<firefox|Firefox>": "",
-      "class<chromium>": "",
+      "class<Vivaldi.*>": "󰖟",
+      "class<firefox|Firefox>": "",
+      "class<google-chrome>": "󰊯",
+
+      //PWA
+      "title<ChatGPT.*>": "",
+      "title<YouTube.*>": "",
+      "title<東映特撮ファンクラブ>": "",
+      "title<Twitter>": "",
+      "title<Google Keep>": "󰛜",
+      "title<Google 翻訳>": "",
 
       // ターミナル / コンソール
-      "class<org.kde.konsole|Konsole>": "",
-      "class<kitty>": "",
-      "class<alacritty>": "",
+      "class<org.kde.konsole|Konsole>": "",
+      "class<kitty>": "",
+      "class<org.wezfurlong.wezterm>": "",
 
       // ファイラー／ファイルマネージャ
-      "class<org.kde.dolphin|dolphin>": "󰉓",
-      "class<thunar>": "󰉓",
+      "class<org.kde.dolphin|dolphin>": "",
+      "class<thunar>": "",
 
       // エディタ・IDE
       "class<code|Code|VSCodium>": "",
@@ -44,17 +46,23 @@
       "class<vlc>": "🕪",
 
       // コミュニケーション／チャット
-      "class<discord>": "",
-      "class<telegram>": "",
+      "class<com.discordapp.Discord>": "",
 
       // オフィスアプリ
-      "class<libreoffice-writer>": "",
-      "class<libreoffice-calc>": "",
-      "class<libreoffice-impress>": "󰐨",
-      "class<onlyoffice|ONLYOFFICE>": "📄",
+      "class<libreoffice-startcenter>": "",
+      "class<libreoffice-writer>": "",
+      "class<libreoffice-calc>": "",
+      "class<libreoffice-impress>": "",
+      "class<libreoffice-draw>": "",
+      "class<libreoffice-math>": "",
+      "class<libreoffice-base>": "",
+      "class<onlyoffice|ONLYOFFICE>": "󰏆",
 
       //メール
-      "class<Thunderbird|thunderbird>": "📧",
+      "class<Thunderbird|thunderbird>": "",
+
+      "class<com.github.xournalpp.xournalpp>": "󰽉",
+      "class<guvcview|.guvcview-wrapped>": "",
     },
 
     // オプション：ワークスペース切替 on click

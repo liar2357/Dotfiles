@@ -2,13 +2,34 @@
   "layer": "top",
   "position": "top",
 
-  "modules-left": ["group/system-info"],
-  "modules-center": ["custom/clock"],
-  "modules-right": ["hyprland/window", "battery"],
+  "modules-left": ["group/system-info", "custom/l-edge"],
+  "modules-center": ["custom/r-edge", "custom/clock", "custom/l-edge"],
+  "modules-right": [
+    "custom/r-edge",
+    "hyprland/window",
+    "custom/r-sep-battery",
+    "battery",
+  ],
+
+  // -- セパレータ --
+  "custom/l-edge": {
+    "format": "",
+  },
+  "custom/r-edge": {
+    "format": "",
+  },
+  "custom/l-sep": {
+    "format": "",
+  },
+  "custom/r-sep-battery": {
+    "exec": "~/Dotfiles/scripts/app/waybar-sep-battery.sh",
+    "return-type": "json",
+    "interval": 1,
+  },
 
   "battery": {
     "bat": "BATT",
-    "interval": 5,
+    "interval": 1,
     "states": {
       "warning": 30,
       "critical": 10,
@@ -21,7 +42,7 @@
     "format": "{icon} {capacity}%",
 
     // 充電中（Charging）
-    "format-charging": "⚡{icon} {capacity}%",
+    "format-charging": "󱐌{icon} {capacity}%",
   },
 
   "custom/clock": {
@@ -34,7 +55,17 @@
   "group/system-info": {
     // stacked vertically if bar is top/bottom
     "orientation": "horizontal",
-    "modules": ["cpu", "memory", "disk", "temperature", "network"],
+    "modules": [
+      "cpu",
+      "custom/l-sep",
+      "memory",
+      "custom/l-sep",
+      "disk",
+      "custom/l-sep",
+      "temperature",
+      "custom/l-sep",
+      "network",
+    ],
 
     // optional: drawer を使って hover で展開
     "drawer": {
@@ -58,17 +89,17 @@
   "disk": {
     "path": "/",
     "interval": 15,
-    "format": "💽 {percentage_used}%",
+    "format": "󰋊 {percentage_used}%",
   },
 
   "temperature": {
     "interval": 3,
-    "format": "🌡️ {temperatureC}°C",
+    "format": " {temperatureC}°C",
   },
 
   "network": {
     "format-wifi": " {signalStrength}% ↓{bandwidthDownBits} ↑{bandwidthUpBits}",
-    "format-ethernet": "󰈀 ↓{bandwidthDownBits}↑{bandwidthUpBits}",
+    "format-ethernet": " ↓{bandwidthDownBits}↑{bandwidthUpBits}",
     "format-disconnected": "  Disconnected",
     "tooltip-format": "{ifname}({essid}): {ipaddr}/{cidr}",
     "interval": 3,

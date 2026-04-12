@@ -1,8 +1,27 @@
-/* ~/.config/waybar/style.css */
+@define-color bat-normal-bg   #408040;
+@define-color bat-warning-bg #a0a060;
+@define-color bat-critical-bg #804040;
+@define-color bat-charging-bg #6060a0;
+
+@define-color base-bg rgba(100, 100, 100, 0.65);
+@define-color bg #333333;
+@define-color bg-rev #c0c0c0;
+@define-color power-bg #ff8080;
+@define-color nw-dis-bg #ff8080;
+@define-color active-bg #8080ff;
+
+@define-color text #ffffff;
+@define-color text-rev #000000;
+
+@define-color tt-bg rgba(45, 45, 60, 0.95);
+@define-color tt-shadow rgba(0, 0, 0, 0.7);
+@define-color tray-manu-bg rgba(0, 0, 0, 0.8);
+
 * {
-  font-family: "Moralerspace Argon NF";
+  font-family:
+    "Moralerspace Argon NF", "Symbols Nerd Font Mono", "Font Awesome 6 Free";
   font-size: 14px;
-  color: #ffffff;
+  color: @text;
   /* background は window#waybar 側で設定 */
   background: none;
   margin: 0;
@@ -10,59 +29,101 @@
 }
 
 window#waybar {
-  background-color: #222222;
-  color: #ffffff;
+  color: @text;
+  background-color: @base-bg;
+}
+
+#custom-l-edge {
+  color: @bg;
+  background-color: transparent;
+  padding: 0;
+  font-size: 20px;
+}
+#custom-r-edge {
+  color: @bg;
+  background-color: transparent;
+  padding: 0;
+  font-size: 20px;
+}
+#custom-l-sep {
+  padding: 0;
+  font-size: 20px;
+}
+#custom-l-sep-power {
+  color: @power-bg;
+  padding: 0;
+  font-size: 20px;
+}
+#custom-r-sep {
+  padding: 0;
+  font-size: 20px;
+}
+#custom-r-sep-battery {
+  padding: 0;
+  font-size: 20px;
 }
 
 .module {
-  padding: 2px 6px;
-  margin: 0 2px;
-  border-radius: 4px;
-  background-color: #333333;
-  border: 1px solid #80afff;
+  padding: 0px 6px;
+  background-color: @bg;
 }
 
 button:hover {
   background: inherit;
-  box-shadow: inset 0 -3px #ffffff;
+  box-shadow: inset 0 -3px @text;
 }
 
 /* ツールチップの背景／文字色を明示的に指定 */
 tooltip,
 tooltip * {
-  background-color: rgba(45, 45, 60, 0.95);
-  color: #ffffff;
+  background-color: @tt-bg;
+  color: @text;
   border-radius: 4px;
-  padding: 1px;
 }
 
 /* 必要なら影も足す */
 tooltip {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 2px 8px @tt-shadow;
 }
 
 #custom-power {
-  background-color: #ff8080;
+  background-color: @power-bg;
 }
 
 #network.disconnected {
-  background-color: #ff8080;
+  background-color: @nw-dis-bg;
 }
 
 #battery {
-  background: #408040;
+  background: @bat-normal-bg;
+}
+
+#custom-r-sep-battery {
+  color: @bat-normal-bg;
 }
 
 #battery.warning {
-  background: #a0a060;
+  background: @bat-warning-bg;
+}
+
+#custom-r-sep-battery.warning {
+  color: @bat-warning-bg;
 }
 
 #battery.critical {
-  background: #804040;
+  background: @bat-critical-bg;
+}
+
+#custom-r-sep-battery.critical {
+  color: @bat-critical-bg;
 }
 
 #battery.charging {
-  background: #6060a0;
+  background: @bat-charging-bg;
+}
+
+#custom-r-sep-battery.charging {
+  color: @bat-charging-bg;
 }
 
 /* ワークスペースボタン (hyprland/workspaces) のスタイル */
@@ -70,20 +131,20 @@ tooltip {
   padding: 0 8px;
   margin: 0 2px;
   border-radius: 3px;
-  background-color: #c0c0c0;
+  background-color: @bg-rev;
   border: none;
 }
 
 #workspaces button label {
-  color: #000000;
+  color: @text-rev;
 }
 
 #workspaces button.active label {
-  color: #ffffff;
+  color: @text;
 }
 
 #workspaces button.active {
-  background-color: #8080ff;
+  background-color: @active-bg;
 }
 
 #window {
@@ -105,6 +166,6 @@ tooltip {
 }
 
 #tray menu {
-  background: rgba(0, 0, 0, 0.8);
+  background: @tray-manu-bg;
   border-radius: 6px;
 }
