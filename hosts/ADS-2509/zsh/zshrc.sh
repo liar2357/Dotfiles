@@ -49,8 +49,9 @@ if [ -n "$SSH_CONNECTION" ]; then
 	echo ""
 fi
 
-if [ -z "$TMUX" ]; then
-	tmux attach || tmux
+# SSH時のみ tmux 自動起動（ただし opt-out 可能）
+if [[ -n "$SSH_TTY" && -z "$TMUX" && -z "$NO_TMUX" ]]; then
+	exec tmux new-session -A -s main
 fi
 
 if [ -n "$TMUX" ]; then
