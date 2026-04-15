@@ -41,6 +41,7 @@
     guvcview
     v4l-utils
     imagemagick
+    dnsmasq
 
     # runtime
     python3

@@ -7,7 +7,7 @@ status=$(cat "$BAT/status")
 
 if [ "$status" = "Charging" ]; then
 	class="charging"
-elif [ "$capacity" -le 15 ]; then
+elif [ "$capacity" -le 10 ]; then
 	class="critical"
 elif [ "$capacity" -le 30 ]; then
 	class="warning"

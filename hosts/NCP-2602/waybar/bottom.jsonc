@@ -104,6 +104,7 @@
 
       "class<com.github.xournalpp.xournalpp>": "󰽉",
       "class<guvcview|.guvcview-wrapped>": "",
+      "class<.virt-manager-wrapped>": "",
     },
 
     // オプション：ワークスペース切替 on click

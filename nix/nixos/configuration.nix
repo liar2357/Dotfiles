@@ -329,6 +329,7 @@
       "networkmanager"
       "video"
       "audio"
+      "libvirtd"
     ];
   };
 
@@ -350,7 +351,7 @@
   };
 
   #ssh
-  programs.ssh.startAgent = true;
+  programs.ssh.startAgent = false;
 
   #samba
   fileSystems."/mnt/HDD1Share" = {
@@ -368,4 +369,20 @@
 
   };
 
+  #SDCard
+  fileSystems."/mnt/microsd" = {
+    device = "/dev/disk/by-uuid/724234a0-7070-4e27-81d4-8f5116a82c19";
+    fsType = "ext4";
+    options = [
+      "nofail"
+      "x-systemd.device-timeout=10s"
+      "x-systemd.automount"
+      "noatime"
+    ];
+  };
+
+  #virt-manager
+  virtualisation.libvirtd.enable = true;
+  programs.virt-manager.enable = true;
+  services.gnome.gnome-keyring.enable = true;
 }
