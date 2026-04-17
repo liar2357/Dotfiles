@@ -7,7 +7,6 @@ fi
 
 # Oh My Zsh base
 export ZSH="$HOME/.oh-my-zsh"
-
 if ((ZSH_SUBSHELL_LEVEL > 0)); then
 	ZSH_THEME="zsh-theme/subshell"
 else

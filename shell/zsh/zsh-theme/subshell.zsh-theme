@@ -29,6 +29,6 @@ function random_prompt {
 
 precmd() {
   print -P ""
-  print -P "%K{${HEAD_C}} %K{${BODY_C1}}%F{${BODY_C2}} %n@${PLACE} Lv.${ZSH_SUBSHELL_LEVEL} (%m) %K{${BODY_C2}}%F{${BODY_C1}}${ARROW_RIGHT}%F{${BODY_C1}} %D %* %K{${BODY_C1}}%F{${BODY_C2}}${ARROW_RIGHT}%F{${HEAD_C}} %~  %K{black}%F{${BODY_C1}}%k${ARROW_RIGHT}%f"
+  print -P "%K{${HEAD_C}} %K{${BODY_C1}}%F{${BODY_C2}} %n@%m [${PLACE} Lv.${ZSH_SUBSHELL_LEVEL}] %K{${BODY_C2}}%F{${BODY_C1}}${ARROW_RIGHT}%F{${BODY_C1}} %D %* %K{${BODY_C1}}%F{${BODY_C2}}${ARROW_RIGHT}%F{${HEAD_C}} %~  %K{black}%F{${BODY_C1}}%k${ARROW_RIGHT}%f"
   random_prompt
 }

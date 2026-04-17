@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+. /etc/os-release
+echo "$PRETTY_NAME"

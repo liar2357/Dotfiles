@@ -10,6 +10,8 @@ export FAILED_C='#202020'
 
 PROMPT_SYMS=('( - ω -)つ' '(_ ˙꒳˙)_' '(∩ ˇ ω ˇ ∩)' '(^o^)' '(ﾉ･ω ･)ﾉ' '(ง˘ω ˘)ว' '(；´Д｀)' '(=^･ω･^=)' '(▼･ω･▼)' 'c(U*･× ･)U' '(♡ > ω < ♡)' '(*ˊᗜ ˋ)ﾉﾞ')
 
+DISTRO_NAME=$($HOME/Dotfiles/scripts/bin/distro-name)
+
 function random_prompt {
   local sym=${PROMPT_SYMS[RANDOM % $#PROMPT_SYMS + 1]}
  
@@ -19,6 +21,6 @@ function random_prompt {
 
 precmd() {
   print -P ""
-  print -P "%K{${HEAD_C}} %K{${BODY_C1}}%F{${BODY_C2}} %n@%m %K{${BODY_C2}}%F{${BODY_C1}}${ARROW_RIGHT}%F{${BODY_C1}} %D %* %K{${BODY_C1}}%F{${BODY_C2}}${ARROW_RIGHT}%F{${HEAD_C}} %~  %K{black}%F{${BODY_C1}}%k${ARROW_RIGHT}%f"
+  print -P "%K{${HEAD_C}} %K{${BODY_C1}}%F{${BODY_C2}} %n@%m [${DISTRO_NAME}] %K{${BODY_C2}}%F{${BODY_C1}}${ARROW_RIGHT}%F{${BODY_C1}} %D %* %K{${BODY_C1}}%F{${BODY_C2}}${ARROW_RIGHT}%F{${HEAD_C}} %~  %K{black}%F{${BODY_C1}}%k${ARROW_RIGHT}%f"
   random_prompt
 }

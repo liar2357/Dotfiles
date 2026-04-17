@@ -1,7 +1,12 @@
 export COLORTERM=truecolor
 
 HOSTNAME=$(hostname)
-source ~/Dotfiles/hosts/$HOSTNAME/zsh/zshrc.sh
+
+if [[ -n $CONTAINER_ID ]]; then
+	source ~/Dotfiles/hosts/distrobox/zsh/zshrc.sh
+else
+	source ~/Dotfiles/hosts/$HOSTNAME/zsh/zshrc.sh
+fi
 
 # ------------------------------------------------
 # エイリアス (必要に応じて追加)
@@ -27,6 +32,9 @@ alias nd='nix develop -c $SHELL'
 alias nfu='nix flake update'
 alias tl='tmux ls'
 alias tr='tmux source-file ~/.tmux.conf'
+alias db='distrobox'
+alias db-e='distrobox enter'
+alias db-l='distrobox list'
 
 ta() {
   if tmux has-session -t "$1" 2>/dev/null; then
