@@ -6,7 +6,7 @@ return {
     lazy = false,
     build = ":TSUpdate",
     dependencies = {
-      "nvim-treesitter/nvim-treesitter-textobjects"
+      "nvim-treesitter/nvim-treesitter-textobjects",
     },
     -- ここで module を明示する
     module = "nvim-treesitter.configs",
@@ -30,7 +30,8 @@ return {
           "xml",
           "bash",
           "markdown",
-          "markdown_inline"
+          "markdown_inline",
+          "tsx",
         },
         highlight = {
           enable = true,
@@ -40,7 +41,7 @@ return {
         textobjects = {
           select = {
             enable = true,
-            lokahead = true,
+            lookahead = true,
             keymaps = {
               ["af"] = "@function.outer",
               ["if"] = "@function.inner",
