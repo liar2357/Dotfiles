@@ -78,4 +78,5 @@ if not is_vscode then
 
   require("config.plugin_conf_init")
   require("keymaps.plugins")
+  require("config.filetypes")
 end
