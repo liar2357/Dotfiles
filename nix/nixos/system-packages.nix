@@ -42,6 +42,9 @@
     v4l-utils
     imagemagick
     dnsmasq
+    remmina
+    freerdp
+    distrobox
 
     # runtime
     python3

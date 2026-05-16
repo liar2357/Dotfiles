@@ -41,6 +41,7 @@
         endpoint = "60.93.169.133:51820";
         allowedIPs = [
           "192.168.3.0/24"
+          "192.168.122.0/24"
           "10.0.0.0/24"
         ];
         persistentKeepalive = 25;
@@ -385,4 +386,25 @@
   virtualisation.libvirtd.enable = true;
   programs.virt-manager.enable = true;
   services.gnome.gnome-keyring.enable = true;
+
+  #KDEConnect
+  programs.kdeconnect.enable = true;
+  networking.firewall = {
+    allowedTCPPortRanges = [
+      {
+        from = 1714;
+        to = 1764;
+      }
+    ];
+    allowedUDPPortRanges = [
+      {
+        from = 1714;
+        to = 1764;
+      }
+    ];
+  };
+
+  #DistroBox
+  virtualisation.podman.enable = true;
+  virtualisation.podman.dockerCompat = true;
 }
