@@ -53,7 +53,7 @@
     fzf
     delta
     btop
-    rustdesk
+    rustdesk-flutter
 
     # runtime
     python3
