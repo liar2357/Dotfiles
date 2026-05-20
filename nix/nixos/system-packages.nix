@@ -45,6 +45,15 @@
     remmina
     freerdp
     distrobox
+    ripgrep
+    fd
+    bat
+    eza
+    zoxide
+    fzf
+    delta
+    btop
+    rustdesk-flutter
 
     # runtime
     python3

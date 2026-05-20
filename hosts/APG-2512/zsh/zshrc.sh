@@ -11,7 +11,7 @@ export ZSH="$HOME/.oh-my-zsh"
 if ((ZSH_SUBSHELL_LEVEL > 0)); then
 	ZSH_THEME="zsh-theme/subshell"
 else
-	ZSH_THEME="zsh-theme/$(hostname)"
+	ZSH_THEME="zsh-theme/native"
 fi
 
 plugins=(

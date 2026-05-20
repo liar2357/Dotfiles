@@ -407,4 +407,13 @@
   #DistroBox
   virtualisation.podman.enable = true;
   virtualisation.podman.dockerCompat = true;
+
+  #RustDesk
+  nixpkgs.config.allowUnfreePredicate =
+    pkg:
+    builtins.elem (pkgs.lib.getName pkg) [
+      "libsciter"
+      "rustdesk"
+      "rustdesk-flutter"
+    ];
 }
