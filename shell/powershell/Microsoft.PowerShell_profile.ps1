@@ -102,10 +102,10 @@ function global:prompt {
         $ok = $?
 
         if ($ok) {
-            $statusText = "$(FG $SUCCESS_C)○ SUCCESS$reset"
+            $statusText = "$(FG $SUCCESS_C)O"
         }
         else {
-            $statusText = "$(FG $FAILED_C)✘ FAILED$reset"
+            $statusText = "$(FG $FAILED_C)X"
         }
 
         # 顔文字
@@ -130,9 +130,11 @@ function global:prompt {
         # 下段
         Write-Host -NoNewline (
             "$(BG $HEAD_C) " +
-            "$(BG $BODY_C1)$(FG $BODY_C2) $sym " +
-            "$reset" +
-            "$(FG $BODY_C1)$ARROW_RIGHT$reset "
+            "$(BG $BODY_C1)$(FG $BODY_C2) $statusText " +
+	    "$(BG $BODY_C2)$(FG $BODY_C1)$ARROW_RIGHT" +
+	    "$(BG $BODY_C2)$(FG $BODY_C1) $sym " + 
+	    "$(BG '#000000')$(FG $BODY_C2)$ARROW_RIGHT" +
+	    "$reset"
         )
 
         return " "
