@@ -91,7 +91,7 @@ segment() {
   local fg="$2"
   local text="$3"
 
-  echo "%K{${bg}}%F{${fg}} ${text} %f%k"
+  echo "%K{${bg}}%F{${fg}}${text}%f%k"
 }
 
 arrow() {
@@ -109,17 +109,17 @@ build_left_prompt() {
   local sym
   sym=$(random_symbol)
 
-  PROMPT+="$(segment "${HEAD_C}" "white" "${sym}")"
-  PROMPT+="$(arrow "${BODY_C1}" "${HEAD_C}") "
+  PROMPT+="$(segment "${HEAD_C}" "${HEAD_C}" " ")"
+  PROMPT+="$(segment "${BODY_C1}" "${BODY_C2}" " ${sym} ")"
+  PROMPT+="$(arrow "${BODY_C1}" "brack") "
 }
 
 build_right_prompt() {
   RPROMPT="%F{${BODY_C1}}${ARROW_LEFT}"
   RPROMPT+="%K{${BODY_C1}} "
 
-  RPROMPT+="%(?.%F{${SUCCESS_C}}○ SUCCESS.%F{${FAILED_C}}✘ FAILED)"
-
-  RPROMPT+=" %k%F{${HEAD_C}}${ARROW_LEFT}%f"
+  RPROMPT+="%(?.%F{${SUCCESS_C}}○ SUCCESS.%F{${FAILED_C}}✘ FAILED) "
+  RPROMPT+="$(segment "${HEAD_C}" "${HEAD_C}" " ")"
 }
 
 # =========================================
@@ -130,12 +130,13 @@ print_header() {
   print -P ""
 
   print -P \
-"%K{${HEAD_C}} %F{white}%n@%m %f\
-%K{${BODY_C1}}%F{${BODY_C2}} [${DISTRO_NAME}] \
+"%K{${HEAD_C}} \
+%K{${BODY_C1}}%F{${BODY_C2}} %n@%m [${DISTRO_NAME}] \
 %K{${BODY_C2}}%F{${BODY_C1}}${ARROW_RIGHT}\
-%K{${BODY_C1}}%F{black} %D %* \
-%K{black}}%F{${BODY_C1}}${ARROW_RIGHT}\
-%f %~"
+%K{${BODY_C2}}%F{${BODY_C1}} %D %* \
+%K{${BODY_C1}}%F{${BODY_C2}}${ARROW_RIGHT}\
+%K{${BODY_C1}}%F{${BODY_C2}} %~ \
+%K{black}%F{${BODY_C1}}${ARROW_RIGHT}"
 }
 
 # =========================================
