@@ -1,7 +1,6 @@
 alias ls='eza -lAh --icons --git'
 alias lsr='eza -lAhR --icons --git'
 alias tree='eza -lAh --tree --icons'
-alias cat='bat'
 alias top='btop'
 alias grep='rg'
 alias find='fd'
