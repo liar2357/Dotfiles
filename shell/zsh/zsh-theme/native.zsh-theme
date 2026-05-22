@@ -1,5 +1,23 @@
 autoload -U colors && colors
 
+autoload -Uz vcs_info
+setopt prompt_subst
+
+zstyle ':vcs_info:*' enable git
+zstyle ':vcs_info:*' check-for-changes true
+
+# staged
+zstyle ':vcs_info:*' stagedstr '+'
+
+# unstaged
+zstyle ':vcs_info:*' unstagedstr '*'
+
+# branch format
+zstyle ':vcs_info:git:*' formats '%F{${BODY_C1}}[%b%c%u]%f'
+
+# merge/rebase etc
+zstyle ':vcs_info:git:*' actionformats '%F{${FAILED_C}}[%b|%a]%f'
+
 # =========================================
 # Symbols
 # =========================================
@@ -7,6 +25,7 @@ autoload -U colors && colors
 ARROW_RIGHT=""
 ARROW_RIGHT_THIN=""
 ARROW_LEFT=""
+CURVE_TOP="╭"
 CURVE_BOTTOM="╰"
 CENTER_LINE="─"
 
@@ -15,18 +34,18 @@ CENTER_LINE="─"
 # =========================================
 
 PROMPT_SYMS=(
-  '( - ω -)つ'
-  '(_ ˙꒳˙)_'
+  ' ( - ω -)つ'
+  ' (_ ˙꒳˙)_ '
   '(∩ ˇ ω ˇ ∩)'
-  '(^o^)'
-  '(ﾉ･ω ･)ﾉ'
-  '(ง˘ω ˘)ว'
-  '(；´Д｀)'
-  '(=^･ω･^=)'
-  '(▼･ω･▼)'
-  'c(U*･× ･)U'
+  '   (^o^)   '
+  '  (ﾉ･ω ･)ﾉ '
+  '  (ง˘ω ˘)ว '
+  '  (；´Д｀) '
+  ' (=^･ω･^=) '
+  '  (▼･ω･▼)  '
+  ' c(U*･× ･)U'
   '(♡ > ω < ♡)'
-  '(*ˊᗜ ˋ)ﾉﾞ'
+  '  (*ˊᗜ ˋ)ﾉﾞ '
 )
 
 # =========================================
@@ -85,10 +104,6 @@ set_prompt_palette() {
 
 DISTRO_NAME="$($HOME/Dotfiles/scripts/bin/distro-name)"
 
-random_symbol() {
-  echo "${PROMPT_SYMS[RANDOM % $#PROMPT_SYMS + 1]}"
-}
-
 segment() {
   local bg="$1"
   local fg="$2"
@@ -109,13 +124,16 @@ arrow() {
 # =========================================
 
 build_left_prompt() {
-  local sym=$(random_symbol)
+  local sym="${PROMPT_SYMS[RANDOM % $#PROMPT_SYMS + 1]}"
 
+  PROMPT+="%F{${BODY_C1}}" 
   PROMPT+=" ${CURVE_BOTTOM}${CENTER_LINE}" 
-  PROMPT+=" %(?.%F{${SUCCESS_C}}O.%F{${FAILED_C}}X)%f"
+  PROMPT+=" %(?.%F{${SUCCESS_C}}.%F{${FAILED_C}}) "
+  PROMPT+="%F{${BODY_C1}}" 
   PROMPT+=" ${CENTER_LINE}"
   PROMPT+=" ${sym}"
   PROMPT+=" ${CENTER_LINE}${ARROW_RIGHT_THIN} "
+  PROMPT+="%f" 
 }
 
 # =========================================
@@ -129,10 +147,26 @@ print_header() {
 "%K{${HEAD_C}} \
 %K{${BODY_C1}}%F{${BODY_C2}} %n@%m [${DISTRO_NAME}] \
 %K{${BODY_C2}}%F{${BODY_C1}}${ARROW_RIGHT}\
-%K{${BODY_C2}}%F{${BODY_C1}} %D %* \
-%K{${BODY_C1}}%F{${BODY_C2}}${ARROW_RIGHT}\
-%K{${BODY_C1}}%F{${BODY_C2}} %~ \
-%K{black}%F{${BODY_C1}}${ARROW_RIGHT}"
+%K{${BODY_C2}}%F{${BODY_C1}} zsh ${ZSH_VERSION} \
+%k%F{${BODY_C2}}${ARROW_RIGHT}%f"
+}
+
+# =========================================
+# Mid Line
+# =========================================
+
+print_middle() {
+
+  if [[ -n "${vcs_info_msg_0_}" ]]; then
+    GIT="${CENTER_LINE} ${vcs_info_msg_0_}"
+  fi
+
+  print -P \
+"%F{${BODY_C1}}\
+ ${CURVE_TOP}${CENTER_LINE}\
+ %~\
+ ${GIT}\
+%f"
 }
 
 # =========================================
@@ -142,9 +176,11 @@ print_header() {
 precmd() {
   set_prompt_palette
 
+  vcs_info
+
   PROMPT=""
-  RPROMPT=""
 
   print_header
+  print_middle
   build_left_prompt
 }
