@@ -242,7 +242,7 @@
         "docker"
         "z"
       ];
-      theme = "zsh-theme/NCP-2602";
+      theme = "zsh-theme/native";
       custom = "/etc/zsh-custom";
 
       preLoaded = ''
@@ -256,7 +256,7 @@
         if (( ZSH_SUBSHELL_LEVEL > 0 )); then
           ZSH_THEME="zsh-theme/subshell"
         else
-          ZSH_THEME="zsh-theme/NCP-2602"
+          ZSH_THEME="zsh-theme/native"
         fi
       '';
     };

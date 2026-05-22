@@ -146,11 +146,11 @@
   },
 
   "custom/ws-next": {
-    "format": "＞",
+    "format": "",
     "on-click": "hyprctl dispatch workspace r+1",
   },
   "custom/ws-prev": {
-    "format": "＜",
+    "format": "",
     "on-click": "hyprctl dispatch workspace r-1",
   },
 
