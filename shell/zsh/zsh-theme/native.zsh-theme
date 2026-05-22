@@ -5,7 +5,10 @@ autoload -U colors && colors
 # =========================================
 
 ARROW_RIGHT=""
+ARROW_RIGHT_THIN=""
 ARROW_LEFT=""
+CURVE_BOTTOM="╰"
+CENTER_LINE="─"
 
 # =========================================
 # Prompt Symbols
@@ -62,7 +65,7 @@ set_prompt_palette() {
       BODY_C1='#ff0060'
       BODY_C2='#ffa0c0'
       SUCCESS_C='#20dd20'
-      FAILED_C='#000000'
+      FAILED_C='#cc4040'
       ;;
 
     *)
@@ -106,20 +109,13 @@ arrow() {
 # =========================================
 
 build_left_prompt() {
-  local sym
-  sym=$(random_symbol)
+  local sym=$(random_symbol)
 
-  PROMPT+="$(segment "${HEAD_C}" "${HEAD_C}" " ")"
-  PROMPT+="$(segment "${BODY_C1}" "${BODY_C2}" " ${sym} ")"
-  PROMPT+="$(arrow "${BODY_C1}" "brack") "
-}
-
-build_right_prompt() {
-  RPROMPT="%F{${BODY_C1}}${ARROW_LEFT}"
-  RPROMPT+="%K{${BODY_C1}} "
-
-  RPROMPT+="%(?.%F{${SUCCESS_C}}○ SUCCESS.%F{${FAILED_C}}✘ FAILED) "
-  RPROMPT+="$(segment "${HEAD_C}" "${HEAD_C}" " ")"
+  PROMPT+=" ${CURVE_BOTTOM}${CENTER_LINE}" 
+  PROMPT+=" %(?.%F{${SUCCESS_C}}O.%F{${FAILED_C}}X)%f"
+  PROMPT+=" ${CENTER_LINE}"
+  PROMPT+=" ${sym}"
+  PROMPT+=" ${CENTER_LINE}${ARROW_RIGHT_THIN} "
 }
 
 # =========================================
@@ -151,5 +147,4 @@ precmd() {
 
   print_header
   build_left_prompt
-  build_right_prompt
 }
