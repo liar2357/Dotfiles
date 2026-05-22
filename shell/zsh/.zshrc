@@ -1,11 +1,9 @@
 export COLORTERM=truecolor
 
-HOSTNAME=$(hostname)
-
 if [[ -n $CONTAINER_ID ]]; then
 	source ~/Dotfiles/hosts/distrobox/zsh/zshrc.sh
 else
-	source ~/Dotfiles/hosts/$HOSTNAME/zsh/zshrc.sh
+	source ~/Dotfiles/hosts/$HOST/zsh/zshrc.sh
 fi
 
 # ------------------------------------------------

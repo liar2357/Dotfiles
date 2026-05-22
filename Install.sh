@@ -17,7 +17,7 @@ safe-symlink "$HOME/Dotfiles/config/wofi" "$HOME/.config/wofi"
 safe-symlink "$HOME/Dotfiles/config/wlogout" "$HOME/.config/wlogout"
 
 #-- zsh --
-safe-symlink "$HOME/Dotfiles/shell/zsh/zsh-theme" "$HOME/.oh-my-zsh/custom/themes/zsh-theme"
+safe-symlink "$HOME/Dotfiles/shell/zsh/self.zsh-theme" "$HOME/.oh-my-zsh/custom/themes/self.zsh-theme"
 safe-symlink "$HOME/Dotfiles/shell/zsh/.zshrc" "$HOME/.zshrc"
 
 #--- tmux ---

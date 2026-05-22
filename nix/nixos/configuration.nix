@@ -242,7 +242,7 @@
         "docker"
         "z"
       ];
-      theme = "zsh-theme/native";
+      theme = "self";
       custom = "/etc/zsh-custom";
 
       preLoaded = ''
@@ -252,20 +252,12 @@
         else
            export ZSH_SUBSHELL_LEVEL=$((ZSH_SUBSHELL_LEVEL + 1))
         fi
-
-        if (( ZSH_SUBSHELL_LEVEL > 0 )); then
-          ZSH_THEME="zsh-theme/subshell"
-        else
-          ZSH_THEME="zsh-theme/native"
-        fi
       '';
     };
 
   };
 
-  environment.etc = {
-    "zsh-custom/themes/zsh-theme".source = "${inputs.self}/shell/zsh/zsh-theme";
-  };
+  environment.etc."zsh-custom/themes/self.zsh-theme".source = inputs.self + /shell/zsh/self.zsh-theme;
 
   users.defaultUserShell = pkgs.zsh;
 
