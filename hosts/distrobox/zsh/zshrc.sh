@@ -24,8 +24,7 @@ export TERM=xterm-256color
 export VISUAL="/usr/local/bin/nvim"
 export EDITOR="/usr/local/bin/nvim"
 export SUDO_EDITOR="/usr/local/bin/nvim"
-
-cd
+export LIBGL_ALWAYS_SOFTWARE=1 
 
 if [[ -z $TMUX && ZSH_SUBSHELL_LEVEL -lt 2 || -n $TMUX && ZSH_SUBSHELL_LEVEL -lt 3 ]]; then
 	fastfetch
