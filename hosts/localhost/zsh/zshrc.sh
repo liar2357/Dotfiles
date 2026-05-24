@@ -24,6 +24,7 @@ source $ZSH/oh-my-zsh.sh
 
 alias pd='proot-distro'
 alias bl='~/scripts/proot-boot.sh'
+alias sc='~/scripts/ssh-menu.sh'
 
 # Termux のシェル起動時に一度だけメニューを出す
 if [ -z "$PROOT_BOOT_DONE" ]; then
