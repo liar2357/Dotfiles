@@ -51,3 +51,7 @@ function touch-p() {
 vclip() {
 	ffmpeg -ss "$1" -to "$2" -i "$3" -c copy "cut_$3"
 }
+
+termux() {
+	ssh -o Hostname="$1" Termux
+}
