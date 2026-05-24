@@ -1,16 +1,16 @@
 #! /usr/bin/env bash
 # Termux
 if [[ -n "$TERMUX_VERSION" ]]; then
-    ver=$(getprop ro.build.version.release 2>/dev/null)
-    codename=$(getprop ro.build.version.codename 2>/dev/null)
+	ver=$(getprop ro.build.version.release 2>/dev/null)
+	codename=$(getprop ro.build.version.codename 2>/dev/null)
 
-    echo "Android ${codename} ${ver} $(uname -m)"
+	echo "Android ${codename} ${ver} $(uname -m)"
 
 # 通常のLinux
 elif [[ -r /etc/os-release ]]; then
-    source /etc/os-release
-    echo "${PRETTY_NAME:-$NAME}"
+	source /etc/os-release
+	echo "${PRETTY_NAME:-$NAME} $(uname -m)"
 
 else
-    echo "$(uname -s)"
+	echo "$(uname -s)"
 fi
