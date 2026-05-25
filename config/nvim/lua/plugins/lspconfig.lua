@@ -12,6 +12,8 @@ return {
       end,
     })
 
+    local is_windows = vim.fn.has("win32") == 1
+
     -- Rust
     vim.lsp.config.rust_analyzer = {
       settings = {
@@ -54,29 +56,34 @@ return {
     vim.lsp.config.jdtls = {}
     vim.lsp.enable({ "jdtls" })
 
-    vim.lsp.config.intelephense = {
-        cmd = { "intelephense", "--stdio" },
+    vim.lsp.config.php = is_windows and {
+      name = "intelephense",
+      cmd = { "intelephense", "--stdio" },
+    } or {
+      name = "phpactor",
+      cmd = { "phpactor", "language-server" },
     }
-    
-    vim.lsp.enable({
-        "intelephense",
-    })
+
+    vim.lsp.enable({ "php" })
 
     vim.lsp.config.solargraph = {}
     vim.lsp.enable({ "solargraph" })
 
-    vim.lsp.config.sqlls = {
-        cmd = {
+    vim.lsp.config.sqlls = is_windows
+        and {
+          name = "sql-language-server",
+          cmd = {
             "sql-language-server",
             "up",
             "--method",
             "stdio",
-        },
-    }
-    
-    vim.lsp.enable({
-        "sqlls",
-    })
+          },
+        }
+      or {
+        name = "sqls",
+      }
+
+    vim.lsp.enable({ "sqlls" })
 
     vim.lsp.config.nixd = {
       cmd = { "nixd" },

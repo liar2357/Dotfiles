@@ -54,6 +54,7 @@
     delta
     btop
     rustdesk-flutter
+    nmap
 
     # runtime
     python3
