@@ -4,7 +4,7 @@ return {
     -- NOTE: master を使うのが安定、main でも動くけど README では推奨されている
     branch = "master",
     lazy = false,
-    build = ":TSUpdate",
+    --build = ":TSUpdate",
     dependencies = {
       "nvim-treesitter/nvim-treesitter-textobjects",
     },
@@ -12,6 +12,7 @@ return {
     module = "nvim-treesitter.configs",
     config = function()
       require("nvim-treesitter.configs").setup({
+        auto_install = false,
         ensure_installed = {
           "lua",
           "vim",

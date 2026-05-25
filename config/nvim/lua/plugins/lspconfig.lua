@@ -54,14 +54,29 @@ return {
     vim.lsp.config.jdtls = {}
     vim.lsp.enable({ "jdtls" })
 
-    vim.lsp.config.phpactor = {}
-    vim.lsp.enable({ "phpactor" })
+    vim.lsp.config.intelephense = {
+        cmd = { "intelephense", "--stdio" },
+    }
+    
+    vim.lsp.enable({
+        "intelephense",
+    })
 
     vim.lsp.config.solargraph = {}
     vim.lsp.enable({ "solargraph" })
 
-    vim.lsp.config.sqls = {}
-    vim.lsp.enable({ "sqls" })
+    vim.lsp.config.sqlls = {
+        cmd = {
+            "sql-language-server",
+            "up",
+            "--method",
+            "stdio",
+        },
+    }
+    
+    vim.lsp.enable({
+        "sqlls",
+    })
 
     vim.lsp.config.nixd = {
       cmd = { "nixd" },
