@@ -21,7 +21,7 @@ return {
         cpp = { "clang-format" },
         cs = { "csharpier" },
         java = { "google-java-format" },
-        php = { "php-cs-fixer" },
+        php = { "php_cs_fixer" },
         ruby = { "rubocop" },
         python = { "black" },
         sh = { "shfmt" },
