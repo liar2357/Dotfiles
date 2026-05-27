@@ -1,5 +1,4 @@
-# =========================================
-# Requirements
+# =======================================# Requirements
 # =========================================
 
 Import-Module posh-git -ErrorAction SilentlyContinue
@@ -68,17 +67,7 @@ function Set-PromptPalette {
 
     $global:MODE_FLG = "Normal"
 
-    if ($env:CONTAINER_ID) {
-
-        $global:HEAD_C    = HEX "#008080"
-        $global:BODY_C1   = HEX "#80ff80"
-        $global:BODY_C2   = HEX "#008000"
-        $global:SUCCESS_C = HEX "#0000ff"
-        $global:FAILED_C  = HEX "#ff0000"
-
-        $global:MODE_FLG = "DistroBox"
-    }
-    elseif ($NestedPromptLevel -gt 0) {
+    if ($NestedPromptLevel -gt 0) {
 
         $global:HEAD_C    = HEX "#000000"
         $global:BODY_C1   = HEX "#ffffff"
@@ -92,7 +81,7 @@ function Set-PromptPalette {
 
         switch -Wildcard ($env:COMPUTERNAME) {
 
-            "APG-2512*" {
+            "WDG-2011*" {
                 $global:HEAD_C    = HEX "#80ff80"
                 $global:BODY_C1   = HEX "#8080ff"
                 $global:BODY_C2   = HEX "#80ffff"
@@ -100,27 +89,19 @@ function Set-PromptPalette {
                 $global:FAILED_C  = HEX "#cc4040"
             }
 
-            "NCP-2602*" {
-                $global:HEAD_C    = HEX "#0000ff"
-                $global:BODY_C1   = HEX "#ffff80"
-                $global:BODY_C2   = HEX "#808040"
-                $global:SUCCESS_C = HEX "#208020"
-                $global:FAILED_C  = HEX "#ff0000"
+            "WLG-2403*" {
+                $global:HEAD_C    = HEX "#80ff80"
+                $global:BODY_C1   = HEX "#8080ff"
+                $global:BODY_C2   = HEX "#80ffff"
+                $global:SUCCESS_C = HEX "#40cc40"
+                $global:FAILED_C  = HEX "#cc4040"
             }
 
-            "FDS-2509*" {
-                $global:HEAD_C    = HEX "#ffff80"
-                $global:BODY_C1   = HEX "#ff40ff"
-                $global:BODY_C2   = HEX "#ffc0ff"
-                $global:SUCCESS_C = HEX "#00ff00"
-                $global:FAILED_C  = HEX "#202020"
-            }
-
-            "DTC-2603*" {
-                $global:HEAD_C    = HEX "#ff80ff"
-                $global:BODY_C1   = HEX "#ff0060"
-                $global:BODY_C2   = HEX "#ffa0c0"
-                $global:SUCCESS_C = HEX "#20dd20"
+            "WVS-2604*" {
+                $global:HEAD_C    = HEX "#80ff80"
+                $global:BODY_C1   = HEX "#8080ff"
+                $global:BODY_C2   = HEX "#80ffff"
+                $global:SUCCESS_C = HEX "#40cc40"
                 $global:FAILED_C  = HEX "#cc4040"
             }
 
@@ -173,7 +154,7 @@ function Get-GitSegment {
         $flags += "*"
     }
 
-    return " [$branch$flags]"
+    return " $CENTER_LINE [$branch$flags]"
 }
 
 # =========================================
@@ -183,7 +164,46 @@ function Get-GitSegment {
 function Get-DistroName {
 
     if ($IsWindows) {
-        return "Windows"
+
+        $os = Get-CimInstance Win32_OperatingSystem
+
+        # "Microsoft Windows 11 Home"
+        # -> "Windows 11 Home"
+        $caption = (
+            $os.Caption.Trim() `
+                -replace '^Microsoft\s+', ''
+        )
+
+        $cv = Get-ItemProperty `
+            "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion"
+
+        $release =
+            if ($cv.DisplayVersion) {
+                $cv.DisplayVersion
+            }
+            elseif ($cv.ReleaseId) {
+                $cv.ReleaseId
+            }
+            else {
+                ""
+            }
+
+        # ARM64対応込み
+        $arch = switch (
+            [System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture
+        ) {
+
+            "X64"   { "x86_64" }
+            "X86"   { "x86" }
+            "Arm64" { "aarch64" }
+            "Arm"   { "arm" }
+
+            default {
+                $_.ToString().ToLower()
+            }
+        }
+
+        return "$caption ($release) $arch"
     }
 
     return "PowerShell"
@@ -195,7 +215,7 @@ function Get-DistroName {
 
 function prompt {
 
-    $lastExit = $LASTEXITCODE
+    $lastSuccess = $?
 
     Set-PromptPalette
 
@@ -204,10 +224,6 @@ function prompt {
     $distro = Get-DistroName
 
     switch ($MODE_FLG) {
-
-        "DistroBox" {
-            $place = "$distro on DistroBox Lv.$NestedPromptLevel"
-        }
 
         "SubShell" {
 
@@ -235,11 +251,11 @@ function prompt {
     $git = Get-GitSegment
 
     $successIcon =
-        if ($lastExit -eq 0) {
-            "$(FG $SUCCESS_C)"
+        if ($lastSuccess) {
+            "$(FG $SUCCESS_C) "
         }
         else {
-            "$(FG $FAILED_C)"
+            "$(FG $FAILED_C) "
         }
 
     $path = $executionContext.SessionState.Path.CurrentLocation
@@ -271,7 +287,7 @@ function prompt {
         "$(FG $BODY_C1) " +
         "$CURVE_BOTTOM$CENTER_LINE " +
         "$successIcon " +
-        "$(FG $BODY_C1)$CENTER_LINE $sym $CENTER_LINE $ARROW_RIGHT_THIN " +
+        "$(FG $BODY_C1)$CENTER_LINE $sym $CENTER_LINE$ARROW_RIGHT_THIN " +
         "$RESET"
     ) -NoNewline
 
