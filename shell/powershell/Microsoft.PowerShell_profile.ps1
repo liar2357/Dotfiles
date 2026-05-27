@@ -98,9 +98,9 @@ function Set-PromptPalette {
             }
 
             "WVS-2604*" {
-                $global:HEAD_C    = HEX "#0000ff"
+                $global:HEAD_C    = HEX "#8080ff"
                 $global:BODY_C1   = HEX "#80ffff"
-                $global:BODY_C2   = HEX "#8080ff"
+                $global:BODY_C2   = HEX "#0000ff"
                 $global:SUCCESS_C = HEX "#40cc40"
                 $global:FAILED_C  = HEX "#cc4040"
             }
