@@ -82,25 +82,25 @@ function Set-PromptPalette {
         switch -Wildcard ($env:COMPUTERNAME) {
 
             "WDG-2011*" {
-                $global:HEAD_C    = HEX "#80ff80"
-                $global:BODY_C1   = HEX "#8080ff"
-                $global:BODY_C2   = HEX "#80ffff"
+                $global:HEAD_C    = HEX "#ff0000"
+                $global:BODY_C1   = HEX "#ff8080"
+                $global:BODY_C2   = HEX "#804040"
                 $global:SUCCESS_C = HEX "#40cc40"
                 $global:FAILED_C  = HEX "#cc4040"
             }
 
             "WLG-2403*" {
-                $global:HEAD_C    = HEX "#80ff80"
-                $global:BODY_C1   = HEX "#8080ff"
-                $global:BODY_C2   = HEX "#80ffff"
+                $global:HEAD_C    = HEX "#00ff00"
+                $global:BODY_C1   = HEX "#408040"
+                $global:BODY_C2   = HEX "#80ff80"
                 $global:SUCCESS_C = HEX "#40cc40"
                 $global:FAILED_C  = HEX "#cc4040"
             }
 
             "WVS-2604*" {
-                $global:HEAD_C    = HEX "#80ff80"
-                $global:BODY_C1   = HEX "#8080ff"
-                $global:BODY_C2   = HEX "#80ffff"
+                $global:HEAD_C    = HEX "#0000ff"
+                $global:BODY_C1   = HEX "#80ffff"
+                $global:BODY_C2   = HEX "#8080ff"
                 $global:SUCCESS_C = HEX "#40cc40"
                 $global:FAILED_C  = HEX "#cc4040"
             }
@@ -293,3 +293,10 @@ function prompt {
 
     return " "
 }
+
+
+# =========================================
+# Link Config Files
+# =========================================
+
+. "$HOME\Dotfiles\shell\COMMON\alias-and-function.ps1"
