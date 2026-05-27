@@ -46,7 +46,28 @@ end
 
 local is_vscode = (vim.g.vscode ~= nil)
 if not is_vscode then
-  vim.o.shell = vim.fn.exepath("zsh")
+
+  if vim.fn.has("win32") == 1 then
+    vim.opt.shell = "pwsh"
+
+    vim.opt.shellcmdflag =
+      "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command"
+
+    vim.opt.shellredir =
+      "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
+
+    vim.opt.shellpipe =
+      "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
+
+    vim.opt.shellquote = ""
+    vim.opt.shellxquote = ""
+  else
+    vim.o.shell = "zsh"
+  end
+  
+  if shell ~= "" then
+    vim.o.shell = shell
+  end
 
   vim.api.nvim_create_autocmd("QuitPre", {
     callback = function()
