@@ -61,6 +61,7 @@
     gcc
     go
     gnumake
+    rustup
 
     # LSP
     typescript-language-server # TS/JS
