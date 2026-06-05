@@ -25,6 +25,7 @@ source $ZSH/oh-my-zsh.sh
 alias pd='proot-distro'
 alias bl='proot-boot'
 alias sc='ssh-menu'
+alias ssh='ssh-wraper'
 
 eval "$(keychain --eval --quiet)"
 
