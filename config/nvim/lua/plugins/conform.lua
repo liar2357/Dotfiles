@@ -55,9 +55,21 @@ return {
           args = { "fmt", "-" },
           stdin = true,
         },
+        php_cs_fixer = {
+          command = "php-cs-fixer",
+          args = {
+            "fix",
+            "$FILENAME",
+            "--quiet",
+          },
+          stdin = false,
+        },
       },
 
-      format_on_save = true,
+      format_on_save = {
+        timeout_ms = 10000,
+        lsp_fallback = true,
+      },
     })
   end,
 }
