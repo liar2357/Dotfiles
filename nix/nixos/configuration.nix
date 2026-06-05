@@ -323,6 +323,7 @@
       "video"
       "audio"
       "libvirtd"
+      "wireshark"
     ];
   };
 
@@ -408,4 +409,11 @@
       "rustdesk"
       "rustdesk-flutter"
     ];
+
+  #WireShark
+  programs.wireshark = {
+    enable = true;
+    dumpcap.enable = true;
+  };
+
 }

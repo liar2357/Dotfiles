@@ -93,9 +93,9 @@ set_prompt_palette() {
         ;;
   
       FDS-2509*)
-        HEAD_C='#ffff80'
-        BODY_C1='#ff40ff'
-        BODY_C2='#ffc0ff'
+        HEAD_C='#80c0ff'
+        BODY_C1='#8040ff'
+        BODY_C2='#ffffff'
         SUCCESS_C='#00ff00'
         FAILED_C='#202020'
         ;;

@@ -55,12 +55,14 @@
     btop
     rustdesk-flutter
     nmap
+    wireshark
 
     # runtime
     python3
     gcc
     go
     gnumake
+    rustup
 
     # LSP
     typescript-language-server # TS/JS
