@@ -55,6 +55,7 @@
     btop
     rustdesk-flutter
     nmap
+    wireshark
 
     # runtime
     python3
