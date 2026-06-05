@@ -1,0 +1,21 @@
+#!/data/data/com.termux/files/usr/bin/bash
+
+HOSTS=(
+    "FDS-2509"
+    "WVS-2604"
+)
+
+echo "==== SSH Hosts ===="
+
+for i in "${!HOSTS[@]}"; do
+    printf "%2d) %s\n" "$((i+1))" "${HOSTS[$i]}"
+done
+
+echo
+read -rp "Select Host: " NUM
+
+if [[ "$NUM" =~ ^[0-9]+$ ]] &&
+   (( NUM >= 1 && NUM <= ${#HOSTS[@]} )); then
+
+    exec ssh-wraper "${HOSTS[$((NUM-1))]}"
+fi

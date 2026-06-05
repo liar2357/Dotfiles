@@ -1,0 +1,19 @@
+pkill -f termux-x11
+pkill -f pulseaudio
+pkill -f xfce
+pkill -f dbus
+pkill -f Xorg
+
+rm -rf $TMPDIR/.X11-unix
+rm -rf $TMPDIR/.X0-lock
+rm -rf /tmp/.X11-unix 2>/dev/null
+rm -rf /tmp/.X0-lock 2>/dev/null
+
+
+proot-distro login debian \
+  --shared-tmp -- \
+      rm -rf /tmp/.X11-unix
+      rm -rf /tmp/.X0-lock
+      rm -rf ~/.cache/sessions
+      rm -rf ~/.dbus
+      exit

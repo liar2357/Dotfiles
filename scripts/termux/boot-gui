@@ -1,0 +1,43 @@
+#!/data/data/com.termux/files/usr/bin/bash
+
+# ========= 設定 =========
+DISPLAY_NUM=":0"
+
+# ========= 既存セッション整理 =========
+cleanup() {
+    echo "[*] Cleaning up stale sessions..."
+    pkill -f xfce4 2>/dev/null
+    pkill -f dbus 2>/dev/null
+}
+
+# ========= Xサーバー確認 =========
+start_x11() {
+    if pgrep -x termux-x11 >/dev/null; then
+        echo "[*] X11 already running"
+    else
+        echo "[*] Starting X11..."
+        rm -rf $TMPDIR/.X11-unix
+        termux-x11 $DISPLAY_NUM >/dev/null 2>&1 &
+        sleep 2
+    fi
+}
+
+# ========= Audio =========
+start_audio() {
+    pulseaudio --check 2>/dev/null || \
+    pulseaudio --start --exit-idle-time=-1 >/dev/null 2>&1
+}
+
+# ========= メイン =========
+cleanup
+start_x11
+start_audio
+
+echo "[*] Launching Debian GUI..."
+
+proot-distro login debian \
+  --user raia \
+  --hostname DTC-2603 \
+  --shared-tmp -- \
+  env DISPLAY=$DISPLAY_NUM \
+      dbus-launch --exit-with-session startxfce4

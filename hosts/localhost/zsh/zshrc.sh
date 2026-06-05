@@ -23,14 +23,18 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 
 alias pd='proot-distro'
-alias bl='~/scripts/proot-boot.sh'
-alias sc='~/scripts/ssh-menu.sh'
+alias bl='proot-boot'
+alias sc='ssh-menu'
+
+eval "$(keychain --eval --quiet)"
+
+export PATH="$HOME/.local/termux:$PATH"
 
 # Termux のシェル起動時に一度だけメニューを出す
 if [ -z "$PROOT_BOOT_DONE" ]; then
   export PROOT_BOOT_DONE=1
   echo "Termux booted"
   # ここでブートメニューを呼ぶ
-  $HOME/scripts/proot-boot.sh
+  proot-boot
 fi
 

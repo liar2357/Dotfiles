@@ -1,0 +1,78 @@
+#!/data/data/com.termux/files/usr/bin/bash
+
+TIMEOUT=5
+DEFAULT_CHOICE=2
+
+# ==== スクリプト ====
+SSH_SCRIPT="$HOME/Dotfiles/scripts/termux/ssh-menu"
+
+# ==== 通常のdistro ====
+DISTROS=(
+  "debian"
+  "fedora"
+)
+
+# ==== ホスト名 ====
+declare -A HOSTNAMES
+HOSTNAMES["debian"]="DTC-2603"
+HOSTNAMES["fedora"]="FTT-2603"
+
+# ==== メニュー構築 ====
+choices=(
+  "Termux Shell"
+  "SSH Connection"
+  "${DISTROS[@]}"
+)
+
+echo
+echo "== Proot Distro Boot Menu =="
+for i in "${!choices[@]}"; do
+  printf "%2d) %s\n" "$i" "${choices[$i]}"
+done
+
+echo
+echo "Enter number within $TIMEOUT sec,"
+echo "or auto-select: $DEFAULT_CHOICE"
+echo -n "> "
+
+if read -t "$TIMEOUT" num; then
+  if ! [[ "$num" =~ ^[0-9]+$ ]] \
+     || [ "$num" -lt 0 ] \
+     || [ "$num" -gt $(( ${#choices[@]} - 1 )) ]; then
+    echo "Invalid choice."
+    exit 1
+  fi
+  sel_index="$num"
+else
+  echo
+  sel_index="$DEFAULT_CHOICE"
+  echo "Auto-select: $sel_index"
+fi
+
+sel="${choices[$sel_index]}"
+
+# ==== 分岐 ====
+if [ "$sel_index" -eq 0 ]; then
+	exit 0
+
+elif [ "$sel_index" -eq 1 ]; then
+  # SSHスクリプト起動
+  if [ -x "$SSH_SCRIPT" ]; then
+    bash "$SSH_SCRIPT"
+  else
+    echo "SSH script not found or not executable"
+    exit 1
+  fi
+
+else
+  # DISTROS配列のインデックス補正（-2）
+  distro="${DISTROS[$((sel_index-2))]}"
+
+  host_opt=""
+  if [ -n "${HOSTNAMES[$distro]}" ]; then
+    host_opt="--hostname ${HOSTNAMES[$distro]}"
+  fi
+
+  echo "booting $distro"
+  proot-distro login "$distro" --user raia $host_opt
+fi
