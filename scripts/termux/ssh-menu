@@ -3,6 +3,7 @@
 HOSTS=(
     "FDS-2509"
     "WVS-2604"
+    "FVS-2606"
 )
 
 echo "==== SSH Hosts ===="

@@ -27,8 +27,6 @@ alias bl='proot-boot'
 alias sc='ssh-menu'
 alias ssh='ssh-wraper'
 
-eval "$(keychain --eval --quiet)"
-
 export PATH="$HOME/.local/termux:$PATH"
 
 # Termux のシェル起動時に一度だけメニューを出す
