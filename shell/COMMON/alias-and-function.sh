@@ -27,6 +27,7 @@ alias tr='tmux source-file ~/.tmux.conf'
 alias db='distrobox'
 alias db-e='distrobox enter'
 alias db-l='distrobox list'
+alias sc='ssh-menu'
 
 ta() {
 	if tmux has-session -t "$1" 2>/dev/null; then
