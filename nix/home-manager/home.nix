@@ -24,6 +24,11 @@
 
   # --- ~/.config 配下 ---
 
+  xdg.configFile."fastfetch" = {
+    source = config.lib.file.mkOutOfStoreSymlink "${inputs.self}/config/fastfetch";
+    recursive = true;
+  };
+
   xdg.configFile."fuzzel" = {
     source = config.lib.file.mkOutOfStoreSymlink "${inputs.self}/config/fuzzel";
     recursive = true;

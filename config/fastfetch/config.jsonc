@@ -1,0 +1,128 @@
+{
+  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/master/doc/json_schema.json",
+
+  "modules": [
+    "title",
+    "break",
+
+    {
+      "type": "custom",
+      "format": "{#37}{#}{#30;47} 󰪫 Hardware {#}{#37}{#}",
+    },
+
+    {
+      "type": "board",
+      "key": " │  BOARD   ",
+      "format": "{vendor} {name}",
+    },
+
+    {
+      "type": "cpu",
+      "key": " │  CPU     ",
+      "format": "{vendor} {name} {march} {cores-physical}C{cores-logical}T @ {freq-base} ({freq-max} max)",
+    },
+
+    {
+      "type": "memory",
+      "key": " │  RAM     ",
+      "format": "{used} / {total} {percentage-bar} {percentage}",
+      "percent": {
+        "type": 3,
+      },
+    },
+
+    {
+      "type": "swap",
+      "key": " │ 󰾴 SWAP    ",
+      "format": "{used} / {total} {percentage-bar} {percentage}",
+      "percent": {
+        "type": 3,
+      },
+    },
+
+    {
+      "type": "disk",
+      "key": " │ 󰋊 DISK    ",
+      "format": "[{mountpoint}] - {filesystem} - {size-used} / {size-total} {size-percentage-bar} {size-percentage}",
+      "percent": {
+        "type": 3,
+      },
+    },
+
+    {
+      "type": "custom",
+      "format": " {#keys}╰────────────────────────────────────────●{#}",
+    },
+
+    "break",
+
+    {
+      "type": "custom",
+      "format": "{#37}{#}{#30;47}  Software {#}{#37}{#}",
+    },
+
+    {
+      "type": "os",
+      "key": " │ 󰦊 OS      ",
+      "format": "{name} {version} {arch}",
+    },
+
+    {
+      "type": "kernel",
+      "key": " │  KERNEL  ",
+      "format": "{sysname} {release} {arch}",
+    },
+
+    {
+      "type": "packages",
+      "key": " │  PACKAGES",
+    },
+
+    {
+      "type": "shell",
+      "key": " │  SHELL   ",
+    },
+
+    {
+      "type": "terminal",
+      "key": " │  TERMINAL",
+    },
+
+    {
+      "type": "terminalfont",
+      "key": " │  TERMFONT",
+    },
+
+    {
+      "type": "editor",
+      "key": " │ 󱩼 EDITOR  ",
+    },
+
+    {
+      "type": "localip",
+      "key": " │  IP      ",
+    },
+
+    {
+      "type": "locale",
+      "key": " │ 󰗊 LOCALE  ",
+    },
+
+    {
+      "type": "custom",
+      "format": " {#keys}╰────────────────────────────────────────●{#}",
+    },
+
+    "break",
+
+    "colors",
+
+    "break",
+
+    {
+      "type": "version",
+      "key": " ",
+      "format": "by {project-name} {version} {sysname} {arch}",
+    },
+  ],
+}
