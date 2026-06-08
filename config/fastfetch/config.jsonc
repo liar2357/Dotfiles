@@ -2,7 +2,21 @@
   "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/master/doc/json_schema.json",
 
   "modules": [
-    "title",
+    {
+      "type": "custom",
+      "format": "{#37}{#}{#30;47}  User/Host {#}{#37}{#}",
+    },
+
+    {
+      "type": "title",
+      "format": "{#keys} │ {user-name}@{host-name}{#}",
+    },
+
+    {
+      "type": "custom",
+      "format": " {#keys}╰────────────────────────────────────────●{#}",
+    },
+
     "break",
 
     {
@@ -79,6 +93,16 @@
     },
 
     {
+      "type": "de",
+      "key": " │  DE      ",
+    },
+
+    {
+      "type": "wm",
+      "key": " │  WM      ",
+    },
+
+    {
       "type": "shell",
       "key": " │  SHELL   ",
     },
@@ -97,7 +121,6 @@
       "type": "editor",
       "key": " │ 󱩼 EDITOR  ",
     },
-
     {
       "type": "localip",
       "key": " │  IP      ",
