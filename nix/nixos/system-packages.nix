@@ -30,6 +30,7 @@
     zsh
     git
     git-filter-repo
+    
     cifs-utils
     inotify-tools
     ffmpeg-full
@@ -56,6 +57,8 @@
     rustdesk-flutter
     nmap
     wireshark
+    obsidian
+    openssl
 
     # runtime
     python3

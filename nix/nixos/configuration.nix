@@ -25,6 +25,38 @@
 
   networking.hostName = "NCP-2602"; # Define your hostname.
 
+  networking.hosts = {
+    "192.168.3.100" = [
+      "git.home.arpa"
+    ];
+  };
+
+  security.pki.certificates = [
+    ''
+      -----BEGIN CERTIFICATE-----
+      MIIBpTCCAUqgAwIBAgIRAJGTOBBZgSno9pqcPzfWXbYwCgYIKoZIzj0EAwIwMDEu
+      MCwGA1UEAxMlQ2FkZHkgTG9jYWwgQXV0aG9yaXR5IC0gMjAyNiBFQ0MgUm9vdDAe
+      Fw0yNjA2MTAwMjM0NDdaFw0zNjA0MTgwMjM0NDdaMDAxLjAsBgNVBAMTJUNhZGR5
+      IExvY2FsIEF1dGhvcml0eSAtIDIwMjYgRUNDIFJvb3QwWTATBgcqhkjOPQIBBggq
+      hkjOPQMBBwNCAASDAjmbsNQG0mOXujgAFA8+MRDvYevIHaNhRQjnAV6C/WvbZQEj
+      acrqdlB8QlQNyTsLUKdDXNa40OEsiWe43epfo0UwQzAOBgNVHQ8BAf8EBAMCAQYw
+      EgYDVR0TAQH/BAgwBgEB/wIBATAdBgNVHQ4EFgQU36s3Ezmq3fTAgp4cvi5mZ7n2
+      JacwCgYIKoZIzj0EAwIDSQAwRgIhAIymVCOz4fsHKOWq+RehtTtm3Tol4ELLkGzU
+      QEwelESSAiEA5zbqw7r8hHdxrTL+y7GjBo8+gQSxZvwPKa1FGD1zkrY=
+      -----END CERTIFICATE-----
+
+    ''
+  ];
+
+  programs.git = {
+    enable = true;
+    config = {
+      credential.helper = "libsecret";
+    };
+  };
+
+  programs.seahorse.enable = true;
+
   # Configure network connections interactively with nmcli or nmtui.
   networking.networkmanager.enable = true;
 
@@ -144,6 +176,8 @@
     "nix-command"
     "flakes"
   ];
+
+  nixpkgs.config.allowUnfree = true;
 
   #boot
   boot.loader.efi.efiSysMountPoint = "/boot";
