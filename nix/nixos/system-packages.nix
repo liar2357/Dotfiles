@@ -30,7 +30,6 @@
     zsh
     git
     git-filter-repo
-    
     cifs-utils
     inotify-tools
     ffmpeg-full
@@ -59,6 +58,7 @@
     wireshark
     obsidian
     openssl
+    bind.dnsutils
 
     # runtime
     python3
@@ -81,7 +81,7 @@
     lua-language-server # Lua
 
     # formatter
-    nodePackages.prettier # TS/JS/HTML/CSS/JSON
+    prettier # TS/JS/HTML/CSS/JSON
     csharpier # C_Sharp
     google-java-format # Java
     phpPackages.php-cs-fixer # PHP

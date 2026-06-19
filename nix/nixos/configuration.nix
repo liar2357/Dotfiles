@@ -23,10 +23,18 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelParams = [ "mem_sleep_default=deep" ];
 
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 14d";
+  };
+
+  boot.loader.systemd-boot.configurationLimit = 10;
+
   networking.hostName = "NCP-2602"; # Define your hostname.
 
   networking.hosts = {
-    "192.168.3.100" = [
+    "192.168.3.201" = [
       "git.home.arpa"
     ];
   };
@@ -109,7 +117,7 @@
 
       # LAN判定
       for i in $(seq 1 5); do
-        if ${pkgs.iputils}/bin/ping -c1 -W1 192.168.3.100 > /dev/null; then
+        if ${pkgs.iputils}/bin/ping -c1 -W1 192.168.3.201 > /dev/null; then
           exit 0
         fi
         sleep 1
@@ -187,6 +195,12 @@
     "compress=zstd"
     "noatime"
   ];
+
+  #Hyprland
+  programs.hyprland = {
+    enable = true;
+    xwayland.enable = true;
+  };
 
   #fonts
   fonts = {
@@ -318,7 +332,6 @@
   services.xserver.enable = true;
   services.displayManager.gdm = {
     enable = true;
-    wayland = true;
     autoSuspend = false;
     settings = {
       daemon = {

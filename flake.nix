@@ -8,10 +8,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     agenix.url = "github:ryantm/agenix";
-    hyprland = {
-      url = "github:hyprwm/Hyprland";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     nix-hazkey.url = "github:aster-void/nix-hazkey";
     self = { };
   };
@@ -21,7 +17,6 @@
       self,
       nixpkgs,
       home-manager,
-      hyprland,
       ...
     }:
     let
@@ -60,14 +55,6 @@
             home-manager.users."raia" = import ./nix/home-manager/home.nix;
           }
 
-          # ④ Hyprland のモジュール
-          hyprland.nixosModules.default
-          {
-            programs.hyprland = {
-              enable = true;
-              xwayland.enable = true;
-            };
-          }
         ];
 
         # optional: ここに system-level options を書ける

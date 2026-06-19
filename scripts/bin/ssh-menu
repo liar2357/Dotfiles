@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 HOSTS=(
+	"ASS-1912"
 	"FDS-2509"
 	"WVS-2604"
 	"FVS-2606"
