@@ -91,6 +91,7 @@
     sqruff # SQL
     nixfmt # Nix
     stylua # Lua
+    libxml2 # XML
 
   ];
 

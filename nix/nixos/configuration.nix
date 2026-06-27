@@ -33,12 +33,6 @@
 
   networking.hostName = "NCP-2602"; # Define your hostname.
 
-  networking.hosts = {
-    "192.168.3.201" = [
-      "git.home.arpa"
-    ];
-  };
-
   security.pki.certificates = [
     ''
       -----BEGIN CERTIFICATE-----
@@ -74,6 +68,11 @@
     autostart = false;
     address = [ "10.0.0.5/32" ];
     privateKeyFile = "/etc/wireguard/client.key";
+    dns = [
+      "10.0.0.1"
+      "8.8.8.8"
+      "1.1.1.1"
+    ];
 
     peers = [
       {
@@ -83,6 +82,7 @@
           "192.168.3.0/24"
           "192.168.122.0/24"
           "10.0.0.0/24"
+          "172.16.255.254/32"
         ];
         persistentKeepalive = 25;
       }
@@ -396,7 +396,7 @@
 
   #samba
   fileSystems."/mnt/HDD1Share" = {
-    device = "//192.168.3.100/HDD1Share";
+    device = "//192.168.3.201/HDD1Share";
     fsType = "cifs";
     options =
       let
