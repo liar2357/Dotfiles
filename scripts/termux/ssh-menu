@@ -1,9 +1,10 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
 HOSTS=(
-    "FDS-2509"
-    "WVS-2604"
-    "FVS-2606"
+	"DRS-2606"
+	"FDW-2509"
+	"WVS-2604"
+	"FVS-2606"
 )
 
 echo "==== SSH Hosts ===="
