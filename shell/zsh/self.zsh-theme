@@ -92,7 +92,7 @@ set_prompt_palette() {
         FAILED_C='#ff0000'
         ;;
   
-      FDS-2509*)
+      FDW-2509*)
         HEAD_C='#80c0ff'
         BODY_C1='#8040ff'
         BODY_C2='#ffffff'
