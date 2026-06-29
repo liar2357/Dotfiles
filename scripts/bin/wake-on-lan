@@ -1,20 +1,20 @@
 #!/usr/bin/env bash
 
 hosts=(
-    "FDW-2509"
+	"FDW-2509"
 )
 
 declare -A macs=(
-    [FDW-2509]="12:34:56:78:9A:BC"
+	["FDW-2509"]="9c:6b:00:84:34:93"
 )
 
 echo "==== WoL Hosts ===="
 
 PS3="Select Host: "
 
-select host in hosts; do
-    [[ -n "$host" ]] || continue
+select host in $hosts; do
+	[[ -n "$host" ]] || continue
 
-    wakeonlan "${macs[$host]}"
-    break
+	wakeonlan "${macs[$host]}"
+	break
 done

@@ -117,7 +117,7 @@
 
       # LAN判定
       for i in $(seq 1 5); do
-        if ${pkgs.iputils}/bin/ping -c1 -W1 192.168.3.201 > /dev/null; then
+        if ${pkgs.iputils}/bin/ping -c1 -W1 192.168.3.200 > /dev/null; then
           exit 0
         fi
         sleep 1

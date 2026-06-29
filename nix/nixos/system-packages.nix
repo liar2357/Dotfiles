@@ -59,6 +59,7 @@
     obsidian
     openssl
     bind.dnsutils
+    wakeonlan
 
     # runtime
     python3
