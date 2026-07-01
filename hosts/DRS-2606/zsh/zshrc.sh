@@ -22,9 +22,11 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 
 export TERM=xterm-256color
-export VISUAL="/usr/local/bin/nvim"
-export EDITOR="/usr/local/bin/nvim"
-export SUDO_EDITOR="/usr/local/bin/nvim"
+export VISUAL="$HOME/.local/opt/nvim/bin/nvim"
+export EDITOR="$HOME/.local/opt/nvim/bin/nvim"
+export SUDO_EDITOR="$HOME/.local/opt/nvim/bin/nvim"
+
+export PATH="$HOME/.local/opt/nvim/bin:$PATH"
 
 if [ -n "$SSH_CONNECTION" ]; then
 
@@ -51,3 +53,4 @@ if [ -n "$TMUX" ]; then
 	tmux ls
 	echo ""
 fi
+

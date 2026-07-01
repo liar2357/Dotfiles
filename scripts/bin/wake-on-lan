@@ -2,10 +2,12 @@
 
 hosts=(
 	"FDW-2509"
+	"WDG-2011"
 )
 
 declare -A macs=(
 	["FDW-2509"]="9c:6b:00:84:34:93"
+	["WDG-2011"]="A8:A1:59:3B:77:BC"
 )
 
 echo "==== WoL Hosts ===="
