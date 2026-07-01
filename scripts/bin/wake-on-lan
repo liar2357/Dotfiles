@@ -14,7 +14,7 @@ echo "==== WoL Hosts ===="
 
 PS3="Select Host: "
 
-select host in $hosts; do
+select host in "${hosts[@]}"; do
 	[[ -n "$host" ]] || continue
 
 	wakeonlan "${macs[$host]}"
