@@ -3,6 +3,7 @@
 HOSTS=(
 	"DRS-2606"
 	"FDW-2509"
+	"WDG-2011"
 	"WVS-2604"
 	"FVS-2606"
 )
@@ -10,14 +11,14 @@ HOSTS=(
 echo "==== SSH Hosts ===="
 
 for i in "${!HOSTS[@]}"; do
-    printf "%2d) %s\n" "$((i+1))" "${HOSTS[$i]}"
+	printf "%2d) %s\n" "$((i + 1))" "${HOSTS[$i]}"
 done
 
 echo
 read -rp "Select Host: " NUM
 
 if [[ "$NUM" =~ ^[0-9]+$ ]] &&
-   (( NUM >= 1 && NUM <= ${#HOSTS[@]} )); then
+	((NUM >= 1 && NUM <= ${#HOSTS[@]})); then
 
-    exec ssh-wraper "${HOSTS[$((NUM-1))]}"
+	exec ssh-wraper "${HOSTS[$((NUM - 1))]}"
 fi
