@@ -17,6 +17,8 @@ safe-symlink "$HOME/Dotfiles/config/swaync" "$HOME/.config/swaync"
 safe-symlink "$HOME/Dotfiles/config/wofi" "$HOME/.config/wofi"
 safe-symlink "$HOME/Dotfiles/config/wlogout" "$HOME/.config/wlogout"
 
+safe-symlink "$HOME/Dotfiles/config/md2pdf" "$HOME/.config/md2pdf"
+
 #-- zsh --
 safe-symlink "$HOME/Dotfiles/shell/zsh/self.zsh-theme" "$HOME/.oh-my-zsh/custom/themes/self.zsh-theme"
 safe-symlink "$HOME/Dotfiles/shell/zsh/.zshrc" "$HOME/.zshrc"
