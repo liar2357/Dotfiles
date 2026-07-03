@@ -1,57 +1,61 @@
 #!/usr/bin/env bash
 
-# md2pdf: Markdown→PDF 変換スクリプト
-# 使い方: md2pdf input.md
-# reference.docx は同じディレクトリに置く
+# md2pdf: Markdown → PDF (Pandoc + Typst)
 
-set -e
+set -euo pipefail
 
 usage() {
-  echo "Usage"
-  echo "==="
-  echo "md2pdf init: output template md file"
-  echo "md2pdf conv <input file>: convert md to pdf"
-  echo "==="
+	echo "Usage"
+	echo "====="
+	echo "md2pdf init                Generate template.md"
+	echo "md2pdf conv <input.md>     Convert Markdown to PDF"
+	echo "====="
 }
 
-# 引数チェック
 if [[ $# -lt 1 ]]; then
-  usage
-  exit 1
+	usage
+	exit 1
 fi
 
-if [[ $1 -eq "init" ]]; then
-  TEMPLATE="$HOME/.config/md2pdf/template.md"
+case "$1" in
+init)
+	TEMPLATE="$HOME/.config/md2pdf/template.md"
 
-  cp -v "$TEMPLATE" .
+	if [[ ! -f "$TEMPLATE" ]]; then
+		echo "Template not found: $TEMPLATE"
+		exit 1
+	fi
 
-  echo "template generated"
+	cp -v "$TEMPLATE" .
+	echo "template generated"
+	;;
 
-elif [[ $1 -eq "conv" ]]; then
+conv)
+	if [[ $# -lt 2 ]]; then
+		usage
+		exit 1
+	fi
 
-  if [[ $# -lt 2 ]]; then
-    usage
-    exit 1
-  fi
+	INPUT="$2"
 
-  INPUT="$2"
-  BASE="$(basename "$INPUT" .md)"
-  REF="$HOME/.config/reference.docx"
-  OUT="${BASE}.pdf"
-  
-  # 日本語対応 xelatex で PDF 生成
-  pandoc "$INPUT" \
-    --standalone \
-    --pdf-engine=xelatex \
-    --reference-doc="$REF" \
-    -V geometry:margin=1in \
-    -V mainfont="Noto Serif CJK JP" \
-    -V fontsize=11pt \
-    -V linestretch=1.15 \
-    -o "$OUT"
-  
-  echo "PDF generated: $OUT"
-else
-  usage
-  exit 1
-fi
+	if [[ ! -f "$INPUT" ]]; then
+		echo "Input file not found: $INPUT"
+		exit 1
+	fi
+
+	BASE="$(basename "$INPUT" .md)"
+	OUT="${BASE}.pdf"
+
+	pandoc "$INPUT" \
+		--pdf-engine=typst \
+		-V template=@local/MDTemp:1.0.0 \
+		-o "$OUT"
+
+	echo "PDF generated: $OUT"
+	;;
+
+*)
+	usage
+	exit 1
+	;;
+esac

@@ -84,6 +84,11 @@
     recursive = true;
   };
 
+  xdg.configFile."md2pdf" = {
+    source = config.lib.file.mkOutOfStoreSymlink "${inputs.self}/config/md2pdf";
+    recursive = true;
+  };
+
   # --- hypr ---
   xdg.configFile."hypr/hyprland.conf" = {
     source = config.lib.file.mkOutOfStoreSymlink "${inputs.self}/hosts/NCP-2602/hypr/hyprland.conf";
@@ -97,6 +102,12 @@
 
   home.file.".local/bin" = {
     source = config.lib.file.mkOutOfStoreSymlink "${inputs.self}/scripts/bin";
+    recursive = true;
+  };
+
+  # --- ~/.local/share 配下 ---
+  home.file.".local/share/typst" = {
+    source = config.lib.file.mkOutOfStoreSymlink "${inputs.self}/share/typst";
     recursive = true;
   };
 

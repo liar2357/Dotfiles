@@ -40,6 +40,9 @@ setopt CORRECT
 export GTK_IM_MODULE=fcitx
 export QT_IM_MODULE=fcitx
 export XMODIFIERS=@im=fcitx
+
+export DOTFILES="$HOME/Dotfiles"
+
 export PATH="$PATH:/usr/lib/rustup/bin"
 export PATH="$HOME/.cargo/bin:/home/raia/.local/bin:$PATH"
 

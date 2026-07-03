@@ -60,6 +60,8 @@
     openssl
     bind.dnsutils
     wakeonlan
+    pandoc
+    typst
 
     # runtime
     python3
