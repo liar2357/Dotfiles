@@ -8,6 +8,7 @@ usage() {
 	echo "Usage"
 	echo "====="
 	echo "md2pdf init                Generate template.md"
+	echo "md2pdf fonts               Generate fonts.conf"
 	echo "md2pdf conv <input.md>     Convert Markdown to PDF"
 	echo "====="
 }
@@ -26,8 +27,52 @@ init)
 		exit 1
 	fi
 
-	cp -v "$TEMPLATE" .
-	echo "template generated"
+	install -m 644 "$TEMPLATE" "./template.md"
+
+	echo "template.md generated"
+	;;
+
+fonts)
+	FONT_DIR="$HOME/.config/md2pdf/fonts"
+
+	configs=("$FONT_DIR"/*)
+
+	echo "Select font config"
+	echo "=================="
+
+	for i in "${!configs[@]}"; do
+		printf "%2d) %s\n" \
+			"$((i + 1))" \
+			"$(basename "${configs[$i]}")"
+	done
+
+	echo
+
+	while true; do
+		read -rp "Number: " choice
+
+		# 数値チェック
+		if [[ ! "$choice" =~ ^[0-9]+$ ]]; then
+			echo "Please enter a number."
+			continue
+		fi
+
+		# 範囲チェック
+		if ((choice < 1 || choice > ${#configs[@]})); then
+			echo "Out of range."
+			continue
+		fi
+
+		CONFIG="${configs[$((choice - 1))]}"
+		break
+	done
+
+	echo "Selected: $(basename "$CONFIG")"
+	echo
+
+	install -m 644 "$CONFIG" "./fonts.conf"
+	echo "fonts.conf generated"
+
 	;;
 
 conv)
@@ -43,12 +88,37 @@ conv)
 		exit 1
 	fi
 
+	CONFIG="fonts.conf"
+
+	if [[ -f "$CONFIG" ]]; then
+		echo "====="
+		echo "Load font config"
+		echo "====="
+
+		# shellcheck disable=SC1090
+		source "$CONFIG"
+	else
+		echo "====="
+		echo "Font config is not exists"
+		echo "Fall back to default font config"
+		echo "====="
+
+		MAINFONT="Noto Serif CJK JP"
+		SANSFONT="Noto Sans CJK JP"
+		MONOFONT="Noto Sans Mono CJK JP"
+		FONTSIZE="11pt"
+	fi
+
 	BASE="$(basename "$INPUT" .md)"
 	OUT="${BASE}.pdf"
 
 	pandoc "$INPUT" \
 		--pdf-engine=typst \
 		-V template=@local/MDTemp:1.0.0 \
+		-M mainfont="$MAINFONT" \
+		-M sansfont="$SANSFONT" \
+		-M monofont="$MONOFONT" \
+		-M fontsize="$FONTSIZE" \
 		-o "$OUT"
 
 	echo "PDF generated: $OUT"

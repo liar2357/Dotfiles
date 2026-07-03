@@ -1,0 +1,4 @@
+MAINFONT="Noto Serif CJK JP"
+SANSFONT="Noto Sans CJK JP"
+MONOFONT="Noto Sans Mono CJK JP"
+FONTSIZE="11pt"

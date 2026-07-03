@@ -31,24 +31,31 @@
 }
 
 #let conf(
-  title: none, // These first few come through from markdown metadata
+  title: none,
   subtitle: none,
   authors: (),
   keywords: (),
   date: none,
   abstract: none,
-  lang: "ja", // document basic settings
+
+  font: ("Noto Serif CJK JP",),
+  sansfont: ("Noto Sans CJK JP",),
+  monofont: ("Noto Sans Mono CJK JP",),
+  fontsize: 11pt,
+
+  lang: "ja",
   region: "JP",
+
   paper: "a4",
   margin: (top: 26mm, bottom: 21mm, left: 18mm, right: 18mm),
+
   cols: 2,
-  font: "Noto Serif CJK JP", // Your favorite font here
-  fontsize: 10.5pt,
+
   sectionnumbering: none,
   pagenumbering: "1",
+
   doc,
-) = {
-  set document(
+) = {  set document(
     title: title,
     author: authors.map(author => content-to-string(author.name)),
     keywords: keywords,
@@ -98,7 +105,7 @@
     cjk-latin-spacing: none,
   )
 
-  show strong: set text(font: "Noto Sans CJK JP") // settings for strong
+  show strong: set text(font: font) // settings for strong
 
   // Paragraph defaults
   //
@@ -119,7 +126,7 @@
   // Code blocks:
   //
   show raw: set block(inset: (left: 2em, top: 0em, right: 1em, bottom: 0em), outset: (x: 0em))
-  show raw: set text(font: "Noto Sans Mono CJK JP")
+  show raw: set text(font: monofont)
 
   // Images and figures:
   //
@@ -149,7 +156,7 @@
     block(above: 24pt, below: 6pt, width: 100%)[
       #v(12pt) // space above
       #set par(leading: 16pt)
-      #set text(font: "Noto Serif JP", weight: 400, style: "normal", size: 22pt) // settings for heading 1
+      #set text(font: font, weight: 400, style: "normal", size: 22pt) // settings for heading 1
       #block(it.body)
       #v(-6pt) // Reduce the distance between the heading and the horizontal line
       #line(start: (0%, 0%), end: (100%, 0%), stroke: 1pt + gray)
@@ -161,7 +168,7 @@
   show heading.where(level: 2): it => align(
     left,
     block(above: 20pt, below: 12pt, width: 80%)[
-      #set text(font: "Noto Sans JP", weight: 400, size: 14pt) // settings for heading 2
+      #set text(font: sansfont, weight: 400, size: 14pt) // settings for heading 2
       #block(it.body)
     ],
   )
@@ -169,7 +176,7 @@
   show heading.where(level: 3): it => align(
     left,
     block(above: 20pt, below: 10pt)[
-      #set text(font: "Noto Sans JP", weight: 400, size: 12pt, rgb("#181818")) // settings for heading 3
+      #set text(font: sansfont, weight: 400, size: 12pt, rgb("#181818")) // settings for heading 3
       #block([#smallcaps(all: true)[#it.body]])
     ],
   )
