@@ -6,5 +6,5 @@ boot-hyprpaper() {
 	sleep 1
 
 	# メイン壁紙スクリプトを起動
-	~/.config/hypr/scripts/rand.sh &
+	~/Dotfiles/scripts/bin/random-hyprpaper &
 }
