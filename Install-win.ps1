@@ -13,3 +13,10 @@ New-Item `
   -Path ~/AppData/Local/nvim `
   -Target $HOME/Dotfiles/config/nvim
 
+#fastfetch
+mv ~/AppData/Roaming/fastfetch ~/AppData/Roaming/fastfetch.bak
+New-Item `
+  -ItemType SymbolicLink `
+  -Path ~/AppData/Roaming/fastfetch `
+  -Target $HOME/Dotfiles/config/fastfetch
+
