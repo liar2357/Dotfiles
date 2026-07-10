@@ -62,6 +62,8 @@
     wakeonlan
     pandoc
     typst
+    evtest
+    caddy
 
     # runtime
     python3

@@ -371,6 +371,7 @@
       "audio"
       "libvirtd"
       "wireshark"
+      "uinput"
     ];
   };
 
