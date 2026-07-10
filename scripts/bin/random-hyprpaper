@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-WALL_ROOT="$HOME/wallpaper"
-THEME_FILE="$HOME/.config/hypr/current_theme"
+WALL_ROOT="$HOME/wallpaper/background"
+THEME_FILE="$HOME/.script_lock/current_theme"
 INTERVAL=15
 
 source $HOME/Dotfiles/scripts/app/hyprpaper-random-theme.sh
