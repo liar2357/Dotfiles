@@ -16,7 +16,6 @@ return {
         html = { "prettier" },
         css = { "prettier" },
         markdown = { "prettier" },
-        mdx = { "prettier" },
         c = { "clang-format" },
         cpp = { "clang-format" },
         cs = { "csharpier" },
