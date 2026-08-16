@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 
 {
   environment.systemPackages = with pkgs; [
@@ -64,6 +64,9 @@
     typst
     evtest
     caddy
+    jq
+    appimage-run
+    socat
 
     # runtime
     python3
@@ -97,6 +100,9 @@
     nixfmt # Nix
     stylua # Lua
     libxml2 # XML
+
+    # self
+    inputs.emu-board.packages.${pkgs.system}.default
 
   ];
 

@@ -8,6 +8,8 @@
     "custom/luancher",
     "custom/kill",
     "custom/rotate",
+    "custom/EmuBoard-toggle-view",
+    "custom/EmuBoard-toggle-place",
     "custom/l-edge",
   ],
   "modules-center": [
@@ -167,5 +169,15 @@
   "custom/kill": {
     "format": "❌",
     "on-click": "$HOME/Dotfiles/scripts/bin/hypr-kill",
+  },
+
+  "custom/EmuBoard-toggle-view": {
+    "format": "⌨️",
+    "on-click": "emu-boardctl toggle_ui_view",
+  },
+
+  "custom/EmuBoard-toggle-place": {
+    "format": "↕️",
+    "on-click": "emu-boardctl toggle_ui_place",
   },
 }

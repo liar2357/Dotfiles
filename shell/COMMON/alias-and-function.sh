@@ -1,9 +1,9 @@
 alias ls='eza -lAh --icons --git'
 alias lsr='eza -lAhR --icons --git'
 alias tree='eza -lAh --tree --icons'
-alias top='btop'
-alias grep='rg'
-alias find='fd'
+#alias top='btop'
+#alias grep='rg'
+#alias find='fd'
 alias gs='git status'
 alias gc='git commit'
 alias gp='git push'
@@ -57,4 +57,9 @@ vclip() {
 
 termux() {
 	ssh -o Hostname="$1" Termux
+}
+
+function flatpak4nix() {
+	env PATH=/run/current-system/sw/bin:/usr/bin:/bin \
+		flatpak "$@"
 }

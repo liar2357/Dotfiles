@@ -200,6 +200,7 @@
   programs.hyprland = {
     enable = true;
     xwayland.enable = true;
+    withUWSM = true;
   };
 
   #fonts
@@ -340,9 +341,6 @@
     };
   };
   services.desktopManager.gnome.enable = false;
-  services.displayManager.sessionPackages = [
-    pkgs.hyprland
-  ];
   systemd.services.display-manager.environment = {
     LANG = "ja_JP.UTF-8";
     LC_ALL = "ja_JP.UTF-8";
@@ -462,6 +460,20 @@
   programs.wireshark = {
     enable = true;
     dumpcap.enable = true;
+  };
+
+  #Printer
+  services.printing = {
+    enable = true;
+    drivers = with pkgs; [
+      epson-escpr2
+    ];
+  };
+
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    openFirewall = true;
   };
 
 }
