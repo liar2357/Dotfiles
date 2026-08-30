@@ -89,6 +89,11 @@
     recursive = true;
   };
 
+  xdg.configFile."emu-board" = {
+    source = config.lib.file.mkOutOfStoreSymlink "${inputs.self}/config/emu-board";
+    recursive = true;
+  };
+
   # --- hypr ---
   xdg.configFile."hypr/hyprland.conf" = {
     source = config.lib.file.mkOutOfStoreSymlink "${inputs.self}/hosts/NCP-2602/hypr/hyprland.conf";

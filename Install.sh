@@ -20,6 +20,8 @@ safe-symlink "$HOME/Dotfiles/config/wlogout" "$HOME/.config/wlogout"
 safe-symlink "$HOME/Dotfiles/config/md2pdf" "$HOME/.config/md2pdf"
 safe-symlink "$HOME/Dotfiles/share/typst" "$HOME/.local/share/typst"
 
+safe-symlink "$HOME/Dotfiles/config/emu-board" "$HOME/.config/emu-board"
+
 #-- zsh --
 safe-symlink "$HOME/Dotfiles/shell/zsh/self.zsh-theme" "$HOME/.oh-my-zsh/custom/themes/self.zsh-theme"
 safe-symlink "$HOME/Dotfiles/shell/zsh/.zshrc" "$HOME/.zshrc"
