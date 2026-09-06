@@ -69,11 +69,11 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1786873339,
-        "narHash": "sha256-QM5f6bmqMYFQCQRcldq7p2pttpNGOLalAcdLgzsC+/4=",
+        "lastModified": 1788704304,
+        "narHash": "sha256-KBCQ7h2HFC1edSHsO6+IJpjxn7Yo9M73IrMosNnTpf8=",
         "owner": "liar2357",
         "repo": "EmuBoard",
-        "rev": "5f405003b2f504fec7be06e317f57c6f062838fa",
+        "rev": "7f940c32ecafba1af5d65ab4efba5d583f117bb0",
         "type": "github"
       },
       "original": {
@@ -280,11 +280,11 @@
     },
     "nixpkgs_6": {
       "locked": {
-        "lastModified": 1786599213,
-        "narHash": "sha256-yNJd40f11EzXBjSByCB7IPpeFFAdeoSKKM67dGkfFoU=",
+        "lastModified": 1788614874,
+        "narHash": "sha256-7QYjT2vHLuX9Z1pdxHXDKCbh1CR3D/2rywB9Tx0MPRg=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "0e251e24a4f24e036a084b6b4b2d2491af4167f4",
+        "rev": "c043004d1c6985732bcc1cbc5a9c9aecbbb4e0f0",
         "type": "github"
       },
       "original": {

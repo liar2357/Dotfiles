@@ -23,10 +23,33 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelParams = [ "mem_sleep_default=deep" ];
 
-  nix.gc = {
-    automatic = true;
-    dates = "weekly";
-    options = "--delete-older-than 14d";
+  nix = {
+    distributedBuilds = true;
+
+    buildMachines = [
+      {
+        system = "x86_64-linux";
+        sshUser = "raia";
+        sshKey = "/root/.ssh/fedora-nix-builder";
+        maxJobs = 12;
+        hostName = "FDW-2509.home.arpa";
+        protocol = "ssh-ng";
+      }
+    ];
+
+    settings.builders-use-substitutes = true;
+
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 14d";
+    };
+
+    #flake
+    settings.experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
   };
 
   boot.loader.systemd-boot.configurationLimit = 10;
@@ -178,12 +201,6 @@
   };
 
   system.stateVersion = "25.11"; # Did you read the comment?
-
-  #flake
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
 
   nixpkgs.config.allowUnfree = true;
 
