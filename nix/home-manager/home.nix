@@ -94,12 +94,6 @@
     recursive = true;
   };
 
-  # --- hypr ---
-  xdg.configFile."hypr/hyprland.conf" = {
-    source = config.lib.file.mkOutOfStoreSymlink "${inputs.self}/hosts/NCP-2602/hypr/hyprland.conf";
-    recursive = true;
-  };
-
   # --- ~/ 配下 ---
   home.file.".zshrc" = {
     source = config.lib.file.mkOutOfStoreSymlink "${inputs.self}/shell/zsh/.zshrc";
