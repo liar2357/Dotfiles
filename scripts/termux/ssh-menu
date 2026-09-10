@@ -1,24 +1,55 @@
-#!/data/data/com.termux/files/usr/bin/bash
+#!/data/data/com.termux/files/usr/bin/python3
 
-HOSTS=(
-	"DRS-2606"
-	"FDW-2509"
-	"WDG-2011"
-	"WVS-2604"
-	"FVS-2606"
-)
+import subprocess
 
-echo "==== SSH Hosts ===="
+hosts = [
+    ("DRS-2606", False),
+    ("FDW-2509", True),
+    ("WDG-2011", False),
+    ("WVS-2604", False),
+    ("FVS-2606", False),
+]
 
-for i in "${!HOSTS[@]}"; do
-	printf "%2d) %s\n" "$((i + 1))" "${HOSTS[$i]}"
-done
 
-echo
-read -rp "Select Host: " NUM
+def exec_ssh_connection(hostname: str):
+    subprocess.call(["ssh-wraper", hostname])
 
-if [[ "$NUM" =~ ^[0-9]+$ ]] &&
-	((NUM >= 1 && NUM <= ${#HOSTS[@]})); then
 
-	exec ssh-wraper "${HOSTS[$((NUM - 1))]}"
-fi
+def exec_mosh_connection(hostname: str):
+    subprocess.call(["mosh-wraper", hostname])
+
+
+def ssh_connection_helper():
+    print("===SSH HOSTS===")
+
+    for i, host in enumerate(hosts):
+        print(f"{i}: {host[0]}")
+
+    num: int
+
+    while True:
+        num_str: str = input("Select Host With Number: ")
+
+        if num_str != "":
+            try:
+                num = int(num_str)
+
+                if 0 <= num < len(hosts):
+                    break
+                else:
+                    print(f"Avalable is 0~{len(hosts)-1}")
+            except ValueError:
+                print("Input Is Must Be Integer")
+                continue
+
+    if hosts[num][1]:
+        yn = input("You Can Use Mosh for SSH Connection. (Y/n) : ")
+        if yn == "n" or yn == "N":
+            exec_ssh_connection(hosts[num][0])
+        else:
+            exec_mosh_connection(hosts[num][0])
+    else:
+        exec_ssh_connection(hosts[num][0])
+
+
+ssh_connection_helper()
