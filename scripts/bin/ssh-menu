@@ -7,4 +7,4 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from lib.ssh_connection_helper import ssh_connection_helper
 
-ssh_connection_helper()
+ssh_connection_helper(False)
