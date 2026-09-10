@@ -110,10 +110,10 @@
     },
 
     // オプション：ワークスペース切替 on click
-    "on-click": "activate",
+    "on-click": "~/Dotfiles/scripts/bin/hypr-workspace {id}",
     // （必要ならマウスホイールでワークスペース切替）
-    "on-scroll-up": "hyprctl dispatch workspace e+1",
-    "on-scroll-down": "hyprctl dispatch workspace e-1",
+    "on-scroll-up": "~/Dotfiles/scripts/bin/hypr-workspace e+1",
+    "on-scroll-down": "~/Dotfiles/scripts/bin/hypr-workspace e-1",
   },
   "hyprland/window": {
     "format": "{}",
@@ -149,11 +149,11 @@
 
   "custom/ws-next": {
     "format": "",
-    "on-click": "hyprctl dispatch workspace r+1",
+    "on-click": "~/Dotfiles/scripts/bin/hypr-workspace r+1",
   },
   "custom/ws-prev": {
     "format": "",
-    "on-click": "hyprctl dispatch workspace r-1",
+    "on-click": "~/Dotfiles/scripts/bin/hypr-workspace r-1",
   },
 
   "custom/luancher": {

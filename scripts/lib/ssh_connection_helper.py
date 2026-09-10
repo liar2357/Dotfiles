@@ -1,0 +1,50 @@
+import subprocess
+
+hosts = [
+    ("DRS-2606", False),
+    ("FDW-2509", True),
+    ("WDG-2011", False),
+    ("WVS-2604", False),
+    ("FVS-2606", False),
+]
+
+
+def exec_ssh_connection(hostname: str):
+    subprocess.call(["ssh", hostname])
+
+
+def exec_mosh_connection(hostname: str):
+    subprocess.call(["mosh", hostname])
+
+
+def ssh_connection_helper():
+    print("===SSH HOSTS===")
+
+    for i, host in enumerate(hosts):
+        print(f"{i}: {host[0]}")
+
+    num: int
+
+    while True:
+        num_str: str = input("Select Host With Number: ")
+
+        if num_str != "":
+            try:
+                num = int(num_str)
+
+                if 0 <= num < len(hosts):
+                    break
+                else:
+                    print(f"Avalable is 0~{len(hosts)-1}")
+            except ValueError:
+                print("Input Is Must Be Integer")
+                continue
+
+    if hosts[num][1]:
+        yn = input("You Can Use Mosh for SSH Connection. (Y/n) : ")
+        if yn == "n" or yn == "N":
+            exec_ssh_connection(hosts[num][0])
+        else:
+            exec_mosh_connection(hosts[num][0])
+    else:
+        exec_ssh_connection(hosts[num][0])

@@ -67,6 +67,7 @@
     jq
     appimage-run
     socat
+    mosh
 
     # runtime
     python3
