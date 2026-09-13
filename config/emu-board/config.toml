@@ -1,3 +1,9 @@
-hold_mode="Hold"
-default_ui_view=false
+[[configs]]
+hold_mode = "HoldAndToggle"
+default_ui_view = false
+default_monitor = "eDP-1"
 
+[[configs]]
+hold_mode = "HoldAndToggle"
+default_ui_view = true
+default_monitor = "eDP-1"
