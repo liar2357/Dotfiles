@@ -1,34 +1,36 @@
 # Dotfiles
 
-Linux環境向けの個人用ドットファイル・設定ファイルリポジトリです。
+> [日本語版](README.jp.md)
 
-## 概要
+Personal dotfiles and configuration files collection for Linux environments.
 
-このリポジトリは、Linux環境での開発環境やシステム設定を一元管理するための設定ファイル集です。Nix Flakeとして利用することも、スクリプトでシンボリックリンクを貼って利用することもできます。
+## Overview
 
-## ディレクトリ構成
+This repository is a collection of configuration files for managing development environments and system settings across Linux systems. It can be used as a Nix Flake or by running scripts to create symbolic links.
+
+## Directory Structure
 
 ```
 .
-├── config/          # ~/.config 配下に配置すべき各ツールの設定
-│                    # hypr, nvim, その他の設定ファイルを含む
-├── shell/           # シェル環境設定 (zsh, pwsh)
-├── scripts/         # 自作スクリプト
-├── hosts/           # ホスト名別の環境固有設定
-├── nix/             # Nix Flakeおよび NixOS 設定 (HomeManager含む)
-├── tmux/            # tmux の設定
-├── packages/        # パッケージ管理関連の設定
-├── share/           # 共有リソース
-├── notes/           # ドキュメント・ノート
-├── flake.nix        # Nix Flake定義
-└── Install.sh       # Linux用インストールスクリプト
+├── config/          # Configuration files for ~/.config directory
+│                    # Contains settings for hypr, nvim, and other tools
+├── shell/           # Shell environment configurations (zsh, pwsh)
+├── scripts/         # Custom scripts
+├── hosts/           # Host-specific environment configurations
+├── nix/             # Nix Flake and NixOS configurations (including HomeManager)
+├── tmux/            # tmux configuration
+├── packages/        # Package management related configurations
+├── share/           # Shared resources
+├── notes/           # Documentation and notes
+├── flake.nix        # Nix Flake definition
+└── Install.sh       # Installation script for Linux
 ```
 
-## インストール方法
+## Installation
 
-### 方法1: シェルスクリプトを使用（Linux/macOS）
+### Method 1: Using Shell Script (Linux/macOS)
 
-最もシンプルな方法として、シンボリックリンクを自動で貼るインストールスクリプトを提供しています：
+The simplest method using an installation script that automatically creates symbolic links:
 
 ```bash
 git clone https://github.com/liar2357/Dotfiles.git ~/.dotfiles
@@ -37,77 +39,77 @@ chmod +x Install.sh
 ./Install.sh
 ```
 
-`Install.sh` は、`config` ディレクトリ内の設定ファイルを `~/.config` 配下にシンボリックリンクして使用します。
+`Install.sh` creates symbolic links from configuration files in the `config` directory to `~/.config`.
 
-### 方法2: Nix Flakeを使用（NixOS推奨）
+### Method 2: Using Nix Flake (NixOS Recommended)
 
-NixOS環境またはNix Flakeをサポートする環境では、Home Managerを利用した設定が可能です：
+For NixOS or environments that support Nix Flakes, you can use Home Manager for configuration management:
 
 ```bash
 git clone https://github.com/liar2357/Dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
-nix flake update  # (オプション) Flakeロックファイルを更新
-nix flake show    # 利用可能な設定を確認
+nix flake update  # (Optional) Update the Flake lock file
+nix flake show    # Check available configurations
 ```
 
-詳細は `nix/` ディレクトリ内のHome Manager設定を参照してください。
+For details, refer to the Home Manager configuration in the `nix/` directory.
 
-### 方法3: Windows用 PowerShell スクリプト（限定的なサポート）
+### Method 3: Windows PowerShell Script (Limited Support)
 
-一部の設定のみですが、`Install-win.ps1` で Windows 環境への部分的な導入が可能です。
+For partial support on Windows environments, use `Install-win.ps1` to install some configurations.
 
-## 重要な注意事項
+## Important Notes
 
-### 個人環境に最適化された設定について
+### Personal Environment Optimizations
 
-`hosts/` ディレクトリと `nix/` ディレクトリ内の設定は、作成者の個人的な運用環境に最適化されています。これらをそのまま使用する際は：
+The configurations in `hosts/` and `nix/` directories are optimized for the author's personal operational environment. When using these:
 
-- **参考として利用する** か
-- **クローン後に自分の環境に合わせて書き換える** ことを強く推奨します
+- **Use them as a reference**, or
+- **Modify them to fit your environment after cloning**
 
-特にホスト名別設定や NixOS の system 設定は、あなたのマシンに直接適用すると問題が生じる可能性があります。
+We strongly recommend this approach. Particularly, host-specific settings and NixOS system configurations may cause issues if applied directly to your machine.
 
-### スクリプトの依存関係
+### Script Dependencies
 
-`scripts/` ディレクトリ内の自作スクリプトは、それぞれが特定のコマンドやパッケージに依存しています（例：`ffmpeg`, `imagemagick` など）。
+Custom scripts in the `scripts/` directory depend on specific commands and packages (e.g., `ffmpeg`, `imagemagick`, etc.).
 
-スクリプトを使用する前に、以下の点をご確認ください：
+Before using any script, please:
 
-- スクリプト内の先頭コメントまたはヘッダーで依存パッケージを確認
-- 必要なツールをあらかじめインストール
-- スクリプトが自分の環境で正常に動作するかテスト
+- Check the script header or comments for required dependencies
+- Install necessary tools beforehand
+- Test that the script works correctly in your environment
 
-## サポートされるツール
+## Supported Tools
 
-`config/` ディレクトリに含まれる主な設定例：
+Examples of main configurations included in the `config/` directory:
 
-- **Hyprland** - Waylandウィンドウマネージャー
-- **Neovim** - テキストエディタ設定
-- その他多数のCLIツールおよびアプリケーション
+- **Hyprland** - Wayland window manager
+- **Neovim** - Text editor configuration
+- Various other CLI tools and applications
 
-各ツールの詳細な設定は、`config/` ディレクトリ内のディレクトリ名から確認できます。
+You can identify available tools by the directory names within `config/`.
 
-## セットアップ後
+## After Setup
 
-インストール後、必要に応じて以下を確認してください：
+After installation, verify the following:
 
-1. シンボリックリンクが正しく貼られたか確認
-2. 各設定ファイルがツールから正しく読み込まれているか確認
-3. `shell/` ディレクトリの設定が自分の `.bashrc`, `.zshrc` などに読み込まれているか確認
+1. Check that symbolic links were created correctly: `ls -la ~/.config`
+2. Verify that configuration files are correctly loaded by their respective tools
+3. Ensure that `shell/` configurations are sourced in your `.bashrc`, `.zshrc`, etc.
 
-## トラブルシューティング
+## Troubleshooting
 
-設定が反映されない場合は：
+If configurations are not applied:
 
-- シンボリックリンク先が正しいか確認：`ls -la ~/.config`
-- ツール側の設定パスが変更されていないか確認
-- 環境変数やシェル設定が干渉していないか確認
+- Verify symbolic link targets: `ls -la ~/.config`
+- Check if tool configuration paths have changed
+- Check for conflicting environment variables or shell configurations
 
-## ライセンス
+## License
 
-このリポジトリはライセンスフリー、または自由に使用可能です。詳細はリポジトリの LICENSE ファイルを参照してください。
+This repository is free to use. For details, see the LICENSE file in the repository.
 
-## 参考資料
+## Reference
 
 - [Nix Flakes Documentation](https://nixos.wiki/wiki/Flakes)
 - [Home Manager Manual](https://nix-community.github.io/home-manager/)
@@ -115,4 +117,4 @@ nix flake show    # 利用可能な設定を確認
 
 ---
 
-質問や問題がある場合は、このリポジトリの Issues で報告してください。
+For questions or issues, please open an issue on this repository.
