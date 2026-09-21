@@ -23,10 +23,33 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelParams = [ "mem_sleep_default=deep" ];
 
-  nix.gc = {
-    automatic = true;
-    dates = "weekly";
-    options = "--delete-older-than 14d";
+  nix = {
+    distributedBuilds = true;
+
+    buildMachines = [
+      {
+        system = "x86_64-linux";
+        sshUser = "raia";
+        sshKey = "/root/.ssh/fedora-nix-builder";
+        maxJobs = 12;
+        hostName = "FDW-2509.home.arpa";
+        protocol = "ssh-ng";
+      }
+    ];
+
+    settings.builders-use-substitutes = true;
+
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 14d";
+    };
+
+    #flake
+    settings.experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
   };
 
   boot.loader.systemd-boot.configurationLimit = 10;
@@ -179,12 +202,6 @@
 
   system.stateVersion = "25.11"; # Did you read the comment?
 
-  #flake
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
-
   nixpkgs.config.allowUnfree = true;
 
   #boot
@@ -200,6 +217,7 @@
   programs.hyprland = {
     enable = true;
     xwayland.enable = true;
+    withUWSM = true;
   };
 
   #fonts
@@ -340,9 +358,6 @@
     };
   };
   services.desktopManager.gnome.enable = false;
-  services.displayManager.sessionPackages = [
-    pkgs.hyprland
-  ];
   systemd.services.display-manager.environment = {
     LANG = "ja_JP.UTF-8";
     LC_ALL = "ja_JP.UTF-8";
@@ -462,6 +477,20 @@
   programs.wireshark = {
     enable = true;
     dumpcap.enable = true;
+  };
+
+  #Printer
+  services.printing = {
+    enable = true;
+    drivers = with pkgs; [
+      epson-escpr2
+    ];
+  };
+
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    openFirewall = true;
   };
 
 }

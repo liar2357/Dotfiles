@@ -3,12 +3,14 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-waypipe.url = "github:NixOS/nixpkgs/567a49d1913ce81ac6e9582e3553dd90a955875f";
     home-manager = {
       url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     agenix.url = "github:ryantm/agenix";
     nix-hazkey.url = "github:aster-void/nix-hazkey";
+    emu-board.url = "github:liar2357/EmuBoard";
     self = { };
   };
 
@@ -16,7 +18,9 @@
     inputs@{
       self,
       nixpkgs,
+      nixpkgs-waypipe,
       home-manager,
+      emu-board,
       ...
     }:
     let
@@ -39,6 +43,14 @@
             _module.args = {
               inherit inputs;
             };
+          }
+
+          {
+            nixpkgs.overlays = [
+              (final: prev: {
+                waypipe = nixpkgs-waypipe.legacyPackages.${final.system}.waypipe;
+              })
+            ];
           }
 
           # ① Home-Manager を NixOS モジュールとして読み込ませる

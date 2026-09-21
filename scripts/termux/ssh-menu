@@ -1,24 +1,10 @@
-#!/data/data/com.termux/files/usr/bin/bash
+#!/data/data/com.termux/files/usr/bin/python3
 
-HOSTS=(
-	"DRS-2606"
-	"FDW-2509"
-	"WDG-2011"
-	"WVS-2604"
-	"FVS-2606"
-)
+import sys
+from pathlib import Path
 
-echo "==== SSH Hosts ===="
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-for i in "${!HOSTS[@]}"; do
-	printf "%2d) %s\n" "$((i + 1))" "${HOSTS[$i]}"
-done
+from lib.ssh_connection_helper import ssh_connection_helper
 
-echo
-read -rp "Select Host: " NUM
-
-if [[ "$NUM" =~ ^[0-9]+$ ]] &&
-	((NUM >= 1 && NUM <= ${#HOSTS[@]})); then
-
-	exec ssh-wraper "${HOSTS[$((NUM - 1))]}"
-fi
+ssh_connection_helper(True)

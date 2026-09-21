@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+workspace="$1"
+exec hyprctl dispatch "hl.dsp.focus({ workspace = \"${workspace}\" })"
