@@ -16,7 +16,7 @@ function M.run_for_ft()
   elseif ft == "javascript" or ft == "typescript" then
     exec_in_toggleterm("node " .. file)
   elseif ft == "typescriptreact" or ft == "javascriptreact" then
-    exec_in_toggleterm("npm run dev")
+    exec_in_toggleterm("bun dev")
   elseif ft == "c" then
     exec_in_toggleterm("gcc " .. file .. " -o /tmp/debug.out && /tmp/debug.out")
   elseif ft == "cpp" then
