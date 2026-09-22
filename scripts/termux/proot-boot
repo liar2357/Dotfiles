@@ -58,7 +58,7 @@ if [ "$sel_index" -eq 0 ]; then
 elif [ "$sel_index" -eq 1 ]; then
   # SSHスクリプト起動
   if [ -x "$SSH_SCRIPT" ]; then
-    bash "$SSH_SCRIPT"
+    exec "$SSH_SCRIPT"
   else
     echo "SSH script not found or not executable"
     exit 1
