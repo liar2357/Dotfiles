@@ -16,6 +16,7 @@ safe-symlink "$HOME/Dotfiles/config/snippet-source" "$HOME/.config/snippet-sourc
 safe-symlink "$HOME/Dotfiles/config/swaync" "$HOME/.config/swaync"
 safe-symlink "$HOME/Dotfiles/config/wofi" "$HOME/.config/wofi"
 safe-symlink "$HOME/Dotfiles/config/wlogout" "$HOME/.config/wlogout"
+safe-symlink "$HOME/Dotfiles/config/hypr" "$HOME/.config/hypr"
 
 safe-symlink "$HOME/Dotfiles/config/md2pdf" "$HOME/.config/md2pdf"
 safe-symlink "$HOME/Dotfiles/share/typst" "$HOME/.local/share/typst"
@@ -32,14 +33,3 @@ safe-symlink "$HOME/Dotfiles/tmux/tmux/.tmux.conf" "$HOME/.tmux.conf"
 #-- scripts --
 safe-symlink "$HOME/Dotfiles/scripts/bin" "$HOME/.local/bin"
 
-#-- hypr --
-HYPRLAND_CONF_PATH="$HOME/Dotfiles/hosts/$HOSTNAME/hypr/hyprland.conf"
-if [ -e "$HYPRLAND_CONF_PATH" ]; then
-	mkdir -p "$HOME/.config/hypr"
-
-	safe-symlink "$HOME/Dotfiles/config/hypr/common" "$HOME/.config/hypr/common"
-	safe-symlink "$HOME/Dotfiles/config/hypr/hypridle.conf" "$HOME/.config/hypr/hypridle.conf"
-	safe-symlink "$HOME/Dotfiles/config/hypr/hyprlock.conf" "$HOME/.config/hypr/hyprlock.conf"
-	safe-symlink "$HOME/Dotfiles/config/hypr/hyprpaper.conf" "$HOME/.config/hypr/hyprpaper.conf"
-	safe-symlink "$HYPRLAND_CONF_PATH" "$HOME/.config/hypr/hyprland.conf"
-fi
