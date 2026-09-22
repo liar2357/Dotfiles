@@ -69,6 +69,9 @@ hl.config({
       clickfinger_behavior = true,
       tap_to_click = true,
     },
+    tablet = {
+      output = "eDP-1",
+    },
   },
   -- Example per-device config
   xwayland = {
