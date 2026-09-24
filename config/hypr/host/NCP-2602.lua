@@ -25,8 +25,10 @@ hl.env("CLUTTER_BACKEND", "wayland")
 hl.env("ELECTRON_ENABLE_WAYLAND", "1")
 hl.env("ELECTRON_OZONE_PLATFORM_HINT", "wayland")
 
-hl.env("XDG_PICTURES_DIR", "$HOME/Pictures")
-hl.env("HYPRSHOT_DIR", "$HOME/Pictures/screenshot")
+local home = os.getenv("HOME")
+
+hl.env("XDG_PICTURES_DIR", home .. "/Pictures")
+hl.env("HYPRSHOT_DIR", home .. "/Pictures/screenshot")
 
 --###############
 --## MONITORS ###
