@@ -76,7 +76,7 @@ set_prompt_palette() {
   else
     case "$HOST" in
   
-      APG-2512*)
+      ALPG-2512*)
         HEAD_C='#80ff80'
         BODY_C1='#8080ff'
         BODY_C2='#80ffff'
@@ -84,7 +84,7 @@ set_prompt_palette() {
         FAILED_C='#cc4040'
         ;;
   
-      NCP-2602*)
+      NLCP-2602*)
         HEAD_C='#0000ff'
         BODY_C1='#ffff80'
         BODY_C2='#808040'
@@ -92,7 +92,7 @@ set_prompt_palette() {
         FAILED_C='#ff0000'
         ;;
   
-      FDW-2509*)
+      FLDW-2509*)
         HEAD_C='#80c0ff'
         BODY_C1='#8040ff'
         BODY_C2='#ffffff'
@@ -100,7 +100,7 @@ set_prompt_palette() {
         FAILED_C='#202020'
         ;;
   
-      DTC-2603*)
+      DLTC-2603*)
         HEAD_C='#ff80ff'
         BODY_C1='#ff0060'
         BODY_C2='#ffa0c0'
@@ -108,7 +108,7 @@ set_prompt_palette() {
         FAILED_C='#cc4040'
         ;;
 
-      DRS-2606*)
+      DLRS-2606*)
 	HEAD_C='#ff80ff'
 	BODY_C1='#ff0060'
 	BODY_C2='#ffa0c0'
