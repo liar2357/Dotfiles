@@ -1,9 +1,9 @@
 local hostname = io.popen("hostname"):read("*l")
 
-if hostname == "APG-2512" then
-  require("host.APG-2512")
-elseif hostname == "NCP-2602" then
-  require("host.NCP-2602")
+if hostname == "ALPG-2512" then
+  require("host.ALPG-2512")
+elseif hostname == "NLCP-2602" then
+  require("host.NLCP-2602")
 end
 
 -- ############################################################

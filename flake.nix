@@ -28,7 +28,7 @@
       pkgs = nixpkgs.legacyPackages.${system};
     in
     {
-      nixosConfigurations.NCP-2602 = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.NLCP-2602 = nixpkgs.lib.nixosSystem {
         inherit system;
 
         # ここで specialArgs を設定

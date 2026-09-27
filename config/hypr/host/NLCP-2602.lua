@@ -75,6 +75,10 @@ hl.config({
       output = "eDP-1",
     },
   },
+  cursor = {
+    invisible = false,
+    hide_on_touch = false,
+  },
   -- Example per-device config
   xwayland = {
     force_zero_scaling = true,

@@ -32,7 +32,7 @@
         sshUser = "raia";
         sshKey = "/root/.ssh/fedora-nix-builder";
         maxJobs = 12;
-        hostName = "FDW-2509.home.arpa";
+        hostName = "FLDW-2509.home.arpa";
         protocol = "ssh-ng";
       }
     ];
@@ -54,7 +54,7 @@
 
   boot.loader.systemd-boot.configurationLimit = 10;
 
-  networking.hostName = "NCP-2602"; # Define your hostname.
+  networking.hostName = "NLCP-2602"; # Define your hostname.
 
   security.pki.certificates = [
     ''
