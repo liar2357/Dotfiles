@@ -1,11 +1,11 @@
 import subprocess
 
 hosts = [
-    ("DRS-2606", False),
-    ("FDW-2509", True),
-    ("WDG-2011", False),
-    ("WVS-2604", False),
-    ("FVS-2606", False),
+    ("DLRS-2606", False),
+    ("FLDW-2509", True),
+    ("WNDG-2011", False),
+    ("WNVS-2604", False),
+    ("FBVS-2606", False),
 ]
 
 
