@@ -81,7 +81,7 @@ function Set-PromptPalette {
 
         switch -Wildcard ($env:COMPUTERNAME) {
 
-            "WDG-2011*" {
+            "WNDG-2011*" {
                 $global:HEAD_C    = HEX "#ff0000"
                 $global:BODY_C1   = HEX "#ff8080"
                 $global:BODY_C2   = HEX "#804040"
@@ -89,7 +89,7 @@ function Set-PromptPalette {
                 $global:FAILED_C  = HEX "#cc4040"
             }
 
-            "WLG-2403*" {
+            "WNLG-2403*" {
                 $global:HEAD_C    = HEX "#00ff00"
                 $global:BODY_C1   = HEX "#408040"
                 $global:BODY_C2   = HEX "#80ff80"
@@ -97,7 +97,7 @@ function Set-PromptPalette {
                 $global:FAILED_C  = HEX "#cc4040"
             }
 
-            "WVS-2604*" {
+            "WNVS-2604*" {
                 $global:HEAD_C    = HEX "#8080ff"
                 $global:BODY_C1   = HEX "#80ffff"
                 $global:BODY_C2   = HEX "#0000ff"
