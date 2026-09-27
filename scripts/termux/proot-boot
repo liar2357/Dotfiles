@@ -14,8 +14,8 @@ DISTROS=(
 
 # ==== ホスト名 ====
 declare -A HOSTNAMES
-HOSTNAMES["debian"]="DTC-2603"
-HOSTNAMES["fedora"]="FTT-2603"
+HOSTNAMES["debian"]="DLTC-2603"
+HOSTNAMES["fedora"]="FLTT-2603"
 
 # ==== メニュー構築 ====
 choices=(
