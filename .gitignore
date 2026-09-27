@@ -1,2 +1,4 @@
 config/nvim/lazy-lock.json
 config/hypr/current_theme
+*/__pycache__
+*/__pycache__/*
