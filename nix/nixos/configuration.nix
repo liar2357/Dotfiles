@@ -412,7 +412,7 @@
 
   #samba
   fileSystems."/mnt/HDD1Share" = {
-    device = "//FDW-2509.home.arpa/HDD1Share";
+    device = "//FLDW-2509.home.arpa/HDD1Share";
     fsType = "cifs";
     options =
       let
