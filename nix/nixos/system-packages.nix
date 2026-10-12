@@ -68,6 +68,7 @@
     appimage-run
     socat
     mosh
+    tcpdump
 
     # runtime
     python3

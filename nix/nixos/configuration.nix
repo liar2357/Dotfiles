@@ -387,6 +387,7 @@
       "libvirtd"
       "wireshark"
       "uinput"
+      "input"
     ];
   };
 
