@@ -28,12 +28,13 @@
 
     buildMachines = [
       {
+        hostName = "FLDW-2509.home.arpa";
         system = "x86_64-linux";
         sshUser = "raia";
         sshKey = "/root/.ssh/fedora-nix-builder";
-        maxJobs = 12;
-        hostName = "FLDW-2509.home.arpa";
         protocol = "ssh-ng";
+        maxJobs = 12;
+        supportedFeatures = [ "big-parallel" ];
       }
     ];
 

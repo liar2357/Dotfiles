@@ -104,6 +104,7 @@ hl.on("hyprland.start", function()
   hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
   hl.exec_cmd("/run/current-system/sw/libexec/polkit-gnome-authentication-agent-1")
   hl.exec_cmd("emu-board")
+  hl.exec_cmd("emu-pad")
 end)
 
 hl.on("config.reloaded", function()

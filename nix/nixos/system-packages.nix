@@ -105,6 +105,7 @@
 
     # self
     inputs.emu-board.packages.${pkgs.system}.default
+    inputs.emu-pad.packages.${pkgs.system}.default
 
   ];
 

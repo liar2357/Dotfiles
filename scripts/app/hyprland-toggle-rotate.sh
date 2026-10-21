@@ -15,6 +15,8 @@ hyprland-toggle-rotete() {
 			['input.tablet.transform'] = 0,
 			['input.tablet.output'] = '$MONITOR',
 		})"
+
+		emu-padctl set_direction 0
 	}
 
 	# --- 縦画面 ---
@@ -33,6 +35,8 @@ hyprland-toggle-rotete() {
 			['input.tablet.transform'] = 3,
 			['input.tablet.output'] = '$MONITOR',
 		})"
+
+		emu-padctl set_direction 3
 	}
 
 	# --- メイン処理 ---

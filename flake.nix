@@ -11,6 +11,7 @@
     agenix.url = "github:ryantm/agenix";
     nix-hazkey.url = "github:aster-void/nix-hazkey";
     emu-board.url = "github:liar2357/EmuBoard";
+    emu-pad.url = "github:liar2357/EmuPad";
     self = { };
   };
 
@@ -21,6 +22,7 @@
       nixpkgs-waypipe,
       home-manager,
       emu-board,
+      emu-pad,
       ...
     }:
     let
