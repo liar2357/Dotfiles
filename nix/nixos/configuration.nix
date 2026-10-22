@@ -23,6 +23,12 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelParams = [ "mem_sleep_default=deep" ];
 
+  boot.kernelPackages = pkgs.linuxPackages_7_2;
+
+  boot.blacklistedKernelModules = [
+    "tiny_power_button"
+  ];
+
   nix = {
     distributedBuilds = true;
 
