@@ -17,6 +17,7 @@ safe-symlink "$HOME/Dotfiles/config/swaync" "$HOME/.config/swaync"
 safe-symlink "$HOME/Dotfiles/config/wofi" "$HOME/.config/wofi"
 safe-symlink "$HOME/Dotfiles/config/wlogout" "$HOME/.config/wlogout"
 safe-symlink "$HOME/Dotfiles/config/hypr" "$HOME/.config/hypr"
+safe-symlink "$HOME/Dotfiles/config/sway" "$HOME/.config/sway"
 
 safe-symlink "$HOME/Dotfiles/config/md2pdf" "$HOME/.config/md2pdf"
 safe-symlink "$HOME/Dotfiles/share/typst" "$HOME/.local/share/typst"

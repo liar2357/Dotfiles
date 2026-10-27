@@ -116,6 +116,14 @@ set_prompt_palette() {
 	FAILED_C='#cc4040'
 	;;
 
+      DLVD-2610*)
+	HEAD_C='#8040ff'
+	BODY_C1='#ff0060'
+	BODY_C2='#a0ffff'
+	SUCCESS_C='#20dd20'
+	FAILED_C='#cc4040'
+	;;
+
       localhost*)
         HEAD_C='#ffffff'
         BODY_C1='#80ff80'
