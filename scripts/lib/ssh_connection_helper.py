@@ -2,13 +2,13 @@ import subprocess
 import os
 
 hosts = [
-    ("DLRS-2606", {"tmux":True, "mosh":False}),
-    ("RLDS-2610", {"tmux":True, "mosh":False}),
-    ("FLDW-2509", {"tmux":True, "mosh":True}),
-    ("WNDG-2011", {"tmux":False, "mosh":False}),
-    ("WNVS-2604", {"tmux":False, "mosh":False}),
-    ("FBVS-2606", {"tmux":False, "mosh":False}),
-    ("DLVD-2610", {"tmux":True, "mosh":False}),
+    ("DLRS-2606", {"tmux": True, "mosh": False}),
+    ("RLDS-2610", {"tmux": True, "mosh": False}),
+    ("FLDW-2509", {"tmux": True, "mosh": True}),
+    ("WNDG-2011", {"tmux": False, "mosh": False}),
+    ("WNVS-2604", {"tmux": False, "mosh": False}),
+    ("FBVS-2606", {"tmux": False, "mosh": False}),
+    ("DLVD-2610", {"tmux": True, "mosh": False}),
 ]
 
 
@@ -26,6 +26,7 @@ def exec_mosh_connection(hostname: str, isTermuxMode: bool):
 
     else:
         subprocess.call(["mosh", hostname])
+
 
 def exec_ssh_connection_no_tmux(hostname: str, isTermuxMode: bool):
     env = os.environ.copy()
@@ -48,6 +49,7 @@ def exec_mosh_connection_no_tmux(hostname: str, isTermuxMode: bool):
     else:
         subprocess.call(["mosh", hostname], env=env)
 
+
 def ssh_connection_helper(isTermuxMode: bool):
     print("===SSH HOSTS===")
 
@@ -63,10 +65,10 @@ def ssh_connection_helper(isTermuxMode: bool):
             try:
                 num = int(num_str)
 
-                if 1 <= num < len(hosts):
+                if 1 <= num <= len(hosts):
                     break
                 else:
-                    print(f"Avalable is 1~{len(hosts)-1}")
+                    print(f"Avalable is 1~{len(hosts)}")
             except ValueError:
                 print("Input Is Must Be Integer")
                 continue
@@ -75,7 +77,7 @@ def ssh_connection_helper(isTermuxMode: bool):
         maxChoice: int
 
         print("=== OPTION ===")
-        
+
         if hosts[num - 1][1]["tmux"] and hosts[num - 1][1]["mosh"]:
             maxChoice = 3
             print("0: enable tmux and mosh")
@@ -108,7 +110,6 @@ def ssh_connection_helper(isTermuxMode: bool):
         except ValueError:
             print("fallback to default becuse invalid select")
             optionNum = 0
-
 
         if hosts[num - 1][1]["tmux"] and hosts[num - 1][1]["mosh"]:
             if optionNum == 0:
