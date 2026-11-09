@@ -76,6 +76,7 @@
     go
     gnumake
     rustup
+    tree-sitter
 
     # LSP
     typescript-language-server # TS/JS
