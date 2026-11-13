@@ -159,7 +159,15 @@
 
   networking.firewall = {
     enable = true;
-    allowedUDPPorts = [ 51820 ];
+    allowedTCPPorts = [
+      8788
+      8790
+    ];
+    allowedUDPPorts = [
+      8789
+      8790
+      51820
+    ];
     checkReversePath = "loose";
   };
 
@@ -340,6 +348,28 @@
     defaultEditor = true;
     viAlias = true;
     vimAlias = true;
+  };
+
+  #appimage
+  programs.appimage = {
+    enable = true;
+    binfmt = true;
+
+    package = pkgs.appimage-run.override {
+      extraPkgs =
+        pkgs: with pkgs; [
+          libffi
+          pcre2
+
+          # GStreamer
+          gst_all_1.gstreamer
+          gst_all_1.gst-plugins-base
+          gst_all_1.gst-plugins-good
+          gst_all_1.gst-plugins-bad
+          gst_all_1.gst-plugins-ugly
+          gst_all_1.gst-libav
+        ];
+    };
   };
 
   #Waydroid

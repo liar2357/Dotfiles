@@ -37,7 +37,7 @@ hl.env("HYPRSHOT_DIR", home .. "/Pictures/screenshot")
 hl.monitor({
   output = "eDP-1",
   mode = "preferred",
-  position = "auto-down",
+  position = "0x0",
   scale = "1.0",
 })
 

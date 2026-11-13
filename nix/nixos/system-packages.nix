@@ -65,10 +65,13 @@
     evtest
     caddy
     jq
-    appimage-run
     socat
     mosh
     tcpdump
+    libva-utils
+    android-tools
+    libinput
+    usbutils
 
     # runtime
     python3

@@ -1,0 +1,215 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# ========================================
+# Configuration
+# ========================================
+
+ORBISCREEN="$HOME/.local/bin/orbiscreen"
+
+MAIN_OUTPUT="eDP-1"
+MODE="1920x1080@60"
+SCALE="1.5"
+
+POLL_INTERVAL=1
+
+STATE_DIR="${XDG_RUNTIME_DIR:?}/orbiscreen"
+BEFORE="$STATE_DIR/monitors-before.json"
+
+mkdir -p "$STATE_DIR"
+
+# ========================================
+# Initialization
+# ========================================
+
+# 起動前のモニター一覧を保存
+hyprctl monitors -j |
+	jq '[.[].name]' >"$BEFORE"
+
+# 内蔵ディスプレイの位置を固定
+hyprctl eval "hl.monitor({
+  output = \"$MAIN_OUTPUT\",
+  mode = \"preferred\",
+  position = \"0x0\",
+  scale = \"1.0\",
+})"
+
+child_pid=""
+watcher_pid=""
+
+# ========================================
+# Virtual output detection
+# ========================================
+
+get_virtual_outputs() {
+	hyprctl monitors -j |
+		jq -r --slurpfile before "$BEFORE" '
+      .[]
+      | select(
+          (.name as $name |
+            ($before[0] | index($name) | not))
+          and (.make == "")
+          and (.model == "")
+          and (.description == "")
+          and (.physicalWidth == 0)
+          and (.physicalHeight == 0)
+        )
+      | .name
+    '
+}
+
+# ========================================
+# Display configuration
+# ========================================
+
+configure_input() {
+	local output="$1"
+	local timeout=50
+	local i
+
+	echo "[Orbiscreen] Waiting for input devices..."
+
+	for ((i = 0; i < timeout; i++)); do
+		if hyprctl devices -j | jq -e '
+      any(.touch[]; .name == "orbiscreen-virtual-touchscreen-1")
+      and
+      any(.mice[]; .name == "orbiscreen-virtual-touchscreen")
+      and
+      any(.mice[]; .name == "orbiscreen-virtual-mouse-and-keyboard-1")
+    ' >/dev/null; then
+			break
+		fi
+
+		sleep 0.1
+	done
+
+	if ((i == timeout)); then
+		echo "[Orbiscreen] Input devices not found" >&2
+		return 1
+	fi
+
+	# 仮想マウス・キーボードを無効化
+	hyprctl eval 'hl.device({
+    name = "orbiscreen-virtual-mouse-and-keyboard-1",
+    enabled = false,
+  })'
+
+	# 仮想タッチスクリーンのマウス側を無効化
+	hyprctl eval 'hl.device({
+    name = "orbiscreen-virtual-touchscreen",
+    enabled = false,
+  })'
+
+	# タッチ側は有効化し、対象モニターに割り当て
+	hyprctl eval "hl.device({
+    name = \"orbiscreen-virtual-touchscreen-1\",
+    enabled = true,
+    output = \"$output\",
+  })"
+
+	echo "[Orbiscreen] Input devices configured."
+}
+
+configure_display() {
+	local output="$1"
+	local main_width
+
+	# 内蔵ディスプレイの論理幅を取得
+	main_width=$(
+		hyprctl monitors -j |
+			jq -r --arg name "$MAIN_OUTPUT" '
+        .[]
+        | select(.name == $name)
+        | (.width / .scale | round)
+      '
+	)
+
+	[[ -n "$main_width" ]] || return 1
+
+	echo "[Orbiscreen] Configuring display: $output"
+
+	# 解像度・スケール・配置を設定
+	hyprctl eval "hl.monitor({
+    output = \"$output\",
+    mode = \"$MODE\",
+    position = \"${main_width}x0\",
+    scale = \"$SCALE\",
+  })"
+
+	configure_input "$output"
+
+}
+
+# ========================================
+# Monitor watcher
+# ========================================
+
+watch_outputs() {
+	local output
+	local configured=""
+
+	while true; do
+		output=$(get_virtual_outputs | head -n 1)
+
+		if [[ -n "$output" && "$output" != "$configured" ]]; then
+			configure_display "$output"
+			configured="$output"
+		fi
+
+		if [[ -z "$output" ]]; then
+			configured=""
+		fi
+
+		sleep "$POLL_INTERVAL"
+	done
+}
+
+# ========================================
+# Cleanup
+# ========================================
+
+cleanup_outputs() {
+	local output
+
+	echo "[Orbiscreen] Cleaning up virtual outputs..."
+
+	while IFS= read -r output; do
+		[[ -n "$output" ]] || continue
+
+		echo "[Orbiscreen] Removing: $output"
+		hyprctl output remove "$output" || true
+	done < <(get_virtual_outputs)
+}
+
+cleanup() {
+	trap - EXIT TERM INT HUP
+
+	# 監視プロセスを停止
+	if [[ -n "$watcher_pid" ]]; then
+		kill "$watcher_pid" 2>/dev/null || true
+		wait "$watcher_pid" 2>/dev/null || true
+	fi
+
+	# Orbiscreenを停止
+	if [[ -n "$child_pid" ]]; then
+		kill -TERM "$child_pid" 2>/dev/null || true
+		wait "$child_pid" 2>/dev/null || true
+	fi
+
+	cleanup_outputs
+}
+
+trap cleanup EXIT
+trap 'exit 0' TERM INT HUP
+
+# ========================================
+# Start Orbiscreen
+# ========================================
+
+watch_outputs &
+watcher_pid=$!
+
+"$ORBISCREEN" start &
+child_pid=$!
+
+wait "$child_pid"
