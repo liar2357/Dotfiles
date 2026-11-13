@@ -391,6 +391,10 @@
     };
   };
   services.desktopManager.gnome.enable = false;
+  console.keyMap = "jp106";
+  services.xserver.xkb = {
+    layout = "jp";
+  };
 
   #lung
   services.dbus.enable = true;
