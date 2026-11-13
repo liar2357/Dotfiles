@@ -108,8 +108,8 @@
     libxml2 # XML
 
     # self
-    inputs.emu-board.packages.${pkgs.system}.default
-    inputs.emu-pad.packages.${pkgs.system}.default
+    inputs.emu-board.packages.${pkgs.stdenv.hostPlatform.system}.default
+    inputs.emu-pad.packages.${pkgs.stdenv.hostPlatform.system}.default
 
   ];
 

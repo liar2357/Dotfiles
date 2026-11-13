@@ -5,7 +5,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-waypipe.url = "github:NixOS/nixpkgs/567a49d1913ce81ac6e9582e3553dd90a955875f";
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.05";
+      url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     agenix.url = "github:ryantm/agenix";
@@ -31,7 +31,6 @@
     in
     {
       nixosConfigurations.NLCP-2602 = nixpkgs.lib.nixosSystem {
-        inherit system;
 
         # ここで specialArgs を設定
         specialArgs = { inherit inputs; };
@@ -50,7 +49,7 @@
           {
             nixpkgs.overlays = [
               (final: prev: {
-                waypipe = nixpkgs-waypipe.legacyPackages.${final.system}.waypipe;
+                waypipe = nixpkgs-waypipe.legacyPackages.${final.stdenv.hostPlatform.system}.waypipe;
               })
             ];
           }
@@ -77,6 +76,7 @@
       # (オプション) Home-Manager を standalone でも動かせるようにする
       homeConfigurations."raia" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
+        extraSpecialArgs = { inherit inputs; };
         modules = [ ./nix/home-manager/home.nix ];
       };
     };

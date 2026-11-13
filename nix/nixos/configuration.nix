@@ -178,26 +178,21 @@
   i18n = {
     defaultLocale = "ja_JP.UTF-8";
 
-    supportedLocales = [
-      "ja_JP.UTF-8/UTF-8"
+    extraLocales = [
       "en_US.UTF-8/UTF-8"
     ];
 
     extraLocaleSettings = {
       LC_ADDRESS = "ja_JP.UTF-8";
       LC_IDENTIFICATION = "ja_JP.UTF-8";
-      LC_MEASURMENT = "ja_JP.UFT-8";
+      LC_MEASUREMENT = "ja_JP.UTF-8";
       LC_MONETARY = "ja_JP.UTF-8";
-      LC_NAME = "ja_JP.UFT-8";
+      LC_NAME = "ja_JP.UTF-8";
       LC_NUMERIC = "ja_JP.UTF-8";
       LC_PAPER = "ja_JP.UTF-8";
       LC_TELEPHONE = "ja_JP.UTF-8";
       LC_TIME = "ja_JP.UTF-8";
     };
-  };
-  console.keyMap = "jp106";
-  services.xserver.xkb = {
-    layout = "jp";
   };
 
   #power button
@@ -275,6 +270,7 @@
   #environment variables
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1";
+    XDG_CURRENT_DESKTOP = "Hyprland";
   };
 
   #input-remapper
@@ -395,20 +391,8 @@
     };
   };
   services.desktopManager.gnome.enable = false;
-  systemd.services.display-manager.environment = {
-    LANG = "ja_JP.UTF-8";
-    LC_ALL = "ja_JP.UTF-8";
-  };
 
   #lung
-  environment.variables = {
-    LANG = "ja_JP.UTF-8";
-    LC_ALL = "ja_JP.UTF-8";
-  };
-  environment.sessionVariables = {
-    LANG = "ja_JP.UTF-8";
-    XDG_CURRENT_DESKTOP = "Hyprland";
-  };
   services.dbus.enable = true;
   programs.dconf.enable = true;
 
