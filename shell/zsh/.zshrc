@@ -1,12 +1,6 @@
 export COLORTERM=truecolor
 
-if [[ -n $CONTAINER_ID ]]; then
-	source ~/Dotfiles/hosts/distrobox/zsh/zshrc.sh
-else
-	source ~/Dotfiles/hosts/$HOST/zsh/zshrc.sh
-fi
 
-# ------------------------------------------------
 # エイリアス (必要に応じて追加)
 
 source $HOME/Dotfiles/shell/COMMON/alias-and-function.sh
@@ -21,20 +15,14 @@ setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_REDUCE_BLANKS
 
 # ------------------------------------------------
-# 補完設定 (もし追加するなら)
+# 補完設定
 autoload -Uz compinit
 compinit
 
 # ------------------------------------------------
-# プロンプトやショートカットなど (必要に応じて)
-# 例: ディレクトリ名だけで cd
+# プロンプトやショートカットなど
 setopt AUTO_CD
-# コマンド間違い軽減 (必要なら)  
 setopt CORRECT
-
-# ------------------------------------------------
-
-
 
 # ------------------------------------------------
 export GTK_IM_MODULE=fcitx
@@ -57,3 +45,12 @@ export NVM_DIR="$HOME/.config/nvm"
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 eval "$(zoxide init zsh)"
+
+# ------------------------------------------------
+# 端末別
+if [[ -n $CONTAINER_ID ]]; then
+	source ~/Dotfiles/hosts/distrobox/zsh/zshrc.sh
+else
+	source ~/Dotfiles/hosts/$HOST/zsh/zshrc.sh
+fi
+
