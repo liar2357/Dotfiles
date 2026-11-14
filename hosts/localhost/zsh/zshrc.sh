@@ -1,5 +1,15 @@
 echo "luanch zsh"
 
+if [[ ! -f "$TMPDIR/keychain.started" ]]; then
+    touch "$TMPDIR/keychain.started"
+    dir="$HOME/.ssh/agent"
+    if find "$dir" -maxdepth 1 -type f -print -quit | grep -q .; then
+    rm -f "$dir/*"
+    fi
+fi
+
+eval "$(keychain --eval --quiet)"
+
 if [[ -z "$ZSH_FIRST_SHELL" ]]; then
 	export ZSH_FIRST_SHELL=1
 	export ZSH_SUBSHELL_LEVEL=0
