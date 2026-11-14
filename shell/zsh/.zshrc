@@ -1,6 +1,14 @@
 export COLORTERM=truecolor
 
+# ------------------------------------------------
+# 端末別
+if [[ -n $CONTAINER_ID ]]; then
+	source ~/Dotfiles/hosts/distrobox/zsh/zshrc.sh
+else
+	source ~/Dotfiles/hosts/$HOST/zsh/zshrc.sh
+fi
 
+# ------------------------------------------------
 # エイリアス (必要に応じて追加)
 
 source $HOME/Dotfiles/shell/COMMON/alias-and-function.sh
@@ -46,11 +54,4 @@ export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 eval "$(zoxide init zsh)"
 
-# ------------------------------------------------
-# 端末別
-if [[ -n $CONTAINER_ID ]]; then
-	source ~/Dotfiles/hosts/distrobox/zsh/zshrc.sh
-else
-	source ~/Dotfiles/hosts/$HOST/zsh/zshrc.sh
-fi
 
