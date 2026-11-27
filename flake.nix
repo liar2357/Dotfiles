@@ -40,6 +40,8 @@
           ./nix/nixos/system-packages.nix
           ./nix/nixos/hardware-configuration.nix
 
+          ./nix/modules/nextcloud.nix
+
           {
             _module.args = {
               inherit inputs;
